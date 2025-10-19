@@ -16,7 +16,6 @@ import { useStyle } from '../Context/StyleContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from '../Components/Icon';
 import ColorPicker from 'react-native-wheel-color-picker';
-import SystemNavigationBar from 'react-native-system-navigation-bar';
 
 if (
   Platform.OS === 'android' &&
@@ -365,14 +364,7 @@ const Theme = () => {
   const [editingColorKey, setEditingColorKey] = useState(null);
   const flatListRef = useRef(null);
 
-  useEffect(() => {
-    const navBarStyle =
-      colors.colors.barStyle === 'light-content' ? 'light' : 'dark';
-      SystemNavigationBar.setNavigationColor(
-      colors.colors.bgPrimary,
-      navBarStyle,
-    );
-  }, [colors]);
+
 
   useEffect(() => {
     const selectedIndex = presets.findIndex(
