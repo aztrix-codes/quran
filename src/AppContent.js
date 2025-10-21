@@ -30,28 +30,38 @@ const AppContent = () => {
   }, [colors]);
 
   useEffect(() => {
-  const setupPlayer = async () => {
-    await TrackPlayer.setupPlayer({
-      waitForBuffer: true,
-    });
-    await TrackPlayer.updateOptions({
-      capabilities: [
-        Capability.Play,
-        Capability.Pause,
-        Capability.SkipToNext,
-        Capability.SkipToPrevious,
-        Capability.Stop,
-      ],
-      compactCapabilities: [
-        Capability.Play,
-        Capability.Pause,
-        Capability.SkipToNext,
-        Capability.SkipToPrevious,
-      ],
-    });
-  };
-  setupPlayer();
-}, []);
+    const setupPlayer = async () => {
+      try {
+        await TrackPlayer.setupPlayer({
+          waitForBuffer: true,
+        });
+      } catch (error) {
+        if (error.message.includes('The player has already been initialized')) {
+          console.log('Player already set up.');
+        } else {
+          console.error('Error setting up player:', error);
+          return;
+        }
+      }
+
+      await TrackPlayer.updateOptions({
+        capabilities: [
+          Capability.Play,
+          Capability.Pause,
+          Capability.SkipToNext,
+          Capability.SkipToPrevious,
+          Capability.Stop,
+        ],
+        compactCapabilities: [
+          Capability.Play,
+          Capability.Pause,
+          Capability.SkipToNext,
+          Capability.SkipToPrevious,
+        ],
+      });
+    };
+    setupPlayer();
+  }, []);
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.colors.bgPrimary }}>

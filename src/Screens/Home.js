@@ -260,7 +260,7 @@ const getStyles = ({ colors, fontPixel, SIZES }) =>
     transliterationText: {
       color: colors.textPrimary,
       fontSize: fontPixel(16),
-      fontWeight: 'bold',
+      letterSpacing: fontPixel(0.5),
     },
     translationText: {
       color: colors.textSecondary,
