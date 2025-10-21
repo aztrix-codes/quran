@@ -1,0 +1,465 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/names.mp3",
+      "sha1": "0fd49124c685722efb2f3492aa8c414f32c1563b"
+    },
+    {
+      "path": "assets/surahs/surah_1.mp3",
+      "sha1": "4ca1132acb897e61957287d9cb439122f7a46dff"
+    },
+    {
+      "path": "assets/surahs/surah_10.mp3",
+      "sha1": "bee0b6fd5b6e0517c8686f741a1d8d0b3932f4ff"
+    },
+    {
+      "path": "assets/surahs/surah_100.mp3",
+      "sha1": "3479a05bd9650cd650a4e1185052614dd89dd833"
+    },
+    {
+      "path": "assets/surahs/surah_101.mp3",
+      "sha1": "81121d275a4ad2dae021b7a052b276d6547b7beb"
+    },
+    {
+      "path": "assets/surahs/surah_102.mp3",
+      "sha1": "47aaa3d3ab6bac20d3414e3d3862da35a4d2c328"
+    },
+    {
+      "path": "assets/surahs/surah_103.mp3",
+      "sha1": "9ea4ad92942f1c5f976f76ebb8e6f9a0767fe8f2"
+    },
+    {
+      "path": "assets/surahs/surah_104.mp3",
+      "sha1": "51ce3b128f819143fd697e91817b2f8e5419fe90"
+    },
+    {
+      "path": "assets/surahs/surah_105.mp3",
+      "sha1": "afb2fd4e0e2a809e3e7bf32217b4635333856255"
+    },
+    {
+      "path": "assets/surahs/surah_106.mp3",
+      "sha1": "95f7cc6be8d9d870686f545a1c563125d55849f7"
+    },
+    {
+      "path": "assets/surahs/surah_107.mp3",
+      "sha1": "1a139c80801621f2819c50e6baff6d3a188aef3a"
+    },
+    {
+      "path": "assets/surahs/surah_108.mp3",
+      "sha1": "2f6dfc126aa3080cafa2e62a59a8da6b49cbfe87"
+    },
+    {
+      "path": "assets/surahs/surah_109.mp3",
+      "sha1": "d2c7a0334d75cdd0072717ebf2ee0dca8adcf2a1"
+    },
+    {
+      "path": "assets/surahs/surah_11.mp3",
+      "sha1": "ad063312af06afbcf7dd32d0fad550a6d32beb6e"
+    },
+    {
+      "path": "assets/surahs/surah_110.mp3",
+      "sha1": "8a5207cbb5fd3baf9336e36279d50acb31574fd1"
+    },
+    {
+      "path": "assets/surahs/surah_111.mp3",
+      "sha1": "789ee83f52ac6f95fc6b1d1f6e47926cb952a83d"
+    },
+    {
+      "path": "assets/surahs/surah_112.mp3",
+      "sha1": "55161fea8562d0a6b66e4ec16b01d2b2165f1f94"
+    },
+    {
+      "path": "assets/surahs/surah_113.mp3",
+      "sha1": "e778acd7d52f3caa343e8e05c943581025c4a6dc"
+    },
+    {
+      "path": "assets/surahs/surah_114.mp3",
+      "sha1": "b0ba0952f267ea6d958618a8e3367de1495f124c"
+    },
+    {
+      "path": "assets/surahs/surah_12.mp3",
+      "sha1": "65e6e9098023920bb2330756e1a16577f933a8d7"
+    },
+    {
+      "path": "assets/surahs/surah_13.mp3",
+      "sha1": "6de3ec67bc06c7c5528f2daaf806fa7a861fb890"
+    },
+    {
+      "path": "assets/surahs/surah_14.mp3",
+      "sha1": "f8324f7a178d763aeaa737fec88b9fee24236c8b"
+    },
+    {
+      "path": "assets/surahs/surah_15.mp3",
+      "sha1": "fda7edbc61f61f492e8668f0587a3e44c4b47b53"
+    },
+    {
+      "path": "assets/surahs/surah_16.mp3",
+      "sha1": "8ce2d2cf0cdb6342ceb8c73b4dcfdb357e33076c"
+    },
+    {
+      "path": "assets/surahs/surah_17.mp3",
+      "sha1": "08ece81efecaebabbbb3d79ce75602cf7638dc97"
+    },
+    {
+      "path": "assets/surahs/surah_18.mp3",
+      "sha1": "1323dca0dc34c7e6a718e21a035e23f71ea2ce36"
+    },
+    {
+      "path": "assets/surahs/surah_19.mp3",
+      "sha1": "3ef9571c10c6edb022aeb8e2dd41a3622cc92553"
+    },
+    {
+      "path": "assets/surahs/surah_2.mp3",
+      "sha1": "4ed260c775719c2ab5f2429ea9d9f81a93f0659f"
+    },
+    {
+      "path": "assets/surahs/surah_20.mp3",
+      "sha1": "b6ff216327852924bf56c402821bb8e339d6b517"
+    },
+    {
+      "path": "assets/surahs/surah_21.mp3",
+      "sha1": "5e858dc08b8c60c368caffccb6db08c802ca47fb"
+    },
+    {
+      "path": "assets/surahs/surah_22.mp3",
+      "sha1": "353a3f1b31186f3a51e9e609388514131e40908a"
+    },
+    {
+      "path": "assets/surahs/surah_23.mp3",
+      "sha1": "0f7d782054f8f554dad77861b17e03e529f450aa"
+    },
+    {
+      "path": "assets/surahs/surah_24.mp3",
+      "sha1": "09ea3ce12d01e77b9d4e68789510c65ae1013850"
+    },
+    {
+      "path": "assets/surahs/surah_25.mp3",
+      "sha1": "18b1b95bd16615d8141b04350c733e1161e12d30"
+    },
+    {
+      "path": "assets/surahs/surah_26.mp3",
+      "sha1": "1b7cfa1df4961bf28d29c30dc6fa13a630023ead"
+    },
+    {
+      "path": "assets/surahs/surah_27.mp3",
+      "sha1": "e9654d9a667dcd37887fd99484adc2d527502b81"
+    },
+    {
+      "path": "assets/surahs/surah_28.mp3",
+      "sha1": "755bcb7003423ef0e11ab9da1550ca26bc91bc69"
+    },
+    {
+      "path": "assets/surahs/surah_29.mp3",
+      "sha1": "92ee5d1f6fa3e0a8ee49375bf76e5b6a023195c1"
+    },
+    {
+      "path": "assets/surahs/surah_3.mp3",
+      "sha1": "a34674f99475b15d67320b7cfa0eea99e6de9a37"
+    },
+    {
+      "path": "assets/surahs/surah_30.mp3",
+      "sha1": "89ad2ae74e6ae6d027cd4275ab017720a36356bc"
+    },
+    {
+      "path": "assets/surahs/surah_31.mp3",
+      "sha1": "9c8c877961467add46c45f46126adda803555440"
+    },
+    {
+      "path": "assets/surahs/surah_32.mp3",
+      "sha1": "608b0968c58db9f118070d72019ee026f3c1b526"
+    },
+    {
+      "path": "assets/surahs/surah_33.mp3",
+      "sha1": "0bd48c02e749469adb49605a8fa5734988fdda7a"
+    },
+    {
+      "path": "assets/surahs/surah_34.mp3",
+      "sha1": "64b2c42d24ff4f7c7fb550f676b97cef30f9857f"
+    },
+    {
+      "path": "assets/surahs/surah_35.mp3",
+      "sha1": "9a69d761237be2c7f32c090e046b6c8d87d812a7"
+    },
+    {
+      "path": "assets/surahs/surah_36.mp3",
+      "sha1": "163befcc7958ac2484162fb2a273adfc672683ac"
+    },
+    {
+      "path": "assets/surahs/surah_37.mp3",
+      "sha1": "5313f41996b7231b0bb234e2b036482e38f1121b"
+    },
+    {
+      "path": "assets/surahs/surah_38.mp3",
+      "sha1": "59e2dbaedf046e7afc8abf38f65b69bb233e1dbe"
+    },
+    {
+      "path": "assets/surahs/surah_39.mp3",
+      "sha1": "596cf60b8f59349d4c1a72459d172fc7699f7394"
+    },
+    {
+      "path": "assets/surahs/surah_4.mp3",
+      "sha1": "e405ea5b1361df43064f18fa607e34e42235f99c"
+    },
+    {
+      "path": "assets/surahs/surah_40.mp3",
+      "sha1": "43357ece61d8d701b9274ed01847b42da9e2b5d8"
+    },
+    {
+      "path": "assets/surahs/surah_41.mp3",
+      "sha1": "140d715a2c5fe796a09b834c455f13474813e87b"
+    },
+    {
+      "path": "assets/surahs/surah_42.mp3",
+      "sha1": "70a5d1f1d1b3a222729499dbe87deabfe6b6797f"
+    },
+    {
+      "path": "assets/surahs/surah_43.mp3",
+      "sha1": "2949694efc2e792c4cb1aaa6e07b28c83d332080"
+    },
+    {
+      "path": "assets/surahs/surah_44.mp3",
+      "sha1": "70771d8faf26efd589a2b3841d9d7247002dec95"
+    },
+    {
+      "path": "assets/surahs/surah_45.mp3",
+      "sha1": "1bff61024bf1d6bea23bfda489b79e344e6baa45"
+    },
+    {
+      "path": "assets/surahs/surah_46.mp3",
+      "sha1": "baaf55151eaf92843f8302c786a3733cc3a18e8a"
+    },
+    {
+      "path": "assets/surahs/surah_47.mp3",
+      "sha1": "7e20ec25138a4a01c9e8fce90f2f38b386055f35"
+    },
+    {
+      "path": "assets/surahs/surah_48.mp3",
+      "sha1": "ce564cc32d4b9c2df780518b4c1d073425ac2fed"
+    },
+    {
+      "path": "assets/surahs/surah_49.mp3",
+      "sha1": "3fe095108d4f54706347f1fedf17e5cc5af5169c"
+    },
+    {
+      "path": "assets/surahs/surah_5.mp3",
+      "sha1": "94b5fa2d333b03b8f07eb0c69ac128e2e44026a7"
+    },
+    {
+      "path": "assets/surahs/surah_50.mp3",
+      "sha1": "66d761addf99a051e63a01d475007f563ac780be"
+    },
+    {
+      "path": "assets/surahs/surah_51.mp3",
+      "sha1": "2c1d704bf3e4ac0709b616ba6c673111312732ae"
+    },
+    {
+      "path": "assets/surahs/surah_52.mp3",
+      "sha1": "8014eed8cdfbe9cb20aab259851db2a6603ec776"
+    },
+    {
+      "path": "assets/surahs/surah_53.mp3",
+      "sha1": "ee1716adcc103328e99dd3ae5edace1ff6ddb951"
+    },
+    {
+      "path": "assets/surahs/surah_54.mp3",
+      "sha1": "eebe0428d9bebd9c40bf1f934b731f319fef9d70"
+    },
+    {
+      "path": "assets/surahs/surah_55.mp3",
+      "sha1": "9e6c34888bb1c13d88810e930645df695a29bb40"
+    },
+    {
+      "path": "assets/surahs/surah_56.mp3",
+      "sha1": "045109725d7087d6f2dcdc9a6476ebd22da40813"
+    },
+    {
+      "path": "assets/surahs/surah_57.mp3",
+      "sha1": "67e52abff3d10e488dabc708182a9167f48f5999"
+    },
+    {
+      "path": "assets/surahs/surah_58.mp3",
+      "sha1": "6945bd6649b7d27c0e073fe5174683cacbf5af1c"
+    },
+    {
+      "path": "assets/surahs/surah_59.mp3",
+      "sha1": "e226928c10f41e6f04e9b5acfdbcf444578e9cd6"
+    },
+    {
+      "path": "assets/surahs/surah_6.mp3",
+      "sha1": "60d443ea21635e5b9ac8daa1ef8bce78b8996c67"
+    },
+    {
+      "path": "assets/surahs/surah_60.mp3",
+      "sha1": "a517a411ca960ffd33c1ae3b23fee28788959ef0"
+    },
+    {
+      "path": "assets/surahs/surah_61.mp3",
+      "sha1": "653530c672abbb429b9420ecf46be202d99b58ae"
+    },
+    {
+      "path": "assets/surahs/surah_62.mp3",
+      "sha1": "7d27e8991cb28c4b2e0a2a4af5ab89af8e94e05e"
+    },
+    {
+      "path": "assets/surahs/surah_63.mp3",
+      "sha1": "dbbd53d3fa3319b2984aab23636c531f233ae556"
+    },
+    {
+      "path": "assets/surahs/surah_64.mp3",
+      "sha1": "3f1f5e622f9d7b7b1bb6bfce971218667702d3a0"
+    },
+    {
+      "path": "assets/surahs/surah_65.mp3",
+      "sha1": "151352087d62054173e0395adca9fb0a865d586c"
+    },
+    {
+      "path": "assets/surahs/surah_66.mp3",
+      "sha1": "9b90eea1237f92a455b3344472ad931be1bb7ee5"
+    },
+    {
+      "path": "assets/surahs/surah_67.mp3",
+      "sha1": "29689d5df16274ceeb86a6d133d5d78f58ada66c"
+    },
+    {
+      "path": "assets/surahs/surah_68.mp3",
+      "sha1": "667c97d21dd72361eeda09d6a3aa08bc9b2fc564"
+    },
+    {
+      "path": "assets/surahs/surah_69.mp3",
+      "sha1": "311a9bce6ff79b69b204cd0486dd00c481821a6b"
+    },
+    {
+      "path": "assets/surahs/surah_7.mp3",
+      "sha1": "93eba6e39f4180f29841bc3bddad5dd9486f4807"
+    },
+    {
+      "path": "assets/surahs/surah_70.mp3",
+      "sha1": "265012ff51d3580bff131d5be6220a1bb869256d"
+    },
+    {
+      "path": "assets/surahs/surah_71.mp3",
+      "sha1": "0b7633853b0f01d56a427532ba5c6e1b442abfd0"
+    },
+    {
+      "path": "assets/surahs/surah_72.mp3",
+      "sha1": "152b3d6b11359d5604a85269edfd67f8e9082c08"
+    },
+    {
+      "path": "assets/surahs/surah_73.mp3",
+      "sha1": "8dbf3d396cbd60e21a33e11b68be6afd6ddc96bf"
+    },
+    {
+      "path": "assets/surahs/surah_74.mp3",
+      "sha1": "a4af70f0a82c9896e0c10b9304281423cf709304"
+    },
+    {
+      "path": "assets/surahs/surah_75.mp3",
+      "sha1": "e5b78867ba3aeeab40947196142933b8e6c01ff5"
+    },
+    {
+      "path": "assets/surahs/surah_76.mp3",
+      "sha1": "a7e111bb81ded2f5a97bdb6d0b6e1938ead8824f"
+    },
+    {
+      "path": "assets/surahs/surah_77.mp3",
+      "sha1": "fd3bf943b4205f8368a3a2d1c0838ef2d9882a1e"
+    },
+    {
+      "path": "assets/surahs/surah_78.mp3",
+      "sha1": "a4c84a1810ab26ac5db2d6a9a82ea776888550e9"
+    },
+    {
+      "path": "assets/surahs/surah_79.mp3",
+      "sha1": "fea8b071b275b8111a46cb0b7641761ed5ca4c38"
+    },
+    {
+      "path": "assets/surahs/surah_8.mp3",
+      "sha1": "08588875d62faf27a54b3ba65a2a33adaf56404a"
+    },
+    {
+      "path": "assets/surahs/surah_80.mp3",
+      "sha1": "f3f19ca35fbf1cdfec572b80b3a9574b48435dda"
+    },
+    {
+      "path": "assets/surahs/surah_81.mp3",
+      "sha1": "461c5e7ed921bfea4ca179c8fd61d8828595630f"
+    },
+    {
+      "path": "assets/surahs/surah_82.mp3",
+      "sha1": "861ac2177594353bd2562cc0e44979e9e4731a97"
+    },
+    {
+      "path": "assets/surahs/surah_83.mp3",
+      "sha1": "08bb5c5430b2f93cb10b691efbab86a19c18d061"
+    },
+    {
+      "path": "assets/surahs/surah_84.mp3",
+      "sha1": "aac9134d132a15bb2c03791c8086acf3df29fea6"
+    },
+    {
+      "path": "assets/surahs/surah_85.mp3",
+      "sha1": "10b591bed7c3ed31f0ad77dc39b4206f60c19e72"
+    },
+    {
+      "path": "assets/surahs/surah_86.mp3",
+      "sha1": "06a85835895ed5ac67626404d5c5c3121e24aefd"
+    },
+    {
+      "path": "assets/surahs/surah_87.mp3",
+      "sha1": "93ee9409f46ab152d1bf7ad1858fd2eb307d6c94"
+    },
+    {
+      "path": "assets/surahs/surah_88.mp3",
+      "sha1": "b26f1ad7a9b1a96877203db6025775b522fa9529"
+    },
+    {
+      "path": "assets/surahs/surah_89.mp3",
+      "sha1": "e1cf825e92f0ccb6b85573452acfc5a5f55aa2b3"
+    },
+    {
+      "path": "assets/surahs/surah_9.mp3",
+      "sha1": "8f09798e131a2ccc384bb806092119b99e4a2859"
+    },
+    {
+      "path": "assets/surahs/surah_90.mp3",
+      "sha1": "5b5f90af27be7ff60862c7d8443ad129ce9c1708"
+    },
+    {
+      "path": "assets/surahs/surah_91.mp3",
+      "sha1": "cc49290dd8ae2c804ba30a68eeddefe528161e7a"
+    },
+    {
+      "path": "assets/surahs/surah_92.mp3",
+      "sha1": "f5ac603d3dd291a56a7af0128cf3e68b5f376f11"
+    },
+    {
+      "path": "assets/surahs/surah_93.mp3",
+      "sha1": "478e4e7b8874cfdeab0c1e042e58f5c93316d7b1"
+    },
+    {
+      "path": "assets/surahs/surah_94.mp3",
+      "sha1": "820475c1bea072fe2ffb743b244db7b9fddeee10"
+    },
+    {
+      "path": "assets/surahs/surah_95.mp3",
+      "sha1": "b01bee0e0e02daf38a8041b4666a91da52d72e36"
+    },
+    {
+      "path": "assets/surahs/surah_96.mp3",
+      "sha1": "41ae9fd27d3f15096f336b35eda151f9eb3a0976"
+    },
+    {
+      "path": "assets/surahs/surah_97.mp3",
+      "sha1": "19f005028b8f6443dd153b170109454e79e8dc8b"
+    },
+    {
+      "path": "assets/surahs/surah_98.mp3",
+      "sha1": "d9cf3976e4a491e4c5bdd26313319d68de37e516"
+    },
+    {
+      "path": "assets/surahs/surah_99.mp3",
+      "sha1": "d455815d49f9565fa64300f912f0ee1ed790e3f8"
+    }
+  ]
+}

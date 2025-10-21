@@ -11,6 +11,121 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		40A13C7F5F4B4338AF0912AF /* surah_1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0F165A4DF14844F690213A1C /* surah_1.mp3 */; };
+		005ADCCD32F741338138B372 /* surah_10.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6C6554ABE6194BC48188FE85 /* surah_10.mp3 */; };
+		C5E509EA2DB84A03A7F79EC2 /* surah_100.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C18C39BB25D48D4AA3F9B46 /* surah_100.mp3 */; };
+		7EAB0B3D0FF6427E9E19C346 /* surah_101.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0E9926D8B3164E948B0A0E66 /* surah_101.mp3 */; };
+		53F8BC45BD5B4AE0B245A2A3 /* surah_102.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4850FF0BE3AB4E4CA8CA107D /* surah_102.mp3 */; };
+		396430FA2BB04902ACFDD4CF /* surah_103.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A0EECE8D7C534439B6464F32 /* surah_103.mp3 */; };
+		0C0A895DC5B54C2B88979D93 /* surah_104.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CA6547BB50FC45F8B2BFBCBC /* surah_104.mp3 */; };
+		BE8FA9617CA3404DAB5DF1DC /* surah_105.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C88440F68E6349A2BF9877B1 /* surah_105.mp3 */; };
+		0F5B493ADC4F483B8F99684B /* surah_106.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D964C5D2964F4C5AAB6ADA20 /* surah_106.mp3 */; };
+		8C421CFDC118482897F922DB /* surah_107.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 294CD3B686DD4A36B1C288B8 /* surah_107.mp3 */; };
+		43C37486FFDE48E5BFF01107 /* surah_108.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B83DA1EF69B947D6B39AFF56 /* surah_108.mp3 */; };
+		2D2A3F1B31B44CE9A82489F7 /* surah_109.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 49E5D6204EB34E7586FC072C /* surah_109.mp3 */; };
+		96C69FB32305402F87F90CD7 /* surah_11.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 52E75354CEA5425BAD37E752 /* surah_11.mp3 */; };
+		0B22C662A4E946F8B62B50AA /* surah_110.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CC9FF0CAE45646B79897285E /* surah_110.mp3 */; };
+		8AD2C87C2A5047BAA200993C /* surah_111.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9CD53F01772944DBAC17C92F /* surah_111.mp3 */; };
+		2EE81423E4624F04A93B1AEB /* surah_112.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53D42F9449574976B485B4DF /* surah_112.mp3 */; };
+		EF59FA25ECE84F34AD86FA5A /* surah_113.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A72273CA9D93488499D484BE /* surah_113.mp3 */; };
+		7C04D157FBB94AFABC57306D /* surah_114.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CA88152B139945E4B759D369 /* surah_114.mp3 */; };
+		1C7086877C75422B874CC674 /* surah_12.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B31A1695B4724575B328ADD8 /* surah_12.mp3 */; };
+		4D95F4C984094A9E8D458526 /* surah_13.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 833B04A765234DA18418B2AE /* surah_13.mp3 */; };
+		8A74069B9EB24D4DAA03104F /* surah_14.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E40DADBF5BE94EC3A3015F31 /* surah_14.mp3 */; };
+		661846DDF87F4EB1BFD3C101 /* surah_15.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E05D627381BB4A2DA0AC4BF2 /* surah_15.mp3 */; };
+		F11DDDAEC86B4DD4954BAF2A /* surah_16.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AD106696D4C94261892BBFC9 /* surah_16.mp3 */; };
+		741018E882464740B6722A20 /* surah_17.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 56C2A99F27444172BAFCA1B3 /* surah_17.mp3 */; };
+		B9D07CB77F6B4740B0ACCAF4 /* surah_18.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0B4FC3BCB3464F14956329B0 /* surah_18.mp3 */; };
+		0380CB7E59784E1FB2A86197 /* surah_19.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E08530DBC3534AEA9F3C99B8 /* surah_19.mp3 */; };
+		01DA9845C9744A5681B88353 /* surah_2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DB17611E31F547129F9C5B98 /* surah_2.mp3 */; };
+		2715E399770E48C59F75450C /* surah_20.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 19040E2D02374EB3A6C059F4 /* surah_20.mp3 */; };
+		096E34700E4143BFBDA6B241 /* surah_21.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B19108AD86424648AEAF4023 /* surah_21.mp3 */; };
+		8C0B64FA23C446CFA75AFD49 /* surah_22.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D2370A4E68E84632871BC33F /* surah_22.mp3 */; };
+		284BB6ABE4BD41E0B69613DF /* surah_23.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 39DFED51108346DCB1B13CC4 /* surah_23.mp3 */; };
+		88ABA0941852455AA04C3DCE /* surah_24.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4D0340E759704839B2FDA6C1 /* surah_24.mp3 */; };
+		4FD3AC2403C14CFAB8C3826A /* surah_25.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DB016D3DE66344F6B3C59A26 /* surah_25.mp3 */; };
+		810323B31E104D12901EB437 /* surah_26.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BAD10CD1497D4655ACD233BB /* surah_26.mp3 */; };
+		B4CEC21DA001482CA83AC7AA /* surah_27.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 81A0155190C24E01B98ACF1A /* surah_27.mp3 */; };
+		83FAA88B6CF743D18ADAF350 /* surah_28.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9E48DE3B5AB8453BA508A175 /* surah_28.mp3 */; };
+		FBB66EC37177457A84204E2C /* surah_29.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D11410017B7C47BA88B9104F /* surah_29.mp3 */; };
+		2CA1001261A947008A4D7F5B /* surah_3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 77FBF64A526D40E9A1319C6C /* surah_3.mp3 */; };
+		99DFF5340746459A8ED561F8 /* surah_30.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F7BB9936F37C416B875FDDA2 /* surah_30.mp3 */; };
+		AFFA92A6B6124A5DA7D52030 /* surah_31.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7ED4D204059745AC8DDF7477 /* surah_31.mp3 */; };
+		DE0AF636C5C24A709068B92C /* surah_32.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D5DB5C1718B64436B6E4253D /* surah_32.mp3 */; };
+		D09AAF8456234756997AF8B4 /* surah_33.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8CFDBD8410EE4CB3B064C330 /* surah_33.mp3 */; };
+		5F779301618D4F0EA9FF2C58 /* surah_34.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CFCCCBDFF9CA4CA799D97F82 /* surah_34.mp3 */; };
+		1F4D549E366A4511BDEE5CF8 /* surah_35.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 157B0DD66EA0411090EFA1F2 /* surah_35.mp3 */; };
+		24226E2B3A41424A9C553527 /* surah_36.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7633113068824A1AB1A5A185 /* surah_36.mp3 */; };
+		3B1C00A78AD4488EA00ED20B /* surah_37.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D8A38D80EF8748E0B9D0201C /* surah_37.mp3 */; };
+		E685258D009F46DF91706DE3 /* surah_38.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7B39F9234AC4478B8F146DA2 /* surah_38.mp3 */; };
+		CE8D43051E034DD3A40D7AD4 /* surah_39.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51FD727EF40A49058D8DCF3B /* surah_39.mp3 */; };
+		107EF0F35B0F464694FED92C /* surah_4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 692E688566DD412197AE39DF /* surah_4.mp3 */; };
+		D188BC80EB10480E8FA9073C /* surah_40.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B6041F8BFF004A45B69BA417 /* surah_40.mp3 */; };
+		90BAA3CB9B58449D9648F3F5 /* surah_41.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 07D5D99B3C8D42168D8F7044 /* surah_41.mp3 */; };
+		04D294B7B8A64D329C4A39B0 /* surah_42.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2E19DCECBDD04578AA1CE007 /* surah_42.mp3 */; };
+		39F7B7DAC24B426C816D0170 /* surah_43.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5F90BC5B802343408D20732D /* surah_43.mp3 */; };
+		0323C0FCC2A3424D9A075898 /* surah_44.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E78854AC90C74CF5ABFE5E9E /* surah_44.mp3 */; };
+		C47ACD9BC73B45358DACDF76 /* surah_45.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 11E59F8A72814A1AB5AB4BC7 /* surah_45.mp3 */; };
+		A4BBFCA3A5C641E59262A18D /* surah_46.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AA7004C8F4FA4DC48DC02088 /* surah_46.mp3 */; };
+		54D5CBFA631344B5904B2784 /* surah_47.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AB99CE54F2564F46B90A4227 /* surah_47.mp3 */; };
+		6116D3211378435C875C726E /* surah_48.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1658F0E8F7AE4DA3B52D4314 /* surah_48.mp3 */; };
+		A013D2A320A240BAAC95E408 /* surah_49.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A221C94FA8A24E29BB1C41EF /* surah_49.mp3 */; };
+		8C2D5C48BAFE4AD7AFC4CC62 /* surah_5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F924E9F4ECB24DFA8313DD91 /* surah_5.mp3 */; };
+		1643BBE3CFD048FD838D00F8 /* surah_50.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CB9A31D80F0E49889C057FB8 /* surah_50.mp3 */; };
+		E77948DD93424ED090C50EA0 /* surah_51.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B4A00E1FCCC941FF9714D29C /* surah_51.mp3 */; };
+		3AD9DCC1CB4A45058EB55929 /* surah_52.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D1C600FC53314CF8973D83A8 /* surah_52.mp3 */; };
+		98C8C5C5BFBE42099335699E /* surah_53.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B7DF1105DE784E788E58B513 /* surah_53.mp3 */; };
+		BF0F0F92E73D413190323D88 /* surah_54.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CADD75D2356149D594A6E2D6 /* surah_54.mp3 */; };
+		2EE48307A4244DBF87AE7226 /* surah_55.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4BCC24E1739249B19171162D /* surah_55.mp3 */; };
+		954D5EEABF5440B79C3831A3 /* surah_56.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9465B1F1B028477292FB4798 /* surah_56.mp3 */; };
+		E866627BC55240FCB041434A /* surah_57.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7F5267F3DC0345FFB0AD775B /* surah_57.mp3 */; };
+		529ED6344091410BB7123D29 /* surah_58.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 20F99566141348EF865D766E /* surah_58.mp3 */; };
+		225FCC38CF58421C948DFE1E /* surah_59.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5335DA78A9A8467DB9CCBEE7 /* surah_59.mp3 */; };
+		F368EDCF8DBF4B5180A52753 /* surah_6.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 47434A892B834145B513DA39 /* surah_6.mp3 */; };
+		52D2C9F65E05498A925E08EC /* surah_60.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 13405D457CC944FC86AE8A85 /* surah_60.mp3 */; };
+		5E36B568A8564FCE8A9D19E0 /* surah_61.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 28D29E6AFFE44C0BAA1DECF6 /* surah_61.mp3 */; };
+		EC0A18203EFC4B2599AB84C2 /* surah_62.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EEFD441E250D4123BDC67778 /* surah_62.mp3 */; };
+		6AF18616DA05408CB0F5E622 /* surah_63.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BE85D1903E9640E890BC9E17 /* surah_63.mp3 */; };
+		9B60D72298A44971B9F93EEF /* surah_64.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2DB41E79E9D441E29BEE5F9E /* surah_64.mp3 */; };
+		95C24DE65BD34CECB8679519 /* surah_65.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E07B46B434504D9EB8DC35DD /* surah_65.mp3 */; };
+		40D0D429ED07404BB8C482AC /* surah_66.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 00B6F5A7141344AA8BBDE9F4 /* surah_66.mp3 */; };
+		F732DBB064BE496B81A0E957 /* surah_67.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 47864C10B9A64499A81E9468 /* surah_67.mp3 */; };
+		76E2A569F2CC43BF87869318 /* surah_68.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C352AA92FE0F4C9AA549E591 /* surah_68.mp3 */; };
+		4B94048A62A64D13BC48B9E0 /* surah_69.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AF9FDD159DAC41EE84F58273 /* surah_69.mp3 */; };
+		2C23F078CB124E9C885E2D09 /* surah_7.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5B93E90114CD49C4AF86D0F3 /* surah_7.mp3 */; };
+		0E8B05C776694CBEB53FD748 /* surah_70.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B29AE9E0A846497E85FC178D /* surah_70.mp3 */; };
+		589422D2E76E4D3994819F84 /* surah_71.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F022EFB833904D3690D518A5 /* surah_71.mp3 */; };
+		4D27D397197A4F0CA14D6A67 /* surah_72.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1C9FE43122884F69954A377E /* surah_72.mp3 */; };
+		B7E473C59E8C406FB32D824F /* surah_73.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1D42349AD7A64406A6AD2A01 /* surah_73.mp3 */; };
+		6E02956450F8442CA41E0636 /* surah_74.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AD5CF5BFF3CE4C2782B1675F /* surah_74.mp3 */; };
+		2A19F720DEB742588A28785B /* surah_75.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 22017CCE65C84751AFB7C75A /* surah_75.mp3 */; };
+		60769F9B43524A459442F159 /* surah_76.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6B624577D43248569BDA6514 /* surah_76.mp3 */; };
+		978BA6F721084BC3B7B3FDF2 /* surah_77.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BD20F3EE274B46E9B0DD8CFA /* surah_77.mp3 */; };
+		5C93EDD5D1584FE7BAC2FCF4 /* surah_78.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 42249A50E67F438ABD5D09DC /* surah_78.mp3 */; };
+		9C16BFCB7D4049EAA5EC5C62 /* surah_79.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 707FFBC577B044CEA92632DC /* surah_79.mp3 */; };
+		9DEBC33858CF4663A0BE070A /* surah_8.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9417B66D4871414999169C30 /* surah_8.mp3 */; };
+		CF3D89351691476888D26D17 /* surah_80.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 05B74CB4FA4C4454BD1A43C6 /* surah_80.mp3 */; };
+		2AEE6FEBF9D5475B93AAA802 /* surah_81.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A9853B4E96C64B16B0E27ABE /* surah_81.mp3 */; };
+		37901430738C43518399837A /* surah_82.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6C65DDCA191240F38011CAEE /* surah_82.mp3 */; };
+		71433A7DF8C64ECEBF981365 /* surah_83.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D5489DAED8AE4EA387F8E4BF /* surah_83.mp3 */; };
+		604188421F9040959AB02290 /* surah_84.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 91D4CA1E5D1D49DF81DF15E1 /* surah_84.mp3 */; };
+		DCE64C6CB78544818FB1714A /* surah_85.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B92E6C42212142A4938C9AE5 /* surah_85.mp3 */; };
+		7A5D64A88002452D8ADD728A /* surah_86.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 77961596C7A24333A3FCC814 /* surah_86.mp3 */; };
+		99E6F695C24A42F0A9730AFF /* surah_87.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B39E0AC70B654E9C88FC73C5 /* surah_87.mp3 */; };
+		2CA93DB4D68B4C67B032D36D /* surah_88.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5FE1E8464E7D430BA18C6C56 /* surah_88.mp3 */; };
+		C7746F8700A24D58B00F3E75 /* surah_89.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4BD3CB136F124B95BF5B0E1C /* surah_89.mp3 */; };
+		BA7F27A0BDCD4DBA9AC9065C /* surah_9.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1D29BE51EB8F439AA6ECE1B9 /* surah_9.mp3 */; };
+		41FB07FD6FF04FC8A8EC054B /* surah_90.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 945C5EB7F7B6439EB5777DC1 /* surah_90.mp3 */; };
+		99B817B954F0440291E645A8 /* surah_91.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 805448B02FFF4A498D2BF6D3 /* surah_91.mp3 */; };
+		B627667910564A5EA4F64933 /* surah_92.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 071EEA4EC57442479EB20D33 /* surah_92.mp3 */; };
+		C9A892D479C84F2B991AFAD0 /* surah_93.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1EE810FB22D640DFBF66EB2B /* surah_93.mp3 */; };
+		330036FCE59C4D4F88EADE23 /* surah_94.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0FB5841F7F404BB5BF6029A2 /* surah_94.mp3 */; };
+		26B1DA061452419F8317E660 /* surah_95.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 96F0D17C8700449EA0FEB375 /* surah_95.mp3 */; };
+		D4ABAF6650354296A13B77D8 /* surah_96.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BD82E6ABDCE045CCB2BE2AA3 /* surah_96.mp3 */; };
+		5131D164E8B94B74B1B6C4F9 /* surah_97.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6C6ED5272E0D4EC89F89FCCD /* surah_97.mp3 */; };
+		389A5E3087B9431BBC2C857F /* surah_98.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 30B41280A9254493A4B99A3D /* surah_98.mp3 */; };
+		3FDB5E6CBFD44662A405DC4D /* surah_99.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 25B9E9A76E104201A379AA70 /* surah_99.mp3 */; };
+		5D009F9D861547BF87AC5425 /* names.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 19731C71F97649D89696AA60 /* names.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +139,121 @@
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Quran/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Quran/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		0F165A4DF14844F690213A1C /* surah_1.mp3 */ = {isa = PBXFileReference; name = "surah_1.mp3"; path = "../assets/surahs/surah_1.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6C6554ABE6194BC48188FE85 /* surah_10.mp3 */ = {isa = PBXFileReference; name = "surah_10.mp3"; path = "../assets/surahs/surah_10.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4C18C39BB25D48D4AA3F9B46 /* surah_100.mp3 */ = {isa = PBXFileReference; name = "surah_100.mp3"; path = "../assets/surahs/surah_100.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0E9926D8B3164E948B0A0E66 /* surah_101.mp3 */ = {isa = PBXFileReference; name = "surah_101.mp3"; path = "../assets/surahs/surah_101.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4850FF0BE3AB4E4CA8CA107D /* surah_102.mp3 */ = {isa = PBXFileReference; name = "surah_102.mp3"; path = "../assets/surahs/surah_102.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A0EECE8D7C534439B6464F32 /* surah_103.mp3 */ = {isa = PBXFileReference; name = "surah_103.mp3"; path = "../assets/surahs/surah_103.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CA6547BB50FC45F8B2BFBCBC /* surah_104.mp3 */ = {isa = PBXFileReference; name = "surah_104.mp3"; path = "../assets/surahs/surah_104.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C88440F68E6349A2BF9877B1 /* surah_105.mp3 */ = {isa = PBXFileReference; name = "surah_105.mp3"; path = "../assets/surahs/surah_105.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D964C5D2964F4C5AAB6ADA20 /* surah_106.mp3 */ = {isa = PBXFileReference; name = "surah_106.mp3"; path = "../assets/surahs/surah_106.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		294CD3B686DD4A36B1C288B8 /* surah_107.mp3 */ = {isa = PBXFileReference; name = "surah_107.mp3"; path = "../assets/surahs/surah_107.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B83DA1EF69B947D6B39AFF56 /* surah_108.mp3 */ = {isa = PBXFileReference; name = "surah_108.mp3"; path = "../assets/surahs/surah_108.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		49E5D6204EB34E7586FC072C /* surah_109.mp3 */ = {isa = PBXFileReference; name = "surah_109.mp3"; path = "../assets/surahs/surah_109.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		52E75354CEA5425BAD37E752 /* surah_11.mp3 */ = {isa = PBXFileReference; name = "surah_11.mp3"; path = "../assets/surahs/surah_11.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CC9FF0CAE45646B79897285E /* surah_110.mp3 */ = {isa = PBXFileReference; name = "surah_110.mp3"; path = "../assets/surahs/surah_110.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9CD53F01772944DBAC17C92F /* surah_111.mp3 */ = {isa = PBXFileReference; name = "surah_111.mp3"; path = "../assets/surahs/surah_111.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		53D42F9449574976B485B4DF /* surah_112.mp3 */ = {isa = PBXFileReference; name = "surah_112.mp3"; path = "../assets/surahs/surah_112.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A72273CA9D93488499D484BE /* surah_113.mp3 */ = {isa = PBXFileReference; name = "surah_113.mp3"; path = "../assets/surahs/surah_113.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CA88152B139945E4B759D369 /* surah_114.mp3 */ = {isa = PBXFileReference; name = "surah_114.mp3"; path = "../assets/surahs/surah_114.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B31A1695B4724575B328ADD8 /* surah_12.mp3 */ = {isa = PBXFileReference; name = "surah_12.mp3"; path = "../assets/surahs/surah_12.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		833B04A765234DA18418B2AE /* surah_13.mp3 */ = {isa = PBXFileReference; name = "surah_13.mp3"; path = "../assets/surahs/surah_13.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E40DADBF5BE94EC3A3015F31 /* surah_14.mp3 */ = {isa = PBXFileReference; name = "surah_14.mp3"; path = "../assets/surahs/surah_14.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E05D627381BB4A2DA0AC4BF2 /* surah_15.mp3 */ = {isa = PBXFileReference; name = "surah_15.mp3"; path = "../assets/surahs/surah_15.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AD106696D4C94261892BBFC9 /* surah_16.mp3 */ = {isa = PBXFileReference; name = "surah_16.mp3"; path = "../assets/surahs/surah_16.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		56C2A99F27444172BAFCA1B3 /* surah_17.mp3 */ = {isa = PBXFileReference; name = "surah_17.mp3"; path = "../assets/surahs/surah_17.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0B4FC3BCB3464F14956329B0 /* surah_18.mp3 */ = {isa = PBXFileReference; name = "surah_18.mp3"; path = "../assets/surahs/surah_18.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E08530DBC3534AEA9F3C99B8 /* surah_19.mp3 */ = {isa = PBXFileReference; name = "surah_19.mp3"; path = "../assets/surahs/surah_19.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DB17611E31F547129F9C5B98 /* surah_2.mp3 */ = {isa = PBXFileReference; name = "surah_2.mp3"; path = "../assets/surahs/surah_2.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		19040E2D02374EB3A6C059F4 /* surah_20.mp3 */ = {isa = PBXFileReference; name = "surah_20.mp3"; path = "../assets/surahs/surah_20.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B19108AD86424648AEAF4023 /* surah_21.mp3 */ = {isa = PBXFileReference; name = "surah_21.mp3"; path = "../assets/surahs/surah_21.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D2370A4E68E84632871BC33F /* surah_22.mp3 */ = {isa = PBXFileReference; name = "surah_22.mp3"; path = "../assets/surahs/surah_22.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		39DFED51108346DCB1B13CC4 /* surah_23.mp3 */ = {isa = PBXFileReference; name = "surah_23.mp3"; path = "../assets/surahs/surah_23.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4D0340E759704839B2FDA6C1 /* surah_24.mp3 */ = {isa = PBXFileReference; name = "surah_24.mp3"; path = "../assets/surahs/surah_24.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DB016D3DE66344F6B3C59A26 /* surah_25.mp3 */ = {isa = PBXFileReference; name = "surah_25.mp3"; path = "../assets/surahs/surah_25.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BAD10CD1497D4655ACD233BB /* surah_26.mp3 */ = {isa = PBXFileReference; name = "surah_26.mp3"; path = "../assets/surahs/surah_26.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		81A0155190C24E01B98ACF1A /* surah_27.mp3 */ = {isa = PBXFileReference; name = "surah_27.mp3"; path = "../assets/surahs/surah_27.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9E48DE3B5AB8453BA508A175 /* surah_28.mp3 */ = {isa = PBXFileReference; name = "surah_28.mp3"; path = "../assets/surahs/surah_28.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D11410017B7C47BA88B9104F /* surah_29.mp3 */ = {isa = PBXFileReference; name = "surah_29.mp3"; path = "../assets/surahs/surah_29.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		77FBF64A526D40E9A1319C6C /* surah_3.mp3 */ = {isa = PBXFileReference; name = "surah_3.mp3"; path = "../assets/surahs/surah_3.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F7BB9936F37C416B875FDDA2 /* surah_30.mp3 */ = {isa = PBXFileReference; name = "surah_30.mp3"; path = "../assets/surahs/surah_30.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7ED4D204059745AC8DDF7477 /* surah_31.mp3 */ = {isa = PBXFileReference; name = "surah_31.mp3"; path = "../assets/surahs/surah_31.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D5DB5C1718B64436B6E4253D /* surah_32.mp3 */ = {isa = PBXFileReference; name = "surah_32.mp3"; path = "../assets/surahs/surah_32.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8CFDBD8410EE4CB3B064C330 /* surah_33.mp3 */ = {isa = PBXFileReference; name = "surah_33.mp3"; path = "../assets/surahs/surah_33.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CFCCCBDFF9CA4CA799D97F82 /* surah_34.mp3 */ = {isa = PBXFileReference; name = "surah_34.mp3"; path = "../assets/surahs/surah_34.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		157B0DD66EA0411090EFA1F2 /* surah_35.mp3 */ = {isa = PBXFileReference; name = "surah_35.mp3"; path = "../assets/surahs/surah_35.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7633113068824A1AB1A5A185 /* surah_36.mp3 */ = {isa = PBXFileReference; name = "surah_36.mp3"; path = "../assets/surahs/surah_36.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D8A38D80EF8748E0B9D0201C /* surah_37.mp3 */ = {isa = PBXFileReference; name = "surah_37.mp3"; path = "../assets/surahs/surah_37.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7B39F9234AC4478B8F146DA2 /* surah_38.mp3 */ = {isa = PBXFileReference; name = "surah_38.mp3"; path = "../assets/surahs/surah_38.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		51FD727EF40A49058D8DCF3B /* surah_39.mp3 */ = {isa = PBXFileReference; name = "surah_39.mp3"; path = "../assets/surahs/surah_39.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		692E688566DD412197AE39DF /* surah_4.mp3 */ = {isa = PBXFileReference; name = "surah_4.mp3"; path = "../assets/surahs/surah_4.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B6041F8BFF004A45B69BA417 /* surah_40.mp3 */ = {isa = PBXFileReference; name = "surah_40.mp3"; path = "../assets/surahs/surah_40.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		07D5D99B3C8D42168D8F7044 /* surah_41.mp3 */ = {isa = PBXFileReference; name = "surah_41.mp3"; path = "../assets/surahs/surah_41.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2E19DCECBDD04578AA1CE007 /* surah_42.mp3 */ = {isa = PBXFileReference; name = "surah_42.mp3"; path = "../assets/surahs/surah_42.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5F90BC5B802343408D20732D /* surah_43.mp3 */ = {isa = PBXFileReference; name = "surah_43.mp3"; path = "../assets/surahs/surah_43.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E78854AC90C74CF5ABFE5E9E /* surah_44.mp3 */ = {isa = PBXFileReference; name = "surah_44.mp3"; path = "../assets/surahs/surah_44.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		11E59F8A72814A1AB5AB4BC7 /* surah_45.mp3 */ = {isa = PBXFileReference; name = "surah_45.mp3"; path = "../assets/surahs/surah_45.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AA7004C8F4FA4DC48DC02088 /* surah_46.mp3 */ = {isa = PBXFileReference; name = "surah_46.mp3"; path = "../assets/surahs/surah_46.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AB99CE54F2564F46B90A4227 /* surah_47.mp3 */ = {isa = PBXFileReference; name = "surah_47.mp3"; path = "../assets/surahs/surah_47.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1658F0E8F7AE4DA3B52D4314 /* surah_48.mp3 */ = {isa = PBXFileReference; name = "surah_48.mp3"; path = "../assets/surahs/surah_48.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A221C94FA8A24E29BB1C41EF /* surah_49.mp3 */ = {isa = PBXFileReference; name = "surah_49.mp3"; path = "../assets/surahs/surah_49.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F924E9F4ECB24DFA8313DD91 /* surah_5.mp3 */ = {isa = PBXFileReference; name = "surah_5.mp3"; path = "../assets/surahs/surah_5.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CB9A31D80F0E49889C057FB8 /* surah_50.mp3 */ = {isa = PBXFileReference; name = "surah_50.mp3"; path = "../assets/surahs/surah_50.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B4A00E1FCCC941FF9714D29C /* surah_51.mp3 */ = {isa = PBXFileReference; name = "surah_51.mp3"; path = "../assets/surahs/surah_51.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D1C600FC53314CF8973D83A8 /* surah_52.mp3 */ = {isa = PBXFileReference; name = "surah_52.mp3"; path = "../assets/surahs/surah_52.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B7DF1105DE784E788E58B513 /* surah_53.mp3 */ = {isa = PBXFileReference; name = "surah_53.mp3"; path = "../assets/surahs/surah_53.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CADD75D2356149D594A6E2D6 /* surah_54.mp3 */ = {isa = PBXFileReference; name = "surah_54.mp3"; path = "../assets/surahs/surah_54.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4BCC24E1739249B19171162D /* surah_55.mp3 */ = {isa = PBXFileReference; name = "surah_55.mp3"; path = "../assets/surahs/surah_55.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9465B1F1B028477292FB4798 /* surah_56.mp3 */ = {isa = PBXFileReference; name = "surah_56.mp3"; path = "../assets/surahs/surah_56.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7F5267F3DC0345FFB0AD775B /* surah_57.mp3 */ = {isa = PBXFileReference; name = "surah_57.mp3"; path = "../assets/surahs/surah_57.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		20F99566141348EF865D766E /* surah_58.mp3 */ = {isa = PBXFileReference; name = "surah_58.mp3"; path = "../assets/surahs/surah_58.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5335DA78A9A8467DB9CCBEE7 /* surah_59.mp3 */ = {isa = PBXFileReference; name = "surah_59.mp3"; path = "../assets/surahs/surah_59.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		47434A892B834145B513DA39 /* surah_6.mp3 */ = {isa = PBXFileReference; name = "surah_6.mp3"; path = "../assets/surahs/surah_6.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		13405D457CC944FC86AE8A85 /* surah_60.mp3 */ = {isa = PBXFileReference; name = "surah_60.mp3"; path = "../assets/surahs/surah_60.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		28D29E6AFFE44C0BAA1DECF6 /* surah_61.mp3 */ = {isa = PBXFileReference; name = "surah_61.mp3"; path = "../assets/surahs/surah_61.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EEFD441E250D4123BDC67778 /* surah_62.mp3 */ = {isa = PBXFileReference; name = "surah_62.mp3"; path = "../assets/surahs/surah_62.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BE85D1903E9640E890BC9E17 /* surah_63.mp3 */ = {isa = PBXFileReference; name = "surah_63.mp3"; path = "../assets/surahs/surah_63.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2DB41E79E9D441E29BEE5F9E /* surah_64.mp3 */ = {isa = PBXFileReference; name = "surah_64.mp3"; path = "../assets/surahs/surah_64.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E07B46B434504D9EB8DC35DD /* surah_65.mp3 */ = {isa = PBXFileReference; name = "surah_65.mp3"; path = "../assets/surahs/surah_65.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		00B6F5A7141344AA8BBDE9F4 /* surah_66.mp3 */ = {isa = PBXFileReference; name = "surah_66.mp3"; path = "../assets/surahs/surah_66.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		47864C10B9A64499A81E9468 /* surah_67.mp3 */ = {isa = PBXFileReference; name = "surah_67.mp3"; path = "../assets/surahs/surah_67.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C352AA92FE0F4C9AA549E591 /* surah_68.mp3 */ = {isa = PBXFileReference; name = "surah_68.mp3"; path = "../assets/surahs/surah_68.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AF9FDD159DAC41EE84F58273 /* surah_69.mp3 */ = {isa = PBXFileReference; name = "surah_69.mp3"; path = "../assets/surahs/surah_69.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5B93E90114CD49C4AF86D0F3 /* surah_7.mp3 */ = {isa = PBXFileReference; name = "surah_7.mp3"; path = "../assets/surahs/surah_7.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B29AE9E0A846497E85FC178D /* surah_70.mp3 */ = {isa = PBXFileReference; name = "surah_70.mp3"; path = "../assets/surahs/surah_70.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F022EFB833904D3690D518A5 /* surah_71.mp3 */ = {isa = PBXFileReference; name = "surah_71.mp3"; path = "../assets/surahs/surah_71.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1C9FE43122884F69954A377E /* surah_72.mp3 */ = {isa = PBXFileReference; name = "surah_72.mp3"; path = "../assets/surahs/surah_72.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1D42349AD7A64406A6AD2A01 /* surah_73.mp3 */ = {isa = PBXFileReference; name = "surah_73.mp3"; path = "../assets/surahs/surah_73.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AD5CF5BFF3CE4C2782B1675F /* surah_74.mp3 */ = {isa = PBXFileReference; name = "surah_74.mp3"; path = "../assets/surahs/surah_74.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		22017CCE65C84751AFB7C75A /* surah_75.mp3 */ = {isa = PBXFileReference; name = "surah_75.mp3"; path = "../assets/surahs/surah_75.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6B624577D43248569BDA6514 /* surah_76.mp3 */ = {isa = PBXFileReference; name = "surah_76.mp3"; path = "../assets/surahs/surah_76.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BD20F3EE274B46E9B0DD8CFA /* surah_77.mp3 */ = {isa = PBXFileReference; name = "surah_77.mp3"; path = "../assets/surahs/surah_77.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		42249A50E67F438ABD5D09DC /* surah_78.mp3 */ = {isa = PBXFileReference; name = "surah_78.mp3"; path = "../assets/surahs/surah_78.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		707FFBC577B044CEA92632DC /* surah_79.mp3 */ = {isa = PBXFileReference; name = "surah_79.mp3"; path = "../assets/surahs/surah_79.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9417B66D4871414999169C30 /* surah_8.mp3 */ = {isa = PBXFileReference; name = "surah_8.mp3"; path = "../assets/surahs/surah_8.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		05B74CB4FA4C4454BD1A43C6 /* surah_80.mp3 */ = {isa = PBXFileReference; name = "surah_80.mp3"; path = "../assets/surahs/surah_80.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A9853B4E96C64B16B0E27ABE /* surah_81.mp3 */ = {isa = PBXFileReference; name = "surah_81.mp3"; path = "../assets/surahs/surah_81.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6C65DDCA191240F38011CAEE /* surah_82.mp3 */ = {isa = PBXFileReference; name = "surah_82.mp3"; path = "../assets/surahs/surah_82.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D5489DAED8AE4EA387F8E4BF /* surah_83.mp3 */ = {isa = PBXFileReference; name = "surah_83.mp3"; path = "../assets/surahs/surah_83.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		91D4CA1E5D1D49DF81DF15E1 /* surah_84.mp3 */ = {isa = PBXFileReference; name = "surah_84.mp3"; path = "../assets/surahs/surah_84.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B92E6C42212142A4938C9AE5 /* surah_85.mp3 */ = {isa = PBXFileReference; name = "surah_85.mp3"; path = "../assets/surahs/surah_85.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		77961596C7A24333A3FCC814 /* surah_86.mp3 */ = {isa = PBXFileReference; name = "surah_86.mp3"; path = "../assets/surahs/surah_86.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B39E0AC70B654E9C88FC73C5 /* surah_87.mp3 */ = {isa = PBXFileReference; name = "surah_87.mp3"; path = "../assets/surahs/surah_87.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5FE1E8464E7D430BA18C6C56 /* surah_88.mp3 */ = {isa = PBXFileReference; name = "surah_88.mp3"; path = "../assets/surahs/surah_88.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4BD3CB136F124B95BF5B0E1C /* surah_89.mp3 */ = {isa = PBXFileReference; name = "surah_89.mp3"; path = "../assets/surahs/surah_89.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1D29BE51EB8F439AA6ECE1B9 /* surah_9.mp3 */ = {isa = PBXFileReference; name = "surah_9.mp3"; path = "../assets/surahs/surah_9.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		945C5EB7F7B6439EB5777DC1 /* surah_90.mp3 */ = {isa = PBXFileReference; name = "surah_90.mp3"; path = "../assets/surahs/surah_90.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		805448B02FFF4A498D2BF6D3 /* surah_91.mp3 */ = {isa = PBXFileReference; name = "surah_91.mp3"; path = "../assets/surahs/surah_91.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		071EEA4EC57442479EB20D33 /* surah_92.mp3 */ = {isa = PBXFileReference; name = "surah_92.mp3"; path = "../assets/surahs/surah_92.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1EE810FB22D640DFBF66EB2B /* surah_93.mp3 */ = {isa = PBXFileReference; name = "surah_93.mp3"; path = "../assets/surahs/surah_93.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0FB5841F7F404BB5BF6029A2 /* surah_94.mp3 */ = {isa = PBXFileReference; name = "surah_94.mp3"; path = "../assets/surahs/surah_94.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		96F0D17C8700449EA0FEB375 /* surah_95.mp3 */ = {isa = PBXFileReference; name = "surah_95.mp3"; path = "../assets/surahs/surah_95.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BD82E6ABDCE045CCB2BE2AA3 /* surah_96.mp3 */ = {isa = PBXFileReference; name = "surah_96.mp3"; path = "../assets/surahs/surah_96.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6C6ED5272E0D4EC89F89FCCD /* surah_97.mp3 */ = {isa = PBXFileReference; name = "surah_97.mp3"; path = "../assets/surahs/surah_97.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		30B41280A9254493A4B99A3D /* surah_98.mp3 */ = {isa = PBXFileReference; name = "surah_98.mp3"; path = "../assets/surahs/surah_98.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		25B9E9A76E104201A379AA70 /* surah_99.mp3 */ = {isa = PBXFileReference; name = "surah_99.mp3"; path = "../assets/surahs/surah_99.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		19731C71F97649D89696AA60 /* names.mp3 */ = {isa = PBXFileReference; name = "names.mp3"; path = "../assets/names.mp3"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +304,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				DE81FB01FDB445849856E66B /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -96,6 +327,129 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		DE81FB01FDB445849856E66B /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				0F165A4DF14844F690213A1C /* surah_1.mp3 */,
+				6C6554ABE6194BC48188FE85 /* surah_10.mp3 */,
+				4C18C39BB25D48D4AA3F9B46 /* surah_100.mp3 */,
+				0E9926D8B3164E948B0A0E66 /* surah_101.mp3 */,
+				4850FF0BE3AB4E4CA8CA107D /* surah_102.mp3 */,
+				A0EECE8D7C534439B6464F32 /* surah_103.mp3 */,
+				CA6547BB50FC45F8B2BFBCBC /* surah_104.mp3 */,
+				C88440F68E6349A2BF9877B1 /* surah_105.mp3 */,
+				D964C5D2964F4C5AAB6ADA20 /* surah_106.mp3 */,
+				294CD3B686DD4A36B1C288B8 /* surah_107.mp3 */,
+				B83DA1EF69B947D6B39AFF56 /* surah_108.mp3 */,
+				49E5D6204EB34E7586FC072C /* surah_109.mp3 */,
+				52E75354CEA5425BAD37E752 /* surah_11.mp3 */,
+				CC9FF0CAE45646B79897285E /* surah_110.mp3 */,
+				9CD53F01772944DBAC17C92F /* surah_111.mp3 */,
+				53D42F9449574976B485B4DF /* surah_112.mp3 */,
+				A72273CA9D93488499D484BE /* surah_113.mp3 */,
+				CA88152B139945E4B759D369 /* surah_114.mp3 */,
+				B31A1695B4724575B328ADD8 /* surah_12.mp3 */,
+				833B04A765234DA18418B2AE /* surah_13.mp3 */,
+				E40DADBF5BE94EC3A3015F31 /* surah_14.mp3 */,
+				E05D627381BB4A2DA0AC4BF2 /* surah_15.mp3 */,
+				AD106696D4C94261892BBFC9 /* surah_16.mp3 */,
+				56C2A99F27444172BAFCA1B3 /* surah_17.mp3 */,
+				0B4FC3BCB3464F14956329B0 /* surah_18.mp3 */,
+				E08530DBC3534AEA9F3C99B8 /* surah_19.mp3 */,
+				DB17611E31F547129F9C5B98 /* surah_2.mp3 */,
+				19040E2D02374EB3A6C059F4 /* surah_20.mp3 */,
+				B19108AD86424648AEAF4023 /* surah_21.mp3 */,
+				D2370A4E68E84632871BC33F /* surah_22.mp3 */,
+				39DFED51108346DCB1B13CC4 /* surah_23.mp3 */,
+				4D0340E759704839B2FDA6C1 /* surah_24.mp3 */,
+				DB016D3DE66344F6B3C59A26 /* surah_25.mp3 */,
+				BAD10CD1497D4655ACD233BB /* surah_26.mp3 */,
+				81A0155190C24E01B98ACF1A /* surah_27.mp3 */,
+				9E48DE3B5AB8453BA508A175 /* surah_28.mp3 */,
+				D11410017B7C47BA88B9104F /* surah_29.mp3 */,
+				77FBF64A526D40E9A1319C6C /* surah_3.mp3 */,
+				F7BB9936F37C416B875FDDA2 /* surah_30.mp3 */,
+				7ED4D204059745AC8DDF7477 /* surah_31.mp3 */,
+				D5DB5C1718B64436B6E4253D /* surah_32.mp3 */,
+				8CFDBD8410EE4CB3B064C330 /* surah_33.mp3 */,
+				CFCCCBDFF9CA4CA799D97F82 /* surah_34.mp3 */,
+				157B0DD66EA0411090EFA1F2 /* surah_35.mp3 */,
+				7633113068824A1AB1A5A185 /* surah_36.mp3 */,
+				D8A38D80EF8748E0B9D0201C /* surah_37.mp3 */,
+				7B39F9234AC4478B8F146DA2 /* surah_38.mp3 */,
+				51FD727EF40A49058D8DCF3B /* surah_39.mp3 */,
+				692E688566DD412197AE39DF /* surah_4.mp3 */,
+				B6041F8BFF004A45B69BA417 /* surah_40.mp3 */,
+				07D5D99B3C8D42168D8F7044 /* surah_41.mp3 */,
+				2E19DCECBDD04578AA1CE007 /* surah_42.mp3 */,
+				5F90BC5B802343408D20732D /* surah_43.mp3 */,
+				E78854AC90C74CF5ABFE5E9E /* surah_44.mp3 */,
+				11E59F8A72814A1AB5AB4BC7 /* surah_45.mp3 */,
+				AA7004C8F4FA4DC48DC02088 /* surah_46.mp3 */,
+				AB99CE54F2564F46B90A4227 /* surah_47.mp3 */,
+				1658F0E8F7AE4DA3B52D4314 /* surah_48.mp3 */,
+				A221C94FA8A24E29BB1C41EF /* surah_49.mp3 */,
+				F924E9F4ECB24DFA8313DD91 /* surah_5.mp3 */,
+				CB9A31D80F0E49889C057FB8 /* surah_50.mp3 */,
+				B4A00E1FCCC941FF9714D29C /* surah_51.mp3 */,
+				D1C600FC53314CF8973D83A8 /* surah_52.mp3 */,
+				B7DF1105DE784E788E58B513 /* surah_53.mp3 */,
+				CADD75D2356149D594A6E2D6 /* surah_54.mp3 */,
+				4BCC24E1739249B19171162D /* surah_55.mp3 */,
+				9465B1F1B028477292FB4798 /* surah_56.mp3 */,
+				7F5267F3DC0345FFB0AD775B /* surah_57.mp3 */,
+				20F99566141348EF865D766E /* surah_58.mp3 */,
+				5335DA78A9A8467DB9CCBEE7 /* surah_59.mp3 */,
+				47434A892B834145B513DA39 /* surah_6.mp3 */,
+				13405D457CC944FC86AE8A85 /* surah_60.mp3 */,
+				28D29E6AFFE44C0BAA1DECF6 /* surah_61.mp3 */,
+				EEFD441E250D4123BDC67778 /* surah_62.mp3 */,
+				BE85D1903E9640E890BC9E17 /* surah_63.mp3 */,
+				2DB41E79E9D441E29BEE5F9E /* surah_64.mp3 */,
+				E07B46B434504D9EB8DC35DD /* surah_65.mp3 */,
+				00B6F5A7141344AA8BBDE9F4 /* surah_66.mp3 */,
+				47864C10B9A64499A81E9468 /* surah_67.mp3 */,
+				C352AA92FE0F4C9AA549E591 /* surah_68.mp3 */,
+				AF9FDD159DAC41EE84F58273 /* surah_69.mp3 */,
+				5B93E90114CD49C4AF86D0F3 /* surah_7.mp3 */,
+				B29AE9E0A846497E85FC178D /* surah_70.mp3 */,
+				F022EFB833904D3690D518A5 /* surah_71.mp3 */,
+				1C9FE43122884F69954A377E /* surah_72.mp3 */,
+				1D42349AD7A64406A6AD2A01 /* surah_73.mp3 */,
+				AD5CF5BFF3CE4C2782B1675F /* surah_74.mp3 */,
+				22017CCE65C84751AFB7C75A /* surah_75.mp3 */,
+				6B624577D43248569BDA6514 /* surah_76.mp3 */,
+				BD20F3EE274B46E9B0DD8CFA /* surah_77.mp3 */,
+				42249A50E67F438ABD5D09DC /* surah_78.mp3 */,
+				707FFBC577B044CEA92632DC /* surah_79.mp3 */,
+				9417B66D4871414999169C30 /* surah_8.mp3 */,
+				05B74CB4FA4C4454BD1A43C6 /* surah_80.mp3 */,
+				A9853B4E96C64B16B0E27ABE /* surah_81.mp3 */,
+				6C65DDCA191240F38011CAEE /* surah_82.mp3 */,
+				D5489DAED8AE4EA387F8E4BF /* surah_83.mp3 */,
+				91D4CA1E5D1D49DF81DF15E1 /* surah_84.mp3 */,
+				B92E6C42212142A4938C9AE5 /* surah_85.mp3 */,
+				77961596C7A24333A3FCC814 /* surah_86.mp3 */,
+				B39E0AC70B654E9C88FC73C5 /* surah_87.mp3 */,
+				5FE1E8464E7D430BA18C6C56 /* surah_88.mp3 */,
+				4BD3CB136F124B95BF5B0E1C /* surah_89.mp3 */,
+				1D29BE51EB8F439AA6ECE1B9 /* surah_9.mp3 */,
+				945C5EB7F7B6439EB5777DC1 /* surah_90.mp3 */,
+				805448B02FFF4A498D2BF6D3 /* surah_91.mp3 */,
+				071EEA4EC57442479EB20D33 /* surah_92.mp3 */,
+				1EE810FB22D640DFBF66EB2B /* surah_93.mp3 */,
+				0FB5841F7F404BB5BF6029A2 /* surah_94.mp3 */,
+				96F0D17C8700449EA0FEB375 /* surah_95.mp3 */,
+				BD82E6ABDCE045CCB2BE2AA3 /* surah_96.mp3 */,
+				6C6ED5272E0D4EC89F89FCCD /* surah_97.mp3 */,
+				30B41280A9254493A4B99A3D /* surah_98.mp3 */,
+				25B9E9A76E104201A379AA70 /* surah_99.mp3 */,
+				19731C71F97649D89696AA60 /* names.mp3 */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -159,6 +513,121 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				40A13C7F5F4B4338AF0912AF /* surah_1.mp3 in Resources */,
+				005ADCCD32F741338138B372 /* surah_10.mp3 in Resources */,
+				C5E509EA2DB84A03A7F79EC2 /* surah_100.mp3 in Resources */,
+				7EAB0B3D0FF6427E9E19C346 /* surah_101.mp3 in Resources */,
+				53F8BC45BD5B4AE0B245A2A3 /* surah_102.mp3 in Resources */,
+				396430FA2BB04902ACFDD4CF /* surah_103.mp3 in Resources */,
+				0C0A895DC5B54C2B88979D93 /* surah_104.mp3 in Resources */,
+				BE8FA9617CA3404DAB5DF1DC /* surah_105.mp3 in Resources */,
+				0F5B493ADC4F483B8F99684B /* surah_106.mp3 in Resources */,
+				8C421CFDC118482897F922DB /* surah_107.mp3 in Resources */,
+				43C37486FFDE48E5BFF01107 /* surah_108.mp3 in Resources */,
+				2D2A3F1B31B44CE9A82489F7 /* surah_109.mp3 in Resources */,
+				96C69FB32305402F87F90CD7 /* surah_11.mp3 in Resources */,
+				0B22C662A4E946F8B62B50AA /* surah_110.mp3 in Resources */,
+				8AD2C87C2A5047BAA200993C /* surah_111.mp3 in Resources */,
+				2EE81423E4624F04A93B1AEB /* surah_112.mp3 in Resources */,
+				EF59FA25ECE84F34AD86FA5A /* surah_113.mp3 in Resources */,
+				7C04D157FBB94AFABC57306D /* surah_114.mp3 in Resources */,
+				1C7086877C75422B874CC674 /* surah_12.mp3 in Resources */,
+				4D95F4C984094A9E8D458526 /* surah_13.mp3 in Resources */,
+				8A74069B9EB24D4DAA03104F /* surah_14.mp3 in Resources */,
+				661846DDF87F4EB1BFD3C101 /* surah_15.mp3 in Resources */,
+				F11DDDAEC86B4DD4954BAF2A /* surah_16.mp3 in Resources */,
+				741018E882464740B6722A20 /* surah_17.mp3 in Resources */,
+				B9D07CB77F6B4740B0ACCAF4 /* surah_18.mp3 in Resources */,
+				0380CB7E59784E1FB2A86197 /* surah_19.mp3 in Resources */,
+				01DA9845C9744A5681B88353 /* surah_2.mp3 in Resources */,
+				2715E399770E48C59F75450C /* surah_20.mp3 in Resources */,
+				096E34700E4143BFBDA6B241 /* surah_21.mp3 in Resources */,
+				8C0B64FA23C446CFA75AFD49 /* surah_22.mp3 in Resources */,
+				284BB6ABE4BD41E0B69613DF /* surah_23.mp3 in Resources */,
+				88ABA0941852455AA04C3DCE /* surah_24.mp3 in Resources */,
+				4FD3AC2403C14CFAB8C3826A /* surah_25.mp3 in Resources */,
+				810323B31E104D12901EB437 /* surah_26.mp3 in Resources */,
+				B4CEC21DA001482CA83AC7AA /* surah_27.mp3 in Resources */,
+				83FAA88B6CF743D18ADAF350 /* surah_28.mp3 in Resources */,
+				FBB66EC37177457A84204E2C /* surah_29.mp3 in Resources */,
+				2CA1001261A947008A4D7F5B /* surah_3.mp3 in Resources */,
+				99DFF5340746459A8ED561F8 /* surah_30.mp3 in Resources */,
+				AFFA92A6B6124A5DA7D52030 /* surah_31.mp3 in Resources */,
+				DE0AF636C5C24A709068B92C /* surah_32.mp3 in Resources */,
+				D09AAF8456234756997AF8B4 /* surah_33.mp3 in Resources */,
+				5F779301618D4F0EA9FF2C58 /* surah_34.mp3 in Resources */,
+				1F4D549E366A4511BDEE5CF8 /* surah_35.mp3 in Resources */,
+				24226E2B3A41424A9C553527 /* surah_36.mp3 in Resources */,
+				3B1C00A78AD4488EA00ED20B /* surah_37.mp3 in Resources */,
+				E685258D009F46DF91706DE3 /* surah_38.mp3 in Resources */,
+				CE8D43051E034DD3A40D7AD4 /* surah_39.mp3 in Resources */,
+				107EF0F35B0F464694FED92C /* surah_4.mp3 in Resources */,
+				D188BC80EB10480E8FA9073C /* surah_40.mp3 in Resources */,
+				90BAA3CB9B58449D9648F3F5 /* surah_41.mp3 in Resources */,
+				04D294B7B8A64D329C4A39B0 /* surah_42.mp3 in Resources */,
+				39F7B7DAC24B426C816D0170 /* surah_43.mp3 in Resources */,
+				0323C0FCC2A3424D9A075898 /* surah_44.mp3 in Resources */,
+				C47ACD9BC73B45358DACDF76 /* surah_45.mp3 in Resources */,
+				A4BBFCA3A5C641E59262A18D /* surah_46.mp3 in Resources */,
+				54D5CBFA631344B5904B2784 /* surah_47.mp3 in Resources */,
+				6116D3211378435C875C726E /* surah_48.mp3 in Resources */,
+				A013D2A320A240BAAC95E408 /* surah_49.mp3 in Resources */,
+				8C2D5C48BAFE4AD7AFC4CC62 /* surah_5.mp3 in Resources */,
+				1643BBE3CFD048FD838D00F8 /* surah_50.mp3 in Resources */,
+				E77948DD93424ED090C50EA0 /* surah_51.mp3 in Resources */,
+				3AD9DCC1CB4A45058EB55929 /* surah_52.mp3 in Resources */,
+				98C8C5C5BFBE42099335699E /* surah_53.mp3 in Resources */,
+				BF0F0F92E73D413190323D88 /* surah_54.mp3 in Resources */,
+				2EE48307A4244DBF87AE7226 /* surah_55.mp3 in Resources */,
+				954D5EEABF5440B79C3831A3 /* surah_56.mp3 in Resources */,
+				E866627BC55240FCB041434A /* surah_57.mp3 in Resources */,
+				529ED6344091410BB7123D29 /* surah_58.mp3 in Resources */,
+				225FCC38CF58421C948DFE1E /* surah_59.mp3 in Resources */,
+				F368EDCF8DBF4B5180A52753 /* surah_6.mp3 in Resources */,
+				52D2C9F65E05498A925E08EC /* surah_60.mp3 in Resources */,
+				5E36B568A8564FCE8A9D19E0 /* surah_61.mp3 in Resources */,
+				EC0A18203EFC4B2599AB84C2 /* surah_62.mp3 in Resources */,
+				6AF18616DA05408CB0F5E622 /* surah_63.mp3 in Resources */,
+				9B60D72298A44971B9F93EEF /* surah_64.mp3 in Resources */,
+				95C24DE65BD34CECB8679519 /* surah_65.mp3 in Resources */,
+				40D0D429ED07404BB8C482AC /* surah_66.mp3 in Resources */,
+				F732DBB064BE496B81A0E957 /* surah_67.mp3 in Resources */,
+				76E2A569F2CC43BF87869318 /* surah_68.mp3 in Resources */,
+				4B94048A62A64D13BC48B9E0 /* surah_69.mp3 in Resources */,
+				2C23F078CB124E9C885E2D09 /* surah_7.mp3 in Resources */,
+				0E8B05C776694CBEB53FD748 /* surah_70.mp3 in Resources */,
+				589422D2E76E4D3994819F84 /* surah_71.mp3 in Resources */,
+				4D27D397197A4F0CA14D6A67 /* surah_72.mp3 in Resources */,
+				B7E473C59E8C406FB32D824F /* surah_73.mp3 in Resources */,
+				6E02956450F8442CA41E0636 /* surah_74.mp3 in Resources */,
+				2A19F720DEB742588A28785B /* surah_75.mp3 in Resources */,
+				60769F9B43524A459442F159 /* surah_76.mp3 in Resources */,
+				978BA6F721084BC3B7B3FDF2 /* surah_77.mp3 in Resources */,
+				5C93EDD5D1584FE7BAC2FCF4 /* surah_78.mp3 in Resources */,
+				9C16BFCB7D4049EAA5EC5C62 /* surah_79.mp3 in Resources */,
+				9DEBC33858CF4663A0BE070A /* surah_8.mp3 in Resources */,
+				CF3D89351691476888D26D17 /* surah_80.mp3 in Resources */,
+				2AEE6FEBF9D5475B93AAA802 /* surah_81.mp3 in Resources */,
+				37901430738C43518399837A /* surah_82.mp3 in Resources */,
+				71433A7DF8C64ECEBF981365 /* surah_83.mp3 in Resources */,
+				604188421F9040959AB02290 /* surah_84.mp3 in Resources */,
+				DCE64C6CB78544818FB1714A /* surah_85.mp3 in Resources */,
+				7A5D64A88002452D8ADD728A /* surah_86.mp3 in Resources */,
+				99E6F695C24A42F0A9730AFF /* surah_87.mp3 in Resources */,
+				2CA93DB4D68B4C67B032D36D /* surah_88.mp3 in Resources */,
+				C7746F8700A24D58B00F3E75 /* surah_89.mp3 in Resources */,
+				BA7F27A0BDCD4DBA9AC9065C /* surah_9.mp3 in Resources */,
+				41FB07FD6FF04FC8A8EC054B /* surah_90.mp3 in Resources */,
+				99B817B954F0440291E645A8 /* surah_91.mp3 in Resources */,
+				B627667910564A5EA4F64933 /* surah_92.mp3 in Resources */,
+				C9A892D479C84F2B991AFAD0 /* surah_93.mp3 in Resources */,
+				330036FCE59C4D4F88EADE23 /* surah_94.mp3 in Resources */,
+				26B1DA061452419F8317E660 /* surah_95.mp3 in Resources */,
+				D4ABAF6650354296A13B77D8 /* surah_96.mp3 in Resources */,
+				5131D164E8B94B74B1B6C4F9 /* surah_97.mp3 in Resources */,
+				389A5E3087B9431BBC2C857F /* surah_98.mp3 in Resources */,
+				3FDB5E6CBFD44662A405DC4D /* surah_99.mp3 in Resources */,
+				5D009F9D861547BF87AC5425 /* names.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -5,6 +5,7 @@ import SystemNavigationBar from 'react-native-system-navigation-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Icon from './Components/Icon';
+import TrackPlayer, { Capability } from 'react-native-track-player';
 
 import Home from './Screens/Home';
 import Theme from './Screens/Theme';
@@ -13,7 +14,6 @@ import Names from './Screens/Names';
 import Bookmarks from './Screens/Bookmarks';
 import Practices from './Screens/Practices';
 import Hadees from './Screens/Hadees';
-
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +28,28 @@ const AppContent = () => {
       navBarStyle,
     );
   }, [colors]);
+
+  useEffect(() => {
+    const setupPlayer = async () => {
+      await TrackPlayer.setupPlayer({});
+      await TrackPlayer.updateOptions({
+        capabilities: [
+          Capability.Play,
+          Capability.Pause,
+          Capability.SkipToNext,
+          Capability.SkipToPrevious,
+          Capability.Stop,
+        ],
+        compactCapabilities: [
+          Capability.Play,
+          Capability.Pause,
+          Capability.SkipToNext,
+          Capability.SkipToPrevious,
+        ],
+      });
+    };
+    setupPlayer();
+  }, []);
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.colors.bgPrimary }}>
@@ -98,14 +120,14 @@ const AppContent = () => {
             }}
           />
           <Stack.Screen
-            name='Practices'
+            name="Practices"
             component={Practices}
             options={{
               title: 'Practices',
             }}
           />
           <Stack.Screen
-            name='Hadees'
+            name="Hadees"
             component={Hadees}
             options={{
               title: 'Hadees',

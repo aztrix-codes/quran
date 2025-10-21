@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,14 @@ import {
 } from 'react-native';
 import { useStyle } from '../Context/StyleContext';
 import namesData from '../Data/names';
+import { useFocusEffect } from '@react-navigation/native';
+import TrackPlayer, {
+  State,
+  usePlaybackState,
+  useTrackPlayerEvents,
+  Event,
+} from 'react-native-track-player';
+import Icon from '../Components/Icon';
 
 const NameListItem = ({ item, colors, fontPixel, SIZES, onPress }) => {
   const styles = getStyles({ colors, fontPixel, SIZES });
@@ -28,8 +36,91 @@ const NameListItem = ({ item, colors, fontPixel, SIZES, onPress }) => {
   );
 };
 
+const namesTrack = {
+  id: 'names-1',
+  url: require('../../assets/names.mp3'),
+  title: 'Asma ul Husna',
+  artist: 'Quran',
+};
+
 const Names = ({ navigation }) => {
   const { colors, fontPixel, SIZES } = useStyle();
+  const playbackState = usePlaybackState();
+  const [isThisTrackActive, setIsThisTrackActive] = useState(false);
+
+  const isPlaying =
+    isThisTrackActive &&
+    (playbackState.state === State.Playing ||
+      playbackState.state === State.Buffering);
+
+  useTrackPlayerEvents([Event.PlaybackTrackChanged], async event => {
+    if (event.type === Event.PlaybackTrackChanged) {
+      const currentTrack = await TrackPlayer.getActiveTrack();
+      setIsThisTrackActive(currentTrack?.id === namesTrack.id);
+    }
+  });
+
+  useFocusEffect(
+    useCallback(() => {
+      const setupScreen = async () => {
+        await TrackPlayer.setupPlayer({});
+        const currentTrack = await TrackPlayer.getActiveTrack();
+        if (currentTrack?.id !== namesTrack.id) {
+          await TrackPlayer.stop();
+          await TrackPlayer.reset();
+          setIsThisTrackActive(false);
+        } else {
+          setIsThisTrackActive(true);
+        }
+      };
+      setupScreen();
+
+      return () => {
+        TrackPlayer.stop();
+        TrackPlayer.reset();
+        setIsThisTrackActive(false);
+      };
+    }, [])
+  );
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={togglePlayback}
+          style={{ marginRight: SIZES.width * 0.04 }}>
+          <Icon
+            type="material"
+            name={isPlaying ? 'pause' : 'play-arrow'}
+            size={fontPixel(28)}
+            color={colors.colors.accent}
+          />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation, isPlaying, colors, fontPixel, SIZES]);
+
+  const togglePlayback = async () => {
+    try {
+      await TrackPlayer.setupPlayer({});
+      const currentTrack = await TrackPlayer.getActiveTrack();
+
+      if (currentTrack?.id !== namesTrack.id) {
+        await TrackPlayer.reset();
+        await TrackPlayer.add(namesTrack);
+        await TrackPlayer.play();
+        setIsThisTrackActive(true);
+      } else {
+        if (isPlaying) {
+          await TrackPlayer.pause();
+        } else {
+          await TrackPlayer.play();
+        }
+      }
+    } catch (error) {
+      console.error("Error during playback toggle: ", error);
+    }
+  };
 
   const handleNamePress = item => {
     console.log('Pressed:', item.transliteration);
@@ -108,4 +199,3 @@ const getStyles = ({ colors, fontPixel, SIZES }) =>
   });
 
 export default Names;
-

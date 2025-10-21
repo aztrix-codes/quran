@@ -164,6 +164,8 @@ const Home = ({ navigation }) => {
         contentContainerStyle={styles.listContentContainer}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         showsVerticalScrollIndicator={false}
+        overScrollMode='never'
+        bounces={false}
       />
     </View>
   );
@@ -176,11 +178,11 @@ const getStyles = ({ colors, fontPixel, SIZES }) =>
       backgroundColor: colors.bgPrimary,
     },
     listContentContainer: {
-      paddingBottom: SIZES.height * 0.02,
+      paddingBottom: SIZES.height * 0.005,
     },
     headerContainer: {
       paddingHorizontal: SIZES.width * 0.04,
-      paddingTop: SIZES.height * 0.02,
+      paddingTop: SIZES.height * 0.003,
       paddingBottom: SIZES.height * 0.02,
     },
     continueCard: {
