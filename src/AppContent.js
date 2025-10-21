@@ -30,26 +30,28 @@ const AppContent = () => {
   }, [colors]);
 
   useEffect(() => {
-    const setupPlayer = async () => {
-      await TrackPlayer.setupPlayer({});
-      await TrackPlayer.updateOptions({
-        capabilities: [
-          Capability.Play,
-          Capability.Pause,
-          Capability.SkipToNext,
-          Capability.SkipToPrevious,
-          Capability.Stop,
-        ],
-        compactCapabilities: [
-          Capability.Play,
-          Capability.Pause,
-          Capability.SkipToNext,
-          Capability.SkipToPrevious,
-        ],
-      });
-    };
-    setupPlayer();
-  }, []);
+  const setupPlayer = async () => {
+    await TrackPlayer.setupPlayer({
+      waitForBuffer: true,
+    });
+    await TrackPlayer.updateOptions({
+      capabilities: [
+        Capability.Play,
+        Capability.Pause,
+        Capability.SkipToNext,
+        Capability.SkipToPrevious,
+        Capability.Stop,
+      ],
+      compactCapabilities: [
+        Capability.Play,
+        Capability.Pause,
+        Capability.SkipToNext,
+        Capability.SkipToPrevious,
+      ],
+    });
+  };
+  setupPlayer();
+}, []);
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.colors.bgPrimary }}>

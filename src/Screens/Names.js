@@ -12,8 +12,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import TrackPlayer, {
   State,
   usePlaybackState,
-  useTrackPlayerEvents,
-  Event,
+  Capability,
 } from 'react-native-track-player';
 import Icon from '../Components/Icon';
 
@@ -50,45 +49,62 @@ const Names = ({ navigation }) => {
 
   const isPlaying =
     isThisTrackActive &&
-    (playbackState.state === State.Playing ||
-      playbackState.state === State.Buffering);
-
-  useTrackPlayerEvents([Event.PlaybackTrackChanged], async event => {
-    if (event.type === Event.PlaybackTrackChanged) {
-      const currentTrack = await TrackPlayer.getActiveTrack();
-      setIsThisTrackActive(currentTrack?.id === namesTrack.id);
-    }
-  });
+    (playbackState?.state === State.Playing ||
+      playbackState?.state === State.Buffering);
 
   useFocusEffect(
     useCallback(() => {
       const setupScreen = async () => {
-        await TrackPlayer.setupPlayer({});
-        const currentTrack = await TrackPlayer.getActiveTrack();
-        if (currentTrack?.id !== namesTrack.id) {
-          await TrackPlayer.stop();
-          await TrackPlayer.reset();
-          setIsThisTrackActive(false);
-        } else {
-          setIsThisTrackActive(true);
+        try {
+          await TrackPlayer.updateOptions({
+            capabilities: [Capability.Play, Capability.Pause, Capability.Stop],
+            compactCapabilities: [Capability.Play, Capability.Pause],
+          });
+
+          const currentTrack = await TrackPlayer.getActiveTrack();
+          if (currentTrack?.id !== namesTrack.id) {
+            await TrackPlayer.stop();
+            await TrackPlayer.reset();
+            setIsThisTrackActive(false);
+          } else {
+            setIsThisTrackActive(true);
+          }
+        } catch (error) {
+          console.error('Error in setupScreen:', error);
         }
       };
       setupScreen();
 
       return () => {
-        TrackPlayer.stop();
-        TrackPlayer.reset();
-        setIsThisTrackActive(false);
+        if (isThisTrackActive) {
+          TrackPlayer.stop();
+          TrackPlayer.reset();
+          setIsThisTrackActive(false);
+        }
+
+        TrackPlayer.updateOptions({
+          capabilities: [
+            Capability.Play,
+            Capability.Pause,
+            Capability.SkipToNext,
+            Capability.SkipToPrevious,
+            Capability.Stop,
+          ],
+          compactCapabilities: [
+            Capability.Play,
+            Capability.Pause,
+            Capability.SkipToNext,
+            Capability.SkipToPrevious,
+          ],
+        });
       };
-    }, [])
+    }, [isThisTrackActive]),
   );
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity
-          onPress={togglePlayback}
-          style={{ marginRight: SIZES.width * 0.04 }}>
+        <TouchableOpacity onPress={togglePlayback}>
           <Icon
             type="material"
             name={isPlaying ? 'pause' : 'play-arrow'}
@@ -102,7 +118,6 @@ const Names = ({ navigation }) => {
 
   const togglePlayback = async () => {
     try {
-      await TrackPlayer.setupPlayer({});
       const currentTrack = await TrackPlayer.getActiveTrack();
 
       if (currentTrack?.id !== namesTrack.id) {
@@ -118,7 +133,7 @@ const Names = ({ navigation }) => {
         }
       }
     } catch (error) {
-      console.error("Error during playback toggle: ", error);
+      console.error('Error during playback toggle:', error);
     }
   };
 
