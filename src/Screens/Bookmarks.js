@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   View,
   Text,
@@ -9,9 +9,10 @@ import {
   Platform,
   UIManager,
 } from 'react-native';
-import { useStyle } from '../Context/StyleContext';
-import { useSurahData } from '../Hooks/useSurahData';
-import Icon from '../Components/Icon';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useStyle } from '../Context/StyleContext'; 
+import { useSurahData } from '../Hooks/useSurahData'; 
+import Icon from '../Components/Icon'; 
 
 if (
   Platform.OS === 'android' &&
@@ -20,24 +21,19 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-const DUMMY_BOOKMARKS = [
-  { id: 1, surahId: 2, verseId: 255 },
-  { id: 2, surahId: 18, verseId: 10 },
-  { id: 3, surahId: 114, verseId: 1 },
-];
-
 const BookmarkItem = ({
   item,
   colors,
   fontPixel,
   SIZES,
+  fontSizes,
   onPress,
   onRemovePress,
   isConfirming,
   onConfirmDelete,
   onCancelDelete,
 }) => {
-  const styles = getStyles({ colors, fontPixel, SIZES });
+  const styles = getStyles({ colors, fontPixel, SIZES, fontSizes });
 
   const handleRemovePress = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -59,48 +55,38 @@ const BookmarkItem = ({
         <View style={styles.textContainer}>
           <Text style={styles.titleText}>{item.arabicName}</Text>
           <Text style={styles.subtitleText}>
-            {`Surah ${item.surahId}:${item.verseId} - ${item.surahName}`}
+            {`${item.surahName}, ${item.surahId}:${item.verseId}`}
           </Text>
         </View>
       </TouchableOpacity>
-
       <View style={styles.actionsContainer}>
         {isConfirming ? (
           <>
             <TouchableOpacity
-              style={[styles.actionButton, styles.confirmButton]}
+              style={[styles.pillButton, styles.confirmPillButton]}
               onPress={handleConfirmPress}
             >
-              <Icon
-                type="feather"
-                name="check"
-                size={fontPixel(18)}
-                color={'#4CAF50'}
-              />
+              <Text style={[styles.pillButtonText, styles.confirmPillText]}>
+                Confirm
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.actionButton, styles.cancelButton]}
+              style={[styles.pillButton, styles.cancelPillButton]}
               onPress={handleCancelPress}
             >
-              <Icon
-                type="feather"
-                name="x"
-                size={fontPixel(18)}
-                color={'#F44336'}
-              />
+              <Text style={[styles.pillButtonText, styles.cancelPillText]}>
+                Cancel
+              </Text>
             </TouchableOpacity>
           </>
         ) : (
           <TouchableOpacity
-            style={styles.actionButton}
+            style={[styles.pillButton, styles.removeButton]}
             onPress={handleRemovePress}
           >
-            <Icon
-              type="feather"
-              name="x-circle"
-              size={fontPixel(18)}
-              color={colors.textSecondary}
-            />
+            <Text style={[styles.pillButtonText, styles.removeButtonText]}>
+              Remove
+            </Text>
           </TouchableOpacity>
         )}
       </View>
@@ -109,21 +95,40 @@ const BookmarkItem = ({
 };
 
 const Bookmarks = ({ navigation }) => {
-  const { colors, fontPixel, SIZES } = useStyle();
-  const [bookmarks, setBookmarks] = useState(DUMMY_BOOKMARKS);
-  const [itemToConfirmDelete, setItemToConfirmDelete] = useState(null);
+  const { colors, fontPixel, SIZES, fontSizes } = useStyle();
   const allSurahData = useSurahData();
+  const [bookmarks, setBookmarks] = useState([]);
+  const [itemToConfirmDelete, setItemToConfirmDelete] = useState(null);
+
+  useEffect(() => {
+    const loadBookmarks = async () => {
+      try {
+        const storedBookmarks = await AsyncStorage.getItem('bookmarks');
+        const bookmarkList = storedBookmarks ? JSON.parse(storedBookmarks) : [];
+        setBookmarks(bookmarkList);
+      } catch (error) {
+        console.error('Error loading bookmarks:', error);
+      }
+    };
+    loadBookmarks();
+  }, []);
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: `Bookmarks (${bookmarks.length})`,
+    });
+  }, [navigation, bookmarks.length]);
 
   const processedBookmarks = useMemo(() => {
-    if (allSurahData.length === 0) return [];
-    return bookmarks.map(bookmark => {
-      const surahInfo = allSurahData.find(s => s.id === bookmark.surahId);
-      return {
-        ...bookmark,
-        surahName: surahInfo ? surahInfo.transliteration : '',
-        arabicName: surahInfo ? surahInfo.name : '',
-      };
-    });
+    if (allSurahData.length === 0) return bookmarks;
+    return bookmarks.map(bookmark => ({
+      ...bookmark,
+      surahName:
+        allSurahData.find(s => s.id === bookmark.surahId)?.transliteration ||
+        'Unknown',
+      arabicName:
+        allSurahData.find(s => s.id === bookmark.surahId)?.name || 'غير معروف',
+    }));
   }, [bookmarks, allSurahData]);
 
   const handleNavigation = item => {
@@ -133,24 +138,31 @@ const Bookmarks = ({ navigation }) => {
     });
   };
 
-  const handleRemove = id => {
-    setBookmarks(prev => prev.filter(item => item.id !== id));
-    setItemToConfirmDelete(null);
+  const handleRemove = async id => {
+    try {
+      const updatedBookmarks = bookmarks.filter(item => item.id !== id);
+      await AsyncStorage.setItem('bookmarks', JSON.stringify(updatedBookmarks));
+      setBookmarks(updatedBookmarks);
+      setItemToConfirmDelete(null);
+    } catch (error) {
+      console.error('Error removing bookmark:', error);
+    }
   };
 
-  const styles = getStyles({ colors: colors.colors, fontPixel, SIZES });
+  const styles = getStyles({ colors, fontPixel, SIZES, fontSizes });
 
   return (
     <View style={styles.container}>
       <FlatList
         data={processedBookmarks}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={item => item.id}
         renderItem={({ item }) => (
           <BookmarkItem
             item={item}
-            colors={colors.colors}
+            colors={colors}
             fontPixel={fontPixel}
             SIZES={SIZES}
+            fontSizes={fontSizes}
             onPress={() => handleNavigation(item)}
             onRemovePress={setItemToConfirmDelete}
             isConfirming={itemToConfirmDelete === item.id}
@@ -163,35 +175,36 @@ const Bookmarks = ({ navigation }) => {
             <Icon
               type="feather"
               name="bookmark"
-              size={fontPixel(50)}
-              color={colors.textSecondary}
+              size={fontPixel(48)}
+              color={colors.colors.textSecondary}
             />
             <Text style={styles.emptyText}>No Bookmarks Yet</Text>
             <Text style={styles.emptySubtext}>
-              You can add bookmarks from the player screen.
+              Add bookmarks from the Player screen.
             </Text>
           </View>
         }
         contentContainerStyle={
-          bookmarks.length === 0
+          processedBookmarks.length === 0
             ? styles.emptyListContainer
             : styles.listContentContainer
         }
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
         showsVerticalScrollIndicator={false}
       />
     </View>
   );
 };
 
-const getStyles = ({ colors, fontPixel, SIZES }) =>
+const getStyles = ({ colors, fontPixel, SIZES, fontSizes }) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: colors.bgPrimary,
+      backgroundColor: colors.colors.bgPrimary,
     },
     listContentContainer: {
-      padding: SIZES.width * 0.04,
+      paddingHorizontal: SIZES.width * 0.04,
+      paddingVertical: SIZES.height * 0.01,
+      paddingBottom: SIZES.height * 0.1,
     },
     emptyListContainer: {
       flex: 1,
@@ -201,58 +214,91 @@ const getStyles = ({ colors, fontPixel, SIZES }) =>
     emptyContainer: {
       justifyContent: 'center',
       alignItems: 'center',
-      padding: 20,
+      padding: SIZES.width * 0.1,
+      opacity: 0.8,
     },
     emptyText: {
-      color: colors.textPrimary,
-      fontSize: fontPixel(18),
+      color: colors.colors.textPrimary,
+      fontSize: fontPixel(fontSizes.translationEn + 2),
       fontWeight: '600',
-      marginTop: 16,
+      marginTop: SIZES.height * 0.03,
+      textAlign: 'center',
     },
     emptySubtext: {
-      color: colors.textSecondary,
-      fontSize: fontPixel(14),
-      marginTop: 4,
+      color: colors.colors.textSecondary,
+      fontSize: fontPixel(fontSizes.translationEn - 2),
+      marginTop: SIZES.height * 0.01,
+      textAlign: 'center',
+      opacity: 0.8,
     },
     cardContainer: {
-      backgroundColor: colors.bgSecondary,
-      borderRadius: 12,
+      backgroundColor: colors.colors.bgSecondary,
+      borderRadius: 16,
+      paddingVertical: SIZES.height * 0.01, 
+      paddingHorizontal: SIZES.width * 0.03,
+      marginVertical: SIZES.height * 0.008,
       flexDirection: 'row',
       alignItems: 'center',
-      paddingLeft: SIZES.width * 0.04,
+      justifyContent: 'space-between',
+      borderWidth: 1, 
+      borderColor: colors.colors.border, 
+
     },
     cardPressable: {
       flex: 1,
-      paddingVertical: SIZES.height * 0.015,
     },
     textContainer: {
       flex: 1,
+      marginRight: SIZES.width * 0.03, 
     },
     titleText: {
-      color: colors.accent,
-      fontSize: fontPixel(20),
-      marginBottom: 3,
+      color: colors.colors.textPrimary,
+      fontSize: fontPixel(22),
+      fontWeight: '500',
       textAlign: 'left',
     },
     subtitleText: {
-      color: colors.textSecondary,
-      fontSize: fontPixel(12),
+      color: colors.colors.textSecondary,
+      fontSize: fontPixel(14),
+      textAlign: 'left',
     },
     actionsContainer: {
       flexDirection: 'row',
+      alignItems: 'center',
+    },
+    pillButton: {
+      borderRadius: 24,
+      paddingVertical: SIZES.height * 0.005,
       paddingHorizontal: SIZES.width * 0.03,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginHorizontal: SIZES.width * 0.01,
+      borderWidth: 1, 
     },
-    actionButton: {
-      padding: SIZES.width * 0.02,
+    pillButtonText: {
+      fontSize: fontPixel(fontSizes.translationEn - 2),
+      fontWeight: '400',
     },
-    confirmButton: {
-      marginRight: SIZES.width * 0.01,
+    removeButton: {
+      backgroundColor: 'transparent',
+      borderColor: colors.colors.textSecondary,
     },
-    cancelButton: {
-      marginLeft: SIZES.width * 0.01,
+    removeButtonText: {
+      color: colors.colors.textSecondary,
     },
-    separator: {
-      height: SIZES.height * 0.015,
+    confirmPillButton: {
+      backgroundColor: colors.colors.accent,
+      borderColor: colors.colors.accent,
+    },
+    confirmPillText: {
+      color: colors.colors.bgPrimary, 
+    },
+    cancelPillButton: {
+      backgroundColor: 'transparent',
+      borderColor: colors.colors.textSecondary,
+    },
+    cancelPillText: {
+      color: colors.colors.textSecondary,
     },
   });
 
