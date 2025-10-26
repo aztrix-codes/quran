@@ -21,6 +21,17 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
+const fixedBookmarksData = [
+  {
+    id: 'fixed-ayatul-kursi',
+    surahId: 2,
+    verseId: 255,
+    displayName: 'Ayat ul Kursi',
+    arabicName: 'آية الكرسي',
+    surahName: 'Al-Baqarah',
+  },
+];
+
 const BookmarkItem = ({
   item,
   colors,
@@ -53,43 +64,47 @@ const BookmarkItem = ({
     <View style={styles.cardContainer}>
       <TouchableOpacity style={styles.cardPressable} onPress={onPress}>
         <View style={styles.textContainer}>
-          <Text style={styles.titleText}>{item.arabicName}</Text>
+          <Text style={styles.titleText}>
+            {item.displayName || item.arabicName}
+          </Text>
           <Text style={styles.subtitleText}>
             {`${item.surahName}, ${item.surahId}:${item.verseId}`}
           </Text>
         </View>
       </TouchableOpacity>
-      <View style={styles.actionsContainer}>
-        {isConfirming ? (
-          <>
+      {!item.isFixed && (
+        <View style={styles.actionsContainer}>
+          {isConfirming ? (
+            <>
+              <TouchableOpacity
+                style={[styles.pillButton, styles.cancelPillButton]}
+                onPress={handleCancelPress}
+              >
+                <Text style={[styles.pillButtonText, styles.cancelPillText]}>
+                  Cancel
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.pillButton, styles.confirmPillButton]}
+                onPress={handleConfirmPress}
+              >
+                <Text style={[styles.pillButtonText, styles.confirmPillText]}>
+                  Confirm
+                </Text>
+              </TouchableOpacity>
+            </>
+          ) : (
             <TouchableOpacity
-              style={[styles.pillButton, styles.confirmPillButton]}
-              onPress={handleConfirmPress}
+              style={[styles.pillButton, styles.removeButton]}
+              onPress={handleRemovePress}
             >
-              <Text style={[styles.pillButtonText, styles.confirmPillText]}>
-                Confirm
+              <Text style={[styles.pillButtonText, styles.removeButtonText]}>
+                Remove
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.pillButton, styles.cancelPillButton]}
-              onPress={handleCancelPress}
-            >
-              <Text style={[styles.pillButtonText, styles.cancelPillText]}>
-                Cancel
-              </Text>
-            </TouchableOpacity>
-          </>
-        ) : (
-          <TouchableOpacity
-            style={[styles.pillButton, styles.removeButton]}
-            onPress={handleRemovePress}
-          >
-            <Text style={[styles.pillButtonText, styles.removeButtonText]}>
-              Remove
-            </Text>
-          </TouchableOpacity>
-        )}
-      </View>
+          )}
+        </View>
+      )}
     </View>
   );
 };
@@ -113,23 +128,40 @@ const Bookmarks = ({ navigation }) => {
     loadBookmarks();
   }, []);
 
-  useEffect(() => {
-    navigation.setOptions({
-      title: `Bookmarks (${bookmarks.length})`,
-    });
-  }, [navigation, bookmarks.length]);
 
   const processedBookmarks = useMemo(() => {
-    if (allSurahData.length === 0) return bookmarks;
-    return bookmarks.map(bookmark => ({
-      ...bookmark,
-      surahName:
-        allSurahData.find(s => s.id === bookmark.surahId)?.transliteration ||
-        'Unknown',
-      arabicName:
-        allSurahData.find(s => s.id === bookmark.surahId)?.name || 'غير معروف',
-    }));
+    let combinedList = fixedBookmarksData.map(fixed => {
+       const surahInfo = allSurahData.find(s => s.id === fixed.surahId);
+       return {
+         ...fixed,
+         surahName: surahInfo?.transliteration || fixed.surahName,
+         arabicName: surahInfo?.name || fixed.arabicName,
+         isFixed: true,
+       };
+    });
+
+    if (allSurahData.length > 0) {
+        const userBookmarksProcessed = bookmarks.map(bookmark => ({
+          ...bookmark,
+          surahName:
+            allSurahData.find(s => s.id === bookmark.surahId)?.transliteration ||
+            'Unknown',
+          arabicName:
+            allSurahData.find(s => s.id === bookmark.surahId)?.name || 'غير معروف',
+          isFixed: false,
+        }));
+        combinedList = [...combinedList, ...userBookmarksProcessed];
+    } else {
+        combinedList = [...combinedList, ...bookmarks.map(b => ({...b, isFixed: false}))];
+    }
+    return combinedList;
   }, [bookmarks, allSurahData]);
+
+   useEffect(() => {
+     navigation.setOptions({
+       title: `Bookmarks (${bookmarks.length})`, 
+     });
+   }, [navigation, bookmarks.length]);
 
   const handleNavigation = item => {
     navigation.navigate('Player', {
