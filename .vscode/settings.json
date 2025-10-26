@@ -1,0 +1,19 @@
+{
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.profiles.windows": {
+        "PowerShell": {
+            "source": "PowerShell",
+            "args": ["-NoExit", "-Command", ". .\\run.ps1"]
+        }
+    },
+    "terminal.integrated.profiles.osx": {
+        "zsh": {
+            "path": "/bin/zsh",
+            "args": ["-c", "source ./run.sh"]
+        },
+        "bash": {
+            "path": "/bin/bash",
+            "args": ["-c", "source ./run.sh"]
+        }
+    }
+}
