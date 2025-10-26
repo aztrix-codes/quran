@@ -46,7 +46,7 @@ const HomeHeader = ({ colors, fontPixel, SIZES, navigation }) => {
 
   return (
     <View style={styles.headerContainer}>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.continueCard}
         onPress={() => navigation.navigate('Player')}
       >
@@ -57,7 +57,7 @@ const HomeHeader = ({ colors, fontPixel, SIZES, navigation }) => {
           color={colors.accent}
         />
         <View style={styles.continueTextContainer}>
-          <Text style={styles.continueTitle}>Continue Listening/Reading</Text>
+          <Text style={styles.continueTitle}>Continue Listening</Text>
           <Text style={styles.continueSubtitle}>
             Surah Al-Baqarah, Verse 255
           </Text>
@@ -68,7 +68,7 @@ const HomeHeader = ({ colors, fontPixel, SIZES, navigation }) => {
           size={fontPixel(24)}
           color={colors.textSecondary}
         />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <View style={styles.buttonRow}>
         <TouchableOpacity
@@ -91,8 +91,8 @@ const HomeHeader = ({ colors, fontPixel, SIZES, navigation }) => {
           onPress={() => navigation.navigate('Bookmarks')}
         >
           <Icon
-            type="feather"
-            name="bookmark"
+            type="MaterialIcons"
+            name="bookmarks"
             size={fontPixel(20)}
             color={colors.accent}
           />

@@ -9,7 +9,12 @@ import {
   Pressable,
   Animated,
 } from 'react-native';
-import TrackPlayer, { useProgress, Event, State, usePlaybackState } from 'react-native-track-player';
+import TrackPlayer, {
+  useProgress,
+  Event,
+  State,
+  usePlaybackState,
+} from 'react-native-track-player';
 import { useStyle } from '../Context/StyleContext';
 import { useSurahData } from '../Hooks/useSurahData';
 import Icon from '../Components/Icon';
@@ -150,6 +155,338 @@ const formatTime = seconds => {
   return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 };
 
+const VerseItem = memo(({ item: verse, verseNumber, surahId, active, activeSegmentIndex, onPressVerse, allSurahData }) => {
+  const { colors, fontSizes, displayOptions, fontPixel, SIZES } = useStyle();
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const styles = getStyles({ colors: colors.colors, fontPixel, SIZES, fontSizes });
+  const isSajdah = sajdahVerses.has(`${surahId}:${verse.id}`);
+
+  const segments = verse?.segment ?? [];
+  const transliteration = verse?.transliterationEn ?? '';
+  const urduTransliteration = verse?.urduTansilerationEn ?? '';
+
+  useEffect(() => {
+    const checkBookmark = async () => {
+      try {
+        const bookmarks = await AsyncStorage.getItem('bookmarks');
+        const bookmarkList = bookmarks ? JSON.parse(bookmarks) : [];
+        const isBookmarked = bookmarkList.some(
+          bookmark => bookmark.surahId === surahId && bookmark.verseId === verse.id
+        );
+        setIsBookmarked(isBookmarked);
+      } catch (error) {
+        console.error('Error checking bookmark:', error);
+      }
+    };
+    checkBookmark();
+  }, [surahId, verse.id]);
+
+  const toggleBookmark = async () => {
+    try {
+      const bookmarks = await AsyncStorage.getItem('bookmarks');
+      let bookmarkList = bookmarks ? JSON.parse(bookmarks) : [];
+      const surahInfo = allSurahData.find(s => s.id === surahId);
+      const bookmark = {
+        id: `${surahId}:${verse.id}`,
+        surahId,
+        verseId: verse.id,
+        verseNumber,
+        arabicName: surahInfo?.name || '',
+        surahName: surahInfo?.transliteration || '',
+        arabicText: segments.join(' '),
+        translationUr: verse.translationUr || '',
+        translationEn: verse.translationEn || '',
+        transliterationEn: transliteration,
+        timestamp: new Date().toISOString(),
+      };
+
+      if (isBookmarked) {
+        bookmarkList = bookmarkList.filter(
+          b => !(b.surahId === surahId && b.verseId === verse.id)
+        );
+      } else {
+        bookmarkList.push(bookmark);
+      }
+
+      await AsyncStorage.setItem('bookmarks', JSON.stringify(bookmarkList));
+      setIsBookmarked(!isBookmarked);
+    } catch (error) {
+      console.error('Error toggling bookmark:', error);
+    }
+  };
+
+
+  return (
+    <Pressable style={[styles.verseCard, active && styles.activeVerseCard]} onPress={() => onPressVerse && onPressVerse(verse)}>
+      <View style={styles.verseHeader}>
+        <Text style={styles.verseNumber}>{verseNumber}</Text>
+        {isSajdah && <Text style={styles.sajdahText}>سجدہ</Text>}
+        <TouchableOpacity onPress={toggleBookmark}>
+          <Icon
+            name={isBookmarked ? 'bookmark-check' : 'bookmark-outline'}
+            type="materialcommunity"
+            size={fontPixel(24)}
+            color={colors.colors.accent}
+          />
+        </TouchableOpacity>
+      </View>
+      {displayOptions.showArabic && (
+        <Text style={styles.verseArabic}>
+          {segments.map((seg, idx) => (
+            <Text
+              key={idx}
+              style={active && idx === activeSegmentIndex ? styles.activeSegment : null}
+            >
+              {seg}{' '}
+            </Text>
+          ))}
+          <Text style={styles.arabicVerseEnd}>{` \u06DD${toUrduNumerals(verse.id)}`}</Text>
+        </Text>
+      )}
+      {displayOptions.showTranslationUr && (
+        <Text style={styles.verseUrdu}>{verse.translationUr}</Text>
+      )}
+      {displayOptions.showTransliterationEn && (
+        <Text style={styles.verseTransliteration}>{transliteration}</Text>
+      )}
+      {displayOptions.showTranslationEn && (
+        <Text style={styles.verseTranslation}>{verse.translationEn}</Text>
+      )}
+      {displayOptions.showTransliterationUr && urduTransliteration && (
+        <Text style={styles.verseUrduTransliteration}>{urduTransliteration}</Text>
+      )}
+    </Pressable>
+  );
+});
+
+const FooterControls = ({
+  onPrevious,
+  onNext,
+  isBeginning,
+  isEnd,
+  isPlaying,
+  onPlayPause,
+  position,
+  duration,
+  onNavigateBookmarks,
+  onNavigateTheme,
+}) => {
+  const { colors, fontPixel, SIZES, fontSizes } = useStyle();
+  const styles = getStyles({ colors: colors.colors, fontPixel, SIZES, fontSizes });
+  const progressAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    let progressPercentage = 0;
+    if (duration > 0) {
+      progressPercentage = (position / duration) * 100;
+    }
+    Animated.timing(progressAnim, {
+      toValue: progressPercentage,
+      duration: 50,
+      useNativeDriver: false,
+    }).start();
+  }, [position, duration, progressAnim]);
+
+  const handleSeekPress = async (e) => {
+    const x = e.nativeEvent.locationX;
+    const newPosition = (x / SCREEN_WIDTH) * duration;
+    await TrackPlayer.seekTo(newPosition / 1000);
+  };
+
+  return (
+    <View style={styles.footerContainer}>
+      <TouchableOpacity onPress={handleSeekPress} activeOpacity={0.7}>
+        <View style={styles.sliderContainer}>
+          <View style={styles.sliderTrack}>
+            <Animated.View
+              style={[styles.sliderProgress, {
+                width: progressAnim.interpolate({
+                  inputRange: [0, 100],
+                  outputRange: ['0%', '100%'],
+                  extrapolate: 'clamp',
+                })
+              }]}
+            />
+          </View>
+        </View>
+      </TouchableOpacity>
+      <View style={styles.sliderRow}>
+        <Text style={styles.timeText}>{formatTime(position / 1000)}</Text>
+        <Text style={styles.timeText}>{formatTime(duration / 1000)}</Text>
+      </View>
+      <View style={styles.controlsRow}>
+        <TouchableOpacity style={styles.controlButton} onPress={onNavigateTheme}>
+          <Icon
+            name="palette"
+            type="materialcommunity"
+            size={fontPixel(26)}
+            color={colors.colors.textSecondary}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.controlButton} onPress={onPrevious} disabled={isBeginning}>
+          <Icon
+            name="skip-previous"
+            type="materialcommunity"
+            size={fontPixel(32)}
+            color={isBeginning ? colors.colors.border : colors.colors.textPrimary}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.controlButton} onPress={onPlayPause}>
+          <MaterialIcon
+            name={isPlaying ? 'pause' : 'play-arrow'}
+            size={fontPixel(38)}
+            color={colors.colors.accent}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.controlButton} onPress={onNext} disabled={isEnd}>
+          <Icon
+            name="skip-next"
+            type="materialcommunity"
+            size={fontPixel(32)}
+            color={isEnd ? colors.colors.border : colors.colors.textPrimary}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.controlButton} onPress={onNavigateBookmarks}>
+          <Icon
+            name="bookmarks"
+            type="MaterialIcons"
+            size={fontPixel(24)}
+            color={colors.colors.textSecondary}
+          />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
+const Bismillah = memo(({ styles }) => (
+  <View style={styles.headerFrame}>
+    <View style={styles.bismillahContainer}>
+      <Text style={styles.bismillahText}>
+        بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+      </Text>
+    </View>
+  </View>
+));
+
+const ShimmerLine = ({ style }) => {
+  const { colors } = useStyle();
+  const animatedValue = useRef(new Animated.Value(-1)).current;
+
+  useEffect(() => {
+    Animated.loop(
+      Animated.timing(animatedValue, {
+        toValue: 1,
+        duration: 1200,
+        useNativeDriver: true,
+      })
+    ).start();
+  }, [animatedValue]);
+
+  const translateX = animatedValue.interpolate({
+    inputRange: [-1, 1],
+    outputRange: [-SCREEN_WIDTH, SCREEN_WIDTH],
+  });
+
+  return (
+    <View
+      style={[
+        {
+          overflow: 'hidden',
+          backgroundColor: colors.colors.border || '#e0e0e0',
+          borderRadius: 4,
+        },
+        style,
+      ]}
+    >
+      <Animated.View
+        style={{
+          ...StyleSheet.absoluteFill,
+          backgroundColor: colors.colors.bgSecondary || '#f0f0f0',
+          opacity: 0.5,
+          transform: [{ translateX }],
+        }}
+      />
+    </View>
+  );
+};
+
+const PlayerShimmer = ({ surahId, allSurahData }) => {
+  const { colors, fontPixel, SIZES, fontSizes } = useStyle();
+  const styles = getStyles({
+    colors: colors.colors,
+    fontPixel,
+    SIZES,
+    fontSizes,
+  });
+
+  const surahInfo = allSurahData?.find(s => s.id === surahId);
+  const bismillah_pre = surahInfo?.bismillah_pre ?? surahId !== 9;
+  const verseCount = surahInfo?.total_verses ?? 10;
+
+  return (
+    <View style={{ flex: 1, backgroundColor: colors.colors.bgPrimary }}>
+      <FlatList
+        data={Array.from({ length: verseCount })}
+        keyExtractor={(_, index) => index.toString()}
+        ListHeaderComponent={bismillah_pre ? <Bismillah styles={styles} /> : null}
+        renderItem={() => (
+          <View style={styles.verseCard}>
+            <View style={styles.verseHeader}>
+              <ShimmerLine
+                style={{ width: fontPixel(30), height: fontPixel(20) }}
+              />
+              <ShimmerLine
+                style={{
+                  width: fontPixel(50),
+                  height: fontPixel(20),
+                  position: 'absolute',
+                  left: '50%',
+                }}
+              />
+              <ShimmerLine
+                style={{ width: fontPixel(24), height: fontPixel(24) }}
+              />
+            </View>
+            <ShimmerLine
+              style={{
+                height: fontPixel(fontSizes.arabic || 24),
+                width: '100%',
+                marginBottom: SIZES.height * 0.015,
+              }}
+            />
+            <ShimmerLine
+              style={{
+                height: fontPixel(fontSizes.translationUr || 20),
+                width: '90%',
+                alignSelf: 'flex-end',
+                marginBottom: SIZES.height * 0.02,
+              }}
+            />
+            <ShimmerLine
+              style={{
+                height: fontPixel(fontSizes.transliterationEn || 18),
+                width: '80%',
+                marginBottom: SIZES.height * 0.02,
+              }}
+            />
+            <ShimmerLine
+              style={{
+                height: fontPixel(fontSizes.translationEn || 18),
+                width: '95%',
+                marginBottom: SIZES.height * 0.01,
+              }}
+            />
+          </View>
+        )}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.verseListContainer}
+      />
+    </View>
+  );
+};
+
+
 const Player = ({ route, navigation }) => {
   const { surahId = 1, verseId } = route.params || {};
   const allSurahData = useSurahData();
@@ -160,347 +497,25 @@ const Player = ({ route, navigation }) => {
   const [activeSegmentIndex, setActiveSegmentIndex] = useState(-1);
   const [wasPlaying, setWasPlaying] = useState(false);
   const [initialVerseId, setInitialVerseId] = useState(verseId || null);
-  const [isLoading, setIsLoading] = useState(false);
-  const horizontalListRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const verticalListRef = useRef(null);
   const lastActiveVerseRef = useRef(null);
+  const scrollRetry = useRef(null);
+
   const playbackState = usePlaybackState();
   const { position, duration } = useProgress(50);
   const { colors, fontPixel, SIZES, fontSizes } = useStyle();
-
-  const isPlaying = playbackState.state === State.Playing || playbackState.state === State.Buffering;
-
-  const VerseItem = memo(({ item: verse, verseNumber, surahId, active, activeSegmentIndex, onLayout, onPressVerse }) => {
-    const { colors, fontSizes, displayOptions, fontPixel, SIZES } = useStyle();
-    const [isBookmarked, setIsBookmarked] = useState(false);
-    const styles = getStyles({ colors: colors.colors, fontPixel, SIZES, fontSizes });
-    const isSajdah = sajdahVerses.has(`${surahId}:${verse.id}`);
-
-    useEffect(() => {
-      const checkBookmark = async () => {
-        try {
-          const bookmarks = await AsyncStorage.getItem('bookmarks');
-          const bookmarkList = bookmarks ? JSON.parse(bookmarks) : [];
-          const isBookmarked = bookmarkList.some(
-            bookmark => bookmark.surahId === surahId && bookmark.verseId === verse.id
-          );
-          setIsBookmarked(isBookmarked);
-        } catch (error) {
-          console.error('Error checking bookmark:', error);
-        }
-      };
-      checkBookmark();
-    }, [surahId, verse.id]);
-
-    const toggleBookmark = async () => {
-      try {
-        const bookmarks = await AsyncStorage.getItem('bookmarks');
-        let bookmarkList = bookmarks ? JSON.parse(bookmarks) : [];
-        const bookmark = {
-          id: `${surahId}:${verse.id}`,
-          surahId,
-          verseId: verse.id,
-          verseNumber,
-          arabicName: allSurahData.find(s => s.id === surahId)?.name || '',
-          surahName: allSurahData.find(s => s.id === surahId)?.transliteration || '',
-          arabicText: verse.segement.join(' '),
-          translationUr: verse.translationUr || '',
-          translationEn: verse.translationEn || '',
-          transliterationEn: verse.transilerationEn || '',
-          timestamp: new Date().toISOString(),
-        };
-
-        if (isBookmarked) {
-          bookmarkList = bookmarkList.filter(
-            b => !(b.surahId === surahId && b.verseId === verse.id)
-          );
-        } else {
-          bookmarkList.push(bookmark);
-        }
-
-        await AsyncStorage.setItem('bookmarks', JSON.stringify(bookmarkList));
-        setIsBookmarked(!isBookmarked);
-      } catch (error) {
-        console.error('Error toggling bookmark:', error);
-      }
-    };
-
-    return (
-      <Pressable style={[styles.verseCard, active && styles.activeVerseCard]} onLayout={onLayout} onPress={() => onPressVerse && onPressVerse(verse)}>
-        <View style={styles.verseHeader}>
-          <Text style={styles.verseNumber}>{verseNumber}</Text>
-          {isSajdah && <Text style={styles.sajdahText}>سجدہ</Text>}
-          <TouchableOpacity onPress={toggleBookmark}>
-            <Icon
-              name={isBookmarked ? 'bookmark-check' : 'bookmark-outline'}
-              type="materialcommunity"
-              size={fontPixel(24)}
-              color={colors.colors.accent}
-            />
-          </TouchableOpacity>
-        </View>
-        {displayOptions.showArabic && (
-          <Text style={styles.verseArabic}>
-            {verse.segement.map((seg, idx) => (
-              <Text
-                key={idx}
-                style={active && idx === activeSegmentIndex ? styles.activeSegment : null}
-              >
-                {seg}{' '}
-              </Text>
-            ))}
-            <Text style={styles.arabicVerseEnd}>{` \u06DD${toUrduNumerals(verse.id)}`}</Text>
-          </Text>
-        )}
-        {displayOptions.showTranslationUr && (
-          <Text style={styles.verseUrdu}>{verse.translationUr}</Text>
-        )}
-        {displayOptions.showTransliterationEn && (
-          <Text style={styles.verseTransliteration}>{verse.transilerationEn}</Text>
-        )}
-        {displayOptions.showTranslationEn && (
-          <Text style={styles.verseTranslation}>{verse.translationEn}</Text>
-        )}
-      </Pressable>
-    );
+  const styles = getStyles({
+    colors: colors.colors,
+    fontPixel,
+    SIZES,
+    fontSizes,
   });
 
-  const SurahPage = memo(({ item: surah, activeVerseId, activeSegmentIndex, onPressVerse, isShimmer }) => {
-    const { colors, fontPixel, SIZES, fontSizes } = useStyle();
-    const styles = getStyles({ colors: colors.colors, fontPixel, SIZES, fontSizes });
-    const flatListRef = useRef(null);
-    const [itemHeights, setItemHeights] = useState([]);
-    const [bismillahHeight, setBismillahHeight] = useState(0);
-
-    useEffect(() => {
-      setItemHeights(new Array(surah.verses.length).fill(0));
-    }, [surah.id]);
-
-    const onVerseLayout = useCallback(
-      (index) => (event) => {
-        const { height } = event.nativeEvent.layout;
-        setItemHeights(prev => {
-          const newHeights = [...prev];
-          newHeights[index] = height;
-          return newHeights;
-        });
-      },
-      []
-    );
-
-    const onBismillahLayout = useCallback((event) => {
-      const { height } = event.nativeEvent.layout;
-      setBismillahHeight(height);
-    }, []);
-
-    useEffect(() => {
-      if (activeVerseId && flatListRef.current && itemHeights.length > 0 && !isShimmer) {
-        const index = activeVerseId - 1;
-        let offset = surah.bismillah_pre ? bismillahHeight : 0;
-        for (let i = 0; i < index && i < itemHeights.length; i++) {
-          offset += itemHeights[i] || 150;
-        }
-        flatListRef.current.scrollToOffset({
-          offset,
-          animated: true,
-        });
-      }
-    }, [activeVerseId, itemHeights, bismillahHeight, surah.bismillah_pre, isShimmer]);
-
-    const Bismillah = () => (
-      <View style={styles.headerFrame} onLayout={onBismillahLayout}>
-        <View style={styles.bismillahContainer}>
-          <Text style={styles.bismillahText}>بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</Text>
-        </View>
-      </View>
-    );
-
-    if (isShimmer) {
-      const animatedValue = useRef(new Animated.Value(-1)).current;
-      useEffect(() => {
-        Animated.loop(
-          Animated.timing(animatedValue, {
-            toValue: 1,
-            duration: 1200,
-            useNativeDriver: true,
-          })
-        ).start();
-      }, [animatedValue]);
-
-      const translateX = animatedValue.interpolate({
-        inputRange: [-1, 1],
-        outputRange: [-SCREEN_WIDTH, SCREEN_WIDTH],
-      });
-
-      const ShimmerLine = ({ style }) => (
-        <View style={[{ overflow: 'hidden', backgroundColor: colors.colors.border || '#e0e0e0', borderRadius: 4 }, style]}>
-          <Animated.View
-            style={{
-              ...StyleSheet.absoluteFill,
-              backgroundColor: colors.colors.bgSecondary || '#f0f0f0',
-              opacity: 0.5,
-              transform: [{ translateX }],
-            }}
-          />
-        </View>
-      );
-
-      return (
-        <View style={styles.surahPageContainer}>
-          <FlatList
-            ref={flatListRef}
-            bounces={false}
-            overScrollMode='never'
-            data={Array.from({ length: surah.verses.length })}
-            keyExtractor={(_, index) => index.toString()}
-            ListHeaderComponent={surah.bismillah_pre ? <Bismillah /> : null}
-            renderItem={() => (
-              <View style={styles.verseCard}>
-                <View style={styles.verseHeader}>
-                  <ShimmerLine style={{ width: fontPixel(30), height: fontPixel(20) }} />
-                  <ShimmerLine style={{ width: fontPixel(50), height: fontPixel(20), position: 'absolute', left: '50%' }} />
-                  <ShimmerLine style={{ width: fontPixel(24), height: fontPixel(24) }} />
-                </View>
-                <ShimmerLine style={{ height: fontPixel(fontSizes.arabic || 24), width: '100%', marginBottom: SIZES.height * 0.015 }} />
-                <ShimmerLine style={{ height: fontPixel(fontSizes.translationUr || 20), width: '90%', alignSelf: 'flex-end', marginBottom: SIZES.height * 0.02 }} />
-                <ShimmerLine style={{ height: fontPixel(fontSizes.transliterationEn || 18), width: '80%', marginBottom: SIZES.height * 0.02 }} />
-                <ShimmerLine style={{ height: fontPixel(fontSizes.translationEn || 18), width: '95%', marginBottom: SIZES.height * 0.01 }} />
-              </View>
-            )}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={styles.verseListContainer}
-            initialNumToRender={15}
-            maxToRenderPerBatch={10}
-            windowSize={10}
-          />
-        </View>
-      );
-    }
-
-    return (
-      <View style={styles.surahPageContainer}>
-        <FlatList
-          ref={flatListRef}
-          bounces={false}
-          overScrollMode='never'
-          data={surah.verses}
-          keyExtractor={v => v.id.toString()}
-          ListHeaderComponent={surah.bismillah_pre ? <Bismillah /> : null}
-          renderItem={({ item, index }) => (
-            <VerseItem
-              item={item}
-              surahId={surah.id}
-              verseNumber={`${surah.id}:${index + 1}`}
-              active={item.id === activeVerseId}
-              activeSegmentIndex={activeSegmentIndex}
-              onLayout={onVerseLayout(index)}
-              onPressVerse={onPressVerse}
-            />
-          )}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.verseListContainer}
-          initialNumToRender={15}
-          maxToRenderPerBatch={10}
-          windowSize={10}
-        />
-      </View>
-    );
-  });
-
-  const FooterControls = ({
-    onPrevious,
-    onNext,
-    isBeginning,
-    isEnd,
-    isPlaying,
-    onPlayPause,
-    position,
-    duration,
-    onNavigateBookmarks,
-    onNavigateTheme,
-  }) => {
-    const { colors, fontPixel, SIZES, fontSizes } = useStyle();
-    const styles = getStyles({ colors: colors.colors, fontPixel, SIZES, fontSizes });
-    const progressAnim = useRef(new Animated.Value(0)).current;
-
-    useEffect(() => {
-      if (duration > 0) {
-        const progressPercentage = (position / duration) * 100;
-        Animated.timing(progressAnim, {
-          toValue: progressPercentage,
-          duration: 50,
-          useNativeDriver: false,
-        }).start();
-      }
-    }, [position, duration, progressAnim]);
-
-    const handleSeekPress = async (e) => {
-      const x = e.nativeEvent.locationX;
-      const newPosition = (x / SIZES.width) * duration;
-      await TrackPlayer.seekTo(newPosition / 1000);
-    };
-
-    return (
-      <View style={styles.footerContainer}>
-        <TouchableOpacity onPress={handleSeekPress}>
-          <View style={styles.sliderContainer}>
-            <View style={styles.sliderTrack}>
-              <Animated.View
-                style={[styles.sliderProgress, { width: progressAnim.interpolate({
-                  inputRange: [0, 100],
-                  outputRange: ['0%', '100%'],
-                }) }]}
-              />
-            </View>
-          </View>
-        </TouchableOpacity>
-        <View style={styles.sliderRow}>
-          <Text style={styles.timeText}>{formatTime(position / 1000)}</Text>
-          <Text style={styles.timeText}>{formatTime(duration / 1000)}</Text>
-        </View>
-        <View style={styles.controlsRow}>
-          <TouchableOpacity style={styles.controlButton} onPress={onNavigateTheme}>
-            <Icon
-              name="palette"
-              type="materialcommunity"
-              size={fontPixel(28)}
-              color={colors.colors.textSecondary}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.controlButton} onPress={onPrevious} disabled={isBeginning}>
-            <Icon
-              name="skip-previous"
-              type="materialcommunity"
-              size={fontPixel(32)}
-              color={isBeginning ? colors.colors.border : colors.colors.textPrimary}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.controlButton} onPress={onPlayPause}>
-            <MaterialIcon
-              name={isPlaying ? 'pause' : 'play-arrow'}
-              size={fontPixel(38)}
-              color={colors.colors.accent}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.controlButton} onPress={onNext} disabled={isEnd}>
-            <Icon
-              name="skip-next"
-              type="materialcommunity"
-              size={fontPixel(32)}
-              color={isEnd ? colors.colors.border : colors.colors.textPrimary}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.controlButton} onPress={onNavigateBookmarks}>
-            <Icon
-              name="bookmark-plus"
-              type="materialcommunity"
-              size={fontPixel(28)}
-              color={colors.colors.textSecondary}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  };
+  const isPlaying =
+    playbackState.state === State.Playing ||
+    playbackState.state === State.Buffering;
 
   const createPlaylist = useCallback(() => {
     return allSurahData.map(surah => ({
@@ -508,17 +523,23 @@ const Player = ({ route, navigation }) => {
       url: surahAudioMap[surah.id],
       title: surah.name,
       artist: 'Quran',
-      duration: (surah.verse_timings[surah.verse_timings.length - 1]?.end || 0) / 1000,
+      duration:
+        (surah.verse_timings[surah.verse_timings.length - 1]?.end || 0) / 1000,
     }));
   }, [allSurahData]);
 
   useFocusEffect(
     useCallback(() => {
+      setIsLoading(true);
       const setupPlayer = async () => {
         try {
-          setIsLoading(true);
           await TrackPlayer.reset();
           const playlist = createPlaylist();
+          if (playlist.length === 0) {
+            console.error('Playlist is empty, cannot setup player.');
+            setIsLoading(false);
+            return;
+          }
           const initialIndex = allSurahData.findIndex(s => s.id === surahId);
           await TrackPlayer.add(playlist);
           await TrackPlayer.skip(initialIndex !== -1 ? initialIndex : 0);
@@ -541,32 +562,39 @@ const Player = ({ route, navigation }) => {
         TrackPlayer.reset();
         setIsTrackActive(false);
         setWasPlaying(false);
-        setIsLoading(false);
+        if (scrollRetry.current) {
+          clearTimeout(scrollRetry.current);
+          scrollRetry.current = null;
+        }
       };
     }, [isDataReady, allSurahData, surahId, createPlaylist])
   );
 
   useEffect(() => {
-    const listener = TrackPlayer.addEventListener(Event.PlaybackQueueEnded, async () => {
-      if (currentIndex < allSurahData.length - 1 && wasPlaying) {
-        await TrackPlayer.skipToNext();
-        await TrackPlayer.play();
-        setCurrentIndex(currentIndex + 1);
-        horizontalListRef.current?.scrollToIndex({ index: currentIndex + 1, animated: true });
+    const listener = TrackPlayer.addEventListener(
+      Event.PlaybackQueueEnded,
+      async () => {
+        if (currentIndex < allSurahData.length - 1 && wasPlaying) {
+          await TrackPlayer.skipToNext();
+          await TrackPlayer.play();
+          setCurrentIndex(currentIndex + 1);
+        }
       }
-    });
+    );
     return () => listener.remove();
   }, [currentIndex, allSurahData.length, wasPlaying]);
 
   useEffect(() => {
-    const listener = TrackPlayer.addEventListener(Event.PlaybackActiveTrackChanged, async ({ index }) => {
-      if (index !== undefined && index !== currentIndex) {
-        setCurrentIndex(index);
-        setActiveVerseId(null);
-        setActiveSegmentIndex(-1);
-        horizontalListRef.current?.scrollToIndex({ index, animated: true });
+    const listener = TrackPlayer.addEventListener(
+      Event.PlaybackActiveTrackChanged,
+      async ({ index }) => {
+        if (index !== undefined && index !== currentIndex) {
+          setCurrentIndex(index);
+          setActiveVerseId(null);
+          setActiveSegmentIndex(-1);
+        }
       }
-    });
+    );
     return () => listener.remove();
   }, [currentIndex]);
 
@@ -579,27 +607,82 @@ const Player = ({ route, navigation }) => {
   }, [surahId, allSurahData]);
 
   useEffect(() => {
-    if (isDataReady && currentIndex !== -1 && horizontalListRef.current && initialVerseId) {
-      setIsLoading(true);
-      setTimeout(() => {
-        horizontalListRef.current?.scrollToIndex({
-          index: currentIndex,
-          animated: false,
-          viewPosition: 0,
-        });
-        setActiveVerseId(initialVerseId);
-        setInitialVerseId(null);
-        setIsLoading(false);
-      }, 100);
+    if (isDataReady && currentIndex !== -1 && initialVerseId) {
+      setActiveVerseId(initialVerseId);
     }
   }, [isDataReady, currentIndex, initialVerseId]);
 
   useEffect(() => {
+    if (initialVerseId && verticalListRef.current && !isLoading) {
+      const currentSurah = allSurahData[currentIndex];
+      if (scrollRetry.current) clearTimeout(scrollRetry.current);
+
+      if (initialVerseId === 1 && currentSurah?.bismillah_pre) {
+        scrollRetry.current = setTimeout(() => {
+          verticalListRef.current?.scrollToOffset({
+            offset: 0,
+            animated: true,
+          });
+          setInitialVerseId(null);
+          scrollRetry.current = null;
+        }, 300);
+      } else {
+        const index = initialVerseId - 1;
+        if (index >= 0) {
+          scrollRetry.current = setTimeout(() => {
+            verticalListRef.current?.scrollToIndex({
+              index,
+              animated: true,
+              viewPosition: 0,
+            });
+            setInitialVerseId(null);
+            scrollRetry.current = null;
+          }, 300);
+        } else {
+           setInitialVerseId(null);
+        }
+      }
+    }
+    return () => {
+        if (scrollRetry.current) {
+            clearTimeout(scrollRetry.current);
+            scrollRetry.current = null;
+        }
+    };
+  }, [initialVerseId, isLoading, currentIndex, allSurahData]);
+
+  useEffect(() => {
+    if (isPlaying && activeVerseId && verticalListRef.current && !initialVerseId) {
+      const currentSurah = allSurahData[currentIndex];
+       if (scrollRetry.current) clearTimeout(scrollRetry.current);
+
+      if (activeVerseId === 1 && currentSurah?.bismillah_pre) {
+        verticalListRef.current.scrollToOffset({
+          offset: 0,
+          animated: true,
+        });
+      } else {
+        const index = activeVerseId - 1;
+        if (index >= 0) {
+          verticalListRef.current.scrollToIndex({
+            index,
+            animated: true,
+            viewPosition: 0,
+          });
+        }
+      }
+    }
+  }, [activeVerseId, isPlaying, currentIndex, allSurahData, initialVerseId]);
+
+  useEffect(() => {
     if (allSurahData[currentIndex] && position > 0 && isPlaying) {
       const surah = allSurahData[currentIndex];
-      const adjustedPosition = surah.id !== 1 ? Math.max(0, position * 1000 - 6000) : position * 1000;
+      const hasPreamble = surah.bismillah_pre && surah.id !== 1;
+      const adjustedPosition = hasPreamble
+        ? Math.max(0, position * 1000 - 6000)
+        : position * 1000;
 
-      if (surah.id !== 1 && position * 1000 < 6000) {
+      if (hasPreamble && position * 1000 < 6000) {
         if (activeVerseId !== null || activeSegmentIndex !== -1) {
           setActiveVerseId(null);
           setActiveSegmentIndex(-1);
@@ -608,7 +691,7 @@ const Player = ({ route, navigation }) => {
       }
 
       const verseTiming = surah.verse_timings.find(
-        (vt) => adjustedPosition >= vt.start && adjustedPosition < vt.end
+        vt => adjustedPosition >= vt.start && adjustedPosition < vt.end
       );
       const newActiveVerseId = verseTiming ? verseTiming.id : null;
 
@@ -619,13 +702,13 @@ const Player = ({ route, navigation }) => {
 
       let newActiveSegmentIndex = -1;
       if (newActiveVerseId) {
-        const verse = surah.verses.find((v) => v.id === newActiveVerseId);
+        const verse = surah.verses.find(v => v.id === newActiveVerseId);
         if (verse && verse.segment_timings) {
           const segmentTiming = verse.segment_timings.find(
-            (st) => adjustedPosition >= st.start && adjustedPosition < st.end
+            st => adjustedPosition >= st.start && adjustedPosition < st.end
           );
           newActiveSegmentIndex = segmentTiming
-            ? verse.segment_timings.findIndex((st) => st.id === segmentTiming.id)
+            ? verse.segment_timings.findIndex(st => st.id === segmentTiming.id)
             : -1;
         }
       }
@@ -634,56 +717,80 @@ const Player = ({ route, navigation }) => {
         setActiveSegmentIndex(newActiveSegmentIndex);
       }
     }
-  }, [position, currentIndex, allSurahData, activeVerseId, activeSegmentIndex, isPlaying]);
+  }, [
+    position,
+    currentIndex,
+    allSurahData,
+    activeVerseId,
+    activeSegmentIndex,
+    isPlaying,
+  ]);
 
-  const handleVersePress = useCallback(async (verse) => {
-    const surah = allSurahData[currentIndex];
-    const verseTiming = surah.verse_timings.find((vt) => vt.id === verse.id);
-    if (verseTiming) {
-      const seekPosition = surah.id !== 1 ? (verseTiming.start + 6000) / 1000 : verseTiming.start / 1000;
-      try {
-        await TrackPlayer.seekTo(seekPosition);
-        if (!isPlaying) {
-          await TrackPlayer.play();
-          setWasPlaying(true);
+  const handleVersePress = useCallback(
+    async verse => {
+      const surah = allSurahData[currentIndex];
+      const hasPreamble = surah.bismillah_pre && surah.id !== 1;
+      const verseTiming = surah.verse_timings.find(vt => vt.id === verse.id);
+
+      if (verseTiming) {
+        const seekPosition = hasPreamble
+          ? (verseTiming.start + 6000) / 1000
+          : verseTiming.start / 1000;
+        try {
+          await TrackPlayer.seekTo(seekPosition);
+          if (!isPlaying) {
+            await TrackPlayer.play();
+            setWasPlaying(true);
+          }
+        } catch (error) {
+          console.error('Verse Press Seek Error:', error);
         }
-      } catch (error) {
-        console.error('Verse Press Seek Error:', error);
       }
-    }
-  }, [currentIndex, allSurahData, isPlaying]);
+    },
+    [currentIndex, allSurahData, isPlaying]
+  );
 
   const HeaderTitle = ({ surah }) => {
-    const styles = getStyles({ colors: colors.colors, fontPixel, SIZES, fontSizes });
     if (!surah) return null;
     return (
-      <View style={{ alignItems: 'center', flexDirection: 'row-reverse', justifyContent: 'center', gap: fontPixel(8) }}>
+      <View style={styles.headerTitleContainer}>
         <Text style={styles.headerTitleArabic}>{surah.name}</Text>
         <Text style={styles.headerTitleTransliteration}>•</Text>
-        <Text style={styles.headerTitleTransliteration}>{surah.transliteration}</Text>
+        <Text style={styles.headerTitleTransliteration}>
+          {surah.transliteration}
+        </Text>
       </View>
     );
   };
 
   const HeaderRight = ({ surah }) => {
-    const styles = getStyles({ colors: colors.colors, fontPixel, SIZES, fontSizes });
     if (!surah) return null;
     return (
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text style={styles.headerRightText}>{surah.id}:{surah.total_verses}</Text>
+      <View style={styles.headerRightContainer}>
+        <Text style={styles.headerRightText}>
+          {surah.id}:{surah.total_verses}
+        </Text>
       </View>
     );
   };
 
   useEffect(() => {
-    if (isDataReady && allSurahData.length > 0 && currentIndex !== -1 && allSurahData[currentIndex]) {
+    if (
+      isDataReady &&
+      allSurahData.length > 0 &&
+      currentIndex !== -1 &&
+      allSurahData[currentIndex]
+    ) {
       const currentSurah = allSurahData[currentIndex];
       navigation.setOptions({
         headerTitle: () => <HeaderTitle surah={currentSurah} />,
         headerRight: () => <HeaderRight surah={currentSurah} />,
       });
     } else {
-      navigation.setOptions({ headerTitle: 'Loading...', headerRight: () => null });
+      navigation.setOptions({
+        headerTitle: 'Loading...',
+        headerRight: () => null,
+      });
     }
   }, [currentIndex, allSurahData, navigation, isDataReady]);
 
@@ -723,57 +830,78 @@ const Player = ({ route, navigation }) => {
     navigation.navigate('Theme');
   }, [navigation]);
 
-  const getItemLayout = useCallback(
-    (data, index) => ({ length: SCREEN_WIDTH, offset: SCREEN_WIDTH * index, index }),
-    []
-  );
+  const handleScrollToIndexFailed = useCallback((info) => {
+    console.warn(`ScrollToIndex failed to reach index ${info.index}. Retrying...`);
+    if (scrollRetry.current) {
+      clearTimeout(scrollRetry.current);
+    }
+    scrollRetry.current = setTimeout(() => {
+      if (verticalListRef.current) {
+         if (info.index === 0 && allSurahData[currentIndex]?.bismillah_pre) {
+             verticalListRef.current.scrollToOffset({ offset: 0, animated: true });
+         } else {
+             verticalListRef.current.scrollToIndex({
+               index: info.index,
+               animated: true,
+               viewPosition: 0,
+             });
+         }
+      }
+      scrollRetry.current = null;
+    }, 250); 
+  }, [allSurahData, currentIndex]);
 
-  if (!isDataReady || currentIndex === -1 || isLoading) {
-    const styles = getStyles({ colors: colors.colors || {}, fontPixel: () => 16, SIZES: { width: SCREEN_WIDTH, height: 0 }, fontSizes: {} });
-    return (
-      <View style={styles.loadingContainer}>
-        <SurahPage item={{ id: 1, verses: Array(10).fill({}), bismillah_pre: true }} isShimmer={true} />
-      </View>
-    );
-  }
+  useEffect(() => {
+    return () => {
+      if (scrollRetry.current) {
+        clearTimeout(scrollRetry.current);
+      }
+    };
+  }, []);
 
   const currentSurah = allSurahData[currentIndex];
 
+  if (isLoading || !isDataReady || !currentSurah) {
+    return <PlayerShimmer surahId={surahId} allSurahData={allSurahData} />;
+  }
+
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: colors.colors.bgPrimary }}>
       <FlatList
-        ref={horizontalListRef}
-        data={allSurahData}
-        keyExtractor={item => item.id.toString()}
+        ref={verticalListRef}
+        data={currentSurah.verses}
+        keyExtractor={v => v.id.toString()}
+        ListHeaderComponent={currentSurah.bismillah_pre ? <Bismillah styles={styles} /> : null}
         renderItem={({ item, index }) => (
-          <SurahPage
+          <VerseItem
             item={item}
-            activeVerseId={index === currentIndex ? activeVerseId : null}
-            activeSegmentIndex={index === currentIndex ? activeSegmentIndex : -1}
+            surahId={currentSurah.id}
+            verseNumber={`${currentSurah.id}:${index + 1}`}
+            active={item.id === activeVerseId}
+            activeSegmentIndex={activeSegmentIndex}
             onPressVerse={handleVersePress}
+            allSurahData={allSurahData}
           />
         )}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        scrollEnabled={false}
-        getItemLayout={getItemLayout}
-        initialNumToRender={1}
-        maxToRenderPerBatch={1}
-        windowSize={3}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.verseListContainer}
+        initialNumToRender={286}      
+        maxToRenderPerBatch={50}     
+        windowSize={50}              
+        onScrollToIndexFailed={handleScrollToIndexFailed}
       />
-     <FooterControls
-      onPrevious={handlePrevious}
-      onNext={handleNext}
-      isBeginning={currentIndex === 0}
-      isEnd={currentIndex === allSurahData.length - 1}
-      isPlaying={isPlaying}
-      onPlayPause={handlePlayPause}
-      position={position * 1000}
-      duration={duration * 1000}
-      onNavigateBookmarks={handleNavigateBookmarks}
-      onNavigateTheme={handleNavigateTheme}
-    />
+      <FooterControls
+        onPrevious={handlePrevious}
+        onNext={handleNext}
+        isBeginning={currentIndex === 0}
+        isEnd={currentIndex === allSurahData.length - 1}
+        isPlaying={isPlaying}
+        onPlayPause={handlePlayPause}
+        position={position * 1000}
+        duration={duration * 1000}
+        onNavigateBookmarks={handleNavigateBookmarks}
+        onNavigateTheme={handleNavigateTheme}
+      />
     </View>
   );
 };
@@ -786,7 +914,6 @@ const getStyles = ({ colors, fontPixel, SIZES, fontSizes }) =>
       alignItems: 'center',
       backgroundColor: colors.bgPrimary || '#fff',
     },
-    surahPageContainer: { width: SCREEN_WIDTH, flex: 1, backgroundColor: colors.bgPrimary || '#fff' },
     verseListContainer: { paddingBottom: SIZES.height * 0.07 },
     verseCard: { paddingVertical: SIZES.height * 0.02, paddingHorizontal: SIZES.width * 0.03, borderBottomWidth: 1, borderBottomColor: colors.border || '#e0e0e0' },
     activeVerseCard: { backgroundColor: colors.bgSecondary || '#f0f0f0' },
@@ -799,11 +926,29 @@ const getStyles = ({ colors, fontPixel, SIZES, fontSizes }) =>
     verseUrdu: { fontSize: fontPixel(fontSizes.translationUr || 20), color: colors.textSecondary || '#666', lineHeight: fontPixel((fontSizes.translationUr || 20) * 1.7), textAlign: 'right', fontFamily: 'NotoNastaliqUrdu-Regular', marginBottom: SIZES.height * 0.02 },
     verseTranslation: { fontSize: fontPixel(fontSizes.translationEn || 18), color: colors.textPrimary || '#000', lineHeight: fontPixel((fontSizes.translationEn || 18) * 1.5), textAlign: 'left', marginBottom: SIZES.height * 0.01 },
     verseTransliteration: { fontSize: fontPixel(fontSizes.transliterationEn || 18), color: colors.textSecondary || '#666', lineHeight: fontPixel((fontSizes.transliterationEn || 18) * 1.5), fontStyle: 'italic', textAlign: 'left', marginBottom: SIZES.height * 0.02 },
+    verseUrduTransliteration: {
+      fontSize: fontPixel(fontSizes.transliterationUr || 14), 
+      color: colors.textSecondary || '#666', 
+      lineHeight: fontPixel((fontSizes.transliterationUr || 14) * 1.5),
+      fontStyle: 'italic', 
+      textAlign: 'left', 
+      marginBottom: SIZES.height * 0.02,
+    },
     headerFrame: { marginVertical: SIZES.height * 0.01, padding: 3, borderWidth: 1, borderColor: colors.border || '#e0e0e0' },
     bismillahContainer: { paddingVertical: SIZES.height * 0.01, paddingHorizontal: SIZES.width * 0.05, backgroundColor: colors.bgSecondary || '#f0f0f0', borderWidth: 1, borderColor: colors.border || '#e0e0e0' },
     bismillahText: { fontSize: fontPixel(22), color: colors.textPrimary || '#000', textAlign: 'center' },
+    headerTitleContainer: {
+        alignItems: 'center',
+        flexDirection: 'row-reverse',
+        justifyContent: 'center',
+        gap: fontPixel(8),
+    },
     headerTitleArabic: { color: colors.textPrimary || '#000', fontSize: fontPixel(22), textAlign: 'center' },
     headerTitleTransliteration: { color: colors.textPrimary || '#000', fontSize: fontPixel(16), textAlign: 'center' },
+    headerRightContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
     headerRightText: { color: colors.textSecondary || '#666', fontSize: fontPixel(16), fontWeight: '600', paddingRight: SIZES.width * 0.03 },
     footerContainer: { position: 'absolute', bottom: 0, left: 0, right: 0, backgroundColor: colors.bgSecondary || '#f0f0f0', borderTopWidth: 1, borderColor: colors.border || '#e0e0e0', justifyContent: 'center', paddingBottom: SIZES.height * 0.005 },
     sliderRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: SIZES.width * 0.04, paddingTop: SIZES.height * 0.01 },

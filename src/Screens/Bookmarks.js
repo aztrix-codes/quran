@@ -10,9 +10,9 @@ import {
   UIManager,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useStyle } from '../Context/StyleContext'; 
-import { useSurahData } from '../Hooks/useSurahData'; 
-import Icon from '../Components/Icon'; 
+import { useStyle } from '../Context/StyleContext';
+import { useSurahData } from '../Hooks/useSurahData';
+import Icon from '../Components/Icon';
 
 if (
   Platform.OS === 'android' &&
@@ -234,22 +234,21 @@ const getStyles = ({ colors, fontPixel, SIZES, fontSizes }) =>
     cardContainer: {
       backgroundColor: colors.colors.bgSecondary,
       borderRadius: 16,
-      paddingVertical: SIZES.height * 0.01, 
+      paddingVertical: SIZES.height * 0.01,
       paddingHorizontal: SIZES.width * 0.03,
       marginVertical: SIZES.height * 0.008,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      borderWidth: 1, 
-      borderColor: colors.colors.border, 
-
+      borderWidth: 1,
+      borderColor: colors.colors.border,
     },
     cardPressable: {
       flex: 1,
     },
     textContainer: {
       flex: 1,
-      marginRight: SIZES.width * 0.03, 
+      marginRight: SIZES.width * 0.03,
     },
     titleText: {
       color: colors.colors.textPrimary,
@@ -273,7 +272,7 @@ const getStyles = ({ colors, fontPixel, SIZES, fontSizes }) =>
       justifyContent: 'center',
       alignItems: 'center',
       marginHorizontal: SIZES.width * 0.01,
-      borderWidth: 1, 
+      borderWidth: 1,
     },
     pillButtonText: {
       fontSize: fontPixel(fontSizes.translationEn - 2),
@@ -291,7 +290,7 @@ const getStyles = ({ colors, fontPixel, SIZES, fontSizes }) =>
       borderColor: colors.colors.accent,
     },
     confirmPillText: {
-      color: colors.colors.bgPrimary, 
+      color: colors.colors.bgPrimary,
     },
     cancelPillButton: {
       backgroundColor: 'transparent',
