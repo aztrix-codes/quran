@@ -26,8 +26,9 @@ const fixedBookmarksData = [
     id: 'fixed-ayatul-kursi',
     surahId: 2,
     verseId: 255,
-    displayName: 'Ayat ul Kursi',
-    arabicName: 'آية الكرسي',
+    displayName: 'Ayat-ul-Kursi',
+    arabicText: 'آية الكرسي',
+    arabicName: 'سورة البقرة',
     surahName: 'Al-Baqarah',
   },
 ];
@@ -64,9 +65,7 @@ const BookmarkItem = ({
     <View style={styles.cardContainer}>
       <TouchableOpacity style={styles.cardPressable} onPress={onPress}>
         <View style={styles.textContainer}>
-          <Text style={styles.titleText}>
-            {item.displayName || item.arabicName}
-          </Text>
+          <Text style={styles.titleText}>{item.arabicName}</Text>
           <Text style={styles.subtitleText}>
             {`${item.surahName}, ${item.surahId}:${item.verseId}`}
           </Text>
@@ -77,19 +76,19 @@ const BookmarkItem = ({
           {isConfirming ? (
             <>
               <TouchableOpacity
-                style={[styles.pillButton, styles.cancelPillButton]}
-                onPress={handleCancelPress}
-              >
-                <Text style={[styles.pillButtonText, styles.cancelPillText]}>
-                  Cancel
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
                 style={[styles.pillButton, styles.confirmPillButton]}
                 onPress={handleConfirmPress}
               >
                 <Text style={[styles.pillButtonText, styles.confirmPillText]}>
                   Confirm
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.pillButton, styles.cancelPillButton]}
+                onPress={handleCancelPress}
+              >
+                <Text style={[styles.pillButtonText, styles.cancelPillText]}>
+                  Cancel
                 </Text>
               </TouchableOpacity>
             </>
@@ -106,6 +105,28 @@ const BookmarkItem = ({
         </View>
       )}
     </View>
+  );
+};
+
+const FixedBookmarkItem = ({ item, colors, fontPixel, SIZES, fontSizes, onPress }) => {
+  const styles = getStyles({ colors, fontPixel, SIZES, fontSizes });
+
+  return (
+    <TouchableOpacity style={styles.fixedCardContainer} onPress={onPress}>
+      <View style={styles.fixedItemContent}>
+        <Text style={styles.fixedItemArabicText}>{item.arabicText}</Text>
+        <Text style={styles.fixedItemSubtitleText}>
+          {`${item.displayName}, ${item.surahName}, ${item.surahId}:${item.verseId}`}
+        </Text>
+      </View>
+      <Icon
+        type="materialcommunity"
+        name="chevron-right"
+        size={fontPixel(24)}
+        color={colors.colors.textSecondary}
+        style={styles.fixedItemArrow}
+      />
+    </TouchableOpacity>
   );
 };
 
@@ -128,38 +149,36 @@ const Bookmarks = ({ navigation }) => {
     loadBookmarks();
   }, []);
 
+  const processedUserBookmarks = useMemo(() => {
+    if (allSurahData.length === 0) return bookmarks.map(b => ({ ...b, isFixed: false }));
 
-  const processedBookmarks = useMemo(() => {
-    let combinedList = fixedBookmarksData.map(fixed => {
-       const surahInfo = allSurahData.find(s => s.id === fixed.surahId);
-       return {
-         ...fixed,
-         surahName: surahInfo?.transliteration || fixed.surahName,
-         arabicName: surahInfo?.name || fixed.arabicName,
-         isFixed: true,
-       };
-    });
-
-    if (allSurahData.length > 0) {
-        const userBookmarksProcessed = bookmarks.map(bookmark => ({
-          ...bookmark,
-          surahName:
-            allSurahData.find(s => s.id === bookmark.surahId)?.transliteration ||
-            'Unknown',
-          arabicName:
-            allSurahData.find(s => s.id === bookmark.surahId)?.name || 'غير معروف',
-          isFixed: false,
-        }));
-        combinedList = [...combinedList, ...userBookmarksProcessed];
-    } else {
-        combinedList = [...combinedList, ...bookmarks.map(b => ({...b, isFixed: false}))];
-    }
-    return combinedList;
+    return bookmarks.map(bookmark => ({
+      ...bookmark,
+      surahName:
+        allSurahData.find(s => s.id === bookmark.surahId)?.transliteration ||
+        'Unknown',
+      arabicName:
+        allSurahData.find(s => s.id === bookmark.surahId)?.name || 'غير معروف',
+      isFixed: false,
+    }));
   }, [bookmarks, allSurahData]);
+
+  const ayatulKursiData = useMemo(() => {
+     const fixedData = fixedBookmarksData.find(item => item.id === 'fixed-ayatul-kursi');
+     if (!fixedData) return null;
+     if (allSurahData.length === 0) return { ...fixedData, isFixed: true };
+
+     const surahInfo = allSurahData.find(s => s.id === fixedData.surahId);
+     return {
+       ...fixedData,
+       surahName: surahInfo?.transliteration || fixedData.surahName,
+       isFixed: true,
+     };
+  }, [allSurahData]);
 
    useEffect(() => {
      navigation.setOptions({
-       title: `Bookmarks (${bookmarks.length})`, 
+       title: `Bookmarks (${bookmarks.length})`,
      });
    }, [navigation, bookmarks.length]);
 
@@ -183,10 +202,12 @@ const Bookmarks = ({ navigation }) => {
 
   const styles = getStyles({ colors, fontPixel, SIZES, fontSizes });
 
+  const showEmptyState = processedUserBookmarks.length === 0 && !ayatulKursiData;
+
   return (
     <View style={styles.container}>
       <FlatList
-        data={processedBookmarks}
+        data={processedUserBookmarks}
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
           <BookmarkItem
@@ -202,22 +223,36 @@ const Bookmarks = ({ navigation }) => {
             onCancelDelete={() => setItemToConfirmDelete(null)}
           />
         )}
-        ListEmptyComponent={
-          <View style={styles.emptyContainer}>
-            <Icon
-              type="feather"
-              name="bookmark"
-              size={fontPixel(48)}
-              color={colors.colors.textSecondary}
+        ListHeaderComponent={
+          ayatulKursiData ? (
+            <FixedBookmarkItem
+              item={ayatulKursiData}
+              colors={colors}
+              fontPixel={fontPixel}
+              SIZES={SIZES}
+              fontSizes={fontSizes}
+              onPress={() => handleNavigation(ayatulKursiData)}
             />
-            <Text style={styles.emptyText}>No Bookmarks Yet</Text>
-            <Text style={styles.emptySubtext}>
-              Add bookmarks from the Player screen.
-            </Text>
-          </View>
+          ) : null
+        }
+        ListEmptyComponent={
+          !ayatulKursiData ? (
+            <View style={styles.emptyContainer}>
+              <Icon
+                type="feather"
+                name="bookmark"
+                size={fontPixel(48)}
+                color={colors.colors.textSecondary}
+              />
+              <Text style={styles.emptyText}>No Bookmarks Yet</Text>
+              <Text style={styles.emptySubtext}>
+                Add bookmarks from the Player screen.
+              </Text>
+            </View>
+          ) : null
         }
         contentContainerStyle={
-          processedBookmarks.length === 0
+           showEmptyState
             ? styles.emptyListContainer
             : styles.listContentContainer
         }
@@ -284,7 +319,7 @@ const getStyles = ({ colors, fontPixel, SIZES, fontSizes }) =>
     },
     titleText: {
       color: colors.colors.textPrimary,
-      fontSize: fontPixel(22),
+      fontSize: fontPixel(20),
       fontWeight: '500',
       textAlign: 'left',
     },
@@ -331,6 +366,38 @@ const getStyles = ({ colors, fontPixel, SIZES, fontSizes }) =>
     cancelPillText: {
       color: colors.colors.textSecondary,
     },
+    fixedCardContainer: {
+      backgroundColor: colors.colors.bgSecondary,
+      borderRadius: 16,
+      paddingVertical: SIZES.height * 0.01,
+      paddingHorizontal: SIZES.width * 0.04,
+      marginVertical: SIZES.height * 0.008,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      borderWidth: 1,
+      borderColor: colors.colors.border,
+      marginBottom: SIZES.height * 0.02,
+    },
+    fixedItemContent: {
+      flex: 1,
+      marginRight: SIZES.width * 0.02,
+    },
+    fixedItemArabicText: {
+      color: colors.colors.textPrimary,
+      fontSize: fontPixel(20),
+      fontWeight: '600',
+      textAlign: 'left',
+      marginBottom: 4,
+    },
+    fixedItemSubtitleText: {
+      color: colors.colors.textSecondary,
+      fontSize: fontPixel(13),
+      textAlign: 'left',
+    },
+    fixedItemArrow: {
+       marginLeft: SIZES.width * 0.02,
+    }
   });
 
 export default Bookmarks;

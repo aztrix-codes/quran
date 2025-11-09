@@ -8,6 +8,8 @@ import {
   Dimensions,
   Pressable,
   Animated,
+  ActivityIndicator,
+  Platform
 } from 'react-native';
 import TrackPlayer, {
   useProgress,
@@ -21,6 +23,7 @@ import Icon from '../Components/Icon';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import RNBlobUtil from 'react-native-blob-util';
 
 const surahAudioMap = {
   1: require('../../assets/surahs/surah_1.mp3'),
@@ -503,6 +506,10 @@ const Player = ({ route, navigation }) => {
   const lastActiveVerseRef = useRef(null);
   const scrollRetry = useRef(null);
 
+  const currentTrackIdRef = useRef(null);
+  const currentPositionRef = useRef(0);
+  const resumePositionRef = useRef(route.params?.resumePosition || null);
+
   const playbackState = usePlaybackState();
   const { position, duration } = useProgress(50);
   const { colors, fontPixel, SIZES, fontSizes } = useStyle();
@@ -512,6 +519,28 @@ const Player = ({ route, navigation }) => {
     SIZES,
     fontSizes,
   });
+
+  const saveLastPlayedPosition = useCallback(async () => {
+    const trackId = currentTrackIdRef.current;
+    const posInSeconds = currentPositionRef.current;
+    const surahId = trackId ? parseInt(trackId.split('-')[1], 10) : null;
+
+    if (trackId && posInSeconds > 2 && surahId && allSurahData.length > 0) {
+      const surahInfo = allSurahData.find(s => s.id === surahId);
+      const dataToSave = {
+        trackId: trackId,
+        position: posInSeconds,
+        surahId: surahId,
+        surahName: surahInfo?.transliteration || '',
+        totalVerses: surahInfo?.total_verses || 0,
+      };
+      try {
+        await AsyncStorage.setItem('lastPlayedTrack', JSON.stringify(dataToSave));
+      } catch (error) {
+        console.error('Failed to save last played track info.', error);
+      }
+    }
+  }, [allSurahData]);
 
   const isPlaying =
     playbackState.state === State.Playing ||

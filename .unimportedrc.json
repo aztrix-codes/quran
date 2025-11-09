@@ -1,0 +1,12 @@
+{
+  "ignoreUnresolved": [],
+  "ignoreUnused": [
+    "@react-native-community/blur",
+    "@react-native/new-app-screen",
+    "react",
+    "react-dom",
+    "react-native",
+    "react-native-pager-view"
+  ],
+  "ignoreUnimported": []
+}
