@@ -1,107 +1,349 @@
 #!/bin/bash
-# run.sh
-# Project-specific aliases for React Native scripts and Git commands in package.json
 
-# --- Development (npm scripts) ---
-alias start='npm run start'
-alias android='npm run android'
-alias ios='npm run ios'
+# ===================================================================
+# run.sh — Ultimate React Native Runner (Bash Version)
+# ===================================================================
 
-# --- Cleaning (npm scripts) ---
-alias android-clean='npm run android:clean'
-alias ios-clean='npm run ios:clean'
+# Define colors
+GREEN='\033[0;32m'
+CYAN='\033[0;36m'
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+MAGENTA='\033[0;35m'
+NC='\033[0m' # No Color
 
-# --- Rebuilding (npm scripts) ---
-alias android-rebuild='npm run android:rebuild'
-alias ios-rebuild='npm run ios:rebuild'
+# ——————————————————————————————————————————————————————————————————
+# HELPERS
+# ——————————————————————————————————————————————————————————————————
 
-# --- Build for Release (npm scripts) ---
-alias build-apk='npm run build:apk'
-alias build-aab='npm run build:aab'
-alias build-app='npm run build:app'
+log_green() { echo -e "${GREEN}$1${NC}"; }
+log_cyan() { echo -e "${CYAN}$1${NC}"; }
+log_red() { echo -e "${RED}$1${NC}"; }
+log_yellow() { echo -e "${YELLOW}$1${NC}"; }
+log_magenta() { echo -e "${MAGENTA}$1${NC}"; }
 
-# --- Versioning (npm scripts) ---
-alias version-up='npm run version:up'
+invoke_gradle() {
+    cd android || return
+    # Use ./gradlew if executable, otherwise try standard gradle
+    if [ -x "./gradlew" ]; then
+        ./gradlew "$1"
+    else
+        chmod +x ./gradlew
+        ./gradlew "$1"
+    fi
+    
+    if [ $? -ne 0 ]; then
+        log_red "Gradle task '$1' failed."
+        cd ..
+        exit 1
+    fi
+    cd ..
+}
 
-# --- Pod Management (iOS, npm scripts) ---
-alias pod-install='npm run pod:install'
-alias pod-update='npm run pod:update'
-alias pod-reinstall='npm run pod:reinstall'
+get_package_name() {
+    if [ -f "android/app/build.gradle" ]; then
+        # Extracts text between quotes in applicationId "com.example"
+        grep "applicationId" android/app/build.gradle | awk -F'["\047]' '{print $2}' | head -n 1
+    fi
+}
 
-# --- Utilities (npm scripts) ---
-alias doctor='npm run doctor'
-alias lint='npm run lint'
-alias test='npm run test'
-alias clear-cache='npm run clear:cache'
+move_build_artifact() {
+    TYPE=$1
+    RELEASE_DIR="$(pwd)/AppReleases"
+    mkdir -p "$RELEASE_DIR"
 
-# --- ADB (Android Debug Bridge, npm scripts) ---
-alias adb-devices='npm run adb:devices'
-alias adb-reverse='npm run adb:reverse'
-alias adb-shake='npm run adb:shake'
-alias adb-reload='npm run adb:reload'
-alias unwanted='npm run unwanted'
+    if [ "$TYPE" == "APK" ]; then
+        SOURCE="android/app/build/outputs/apk/release/app-release.apk"
+        DEST="$RELEASE_DIR/app-release.apk"
+        if [ -f "$SOURCE" ]; then
+            cp "$SOURCE" "$DEST"
+            log_cyan "APK moved to: $DEST"
+        fi
+    elif [ "$TYPE" == "AAB" ]; then
+        SOURCE="android/app/build/outputs/bundle/release/app-release.aab"
+        DEST="$RELEASE_DIR/app-release.aab"
+        if [ -f "$SOURCE" ]; then
+            cp "$SOURCE" "$DEST"
+            log_cyan "AAB moved to: $DEST"
+        fi
+    fi
+}
 
-# --- Git Commands ---
-alias add='git add .; echo "Added all changes to Git staging."'
+# ——————————————————————————————————————————————————————————————————
+# CORE COMMANDS
+# ——————————————————————————————————————————————————————————————————
+
+run_app() {
+    log_green "\n🚀 Launching App (Debug)..."
+    invoke_gradle "installDebug"
+    
+    PACKAGE=$(get_package_name)
+    if [ -n "$PACKAGE" ]; then
+        log_green "📱 Starting app: $PACKAGE"
+        adb shell monkey -p "$PACKAGE" -c android.intent.category.LAUNCHER 1 > /dev/null 2>&1
+    fi
+
+    adb reverse tcp:8081 tcp:8081
+    
+    log_magenta "\n⚛️  Metro starting..."
+    npx react-native start --reset-cache
+}
+
+clean() {
+    log_yellow "🧹 Cleaning build folder..."
+    invoke_gradle "clean"
+    log_green "Done."
+}
+
+rebuild() {
+    log_magenta "\n🔄 Rebuilding..."
+    clean
+    run_app
+}
+
+apk() {
+    log_green "📦 Building Release APK..."
+    invoke_gradle "assembleRelease"
+    move_build_artifact "APK"
+}
+
+aab() {
+    log_green "📦 Building Release AAB..."
+    invoke_gradle "bundleRelease"
+    move_build_artifact "AAB"
+}
+
+app() {
+    log_green "\n📦 Building Full Release (APK + AAB)..."
+    invoke_gradle "assembleRelease"
+    move_build_artifact "APK"
+    invoke_gradle "bundleRelease"
+    move_build_artifact "AAB"
+    
+    # Open Explorer/Finder
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        open AppReleases
+    else
+        xdg-open AppReleases 2>/dev/null || log_yellow "Artifacts in AppReleases/"
+    fi
+}
+
+# ——————————————————————————————————————————————————————————————————
+# MAINTENANCE & CLEANUP
+# ——————————————————————————————————————————————————————————————————
+
+deps() { log_cyan "🔎 Checking dependencies..."; npx depcheck; }
+unused() { log_cyan "🔎 Checking unused files..."; npx unimported; }
+
+kill_port() {
+    log_red "🛑 Killing port 8081..."
+    lsof -ti:8081 | xargs kill -9 2>/dev/null
+    log_green "Ports cleared."
+}
+
+clear_cache() {
+    log_red "🔥 NUKING CACHE..."
+    rm -rf "$TMPDIR/metro-*" 2>/dev/null
+    watchman watch-del-all 2>/dev/null
+    invoke_gradle "clean"
+    log_green "Cache cleared."
+}
+
+# ——————————————————————————————————————————————————————————————————
+# DEVICE CONTROL
+# ——————————————————————————————————————————————————————————————————
+
+reverse() { adb reverse tcp:8081 tcp:8081; log_green "Ports reversed."; }
+shake() { adb shell input keyevent 82; log_cyan "Shook device."; }
+reload() { adb shell input text "RR"; log_cyan "Reloading JS..."; }
+d() { adb devices; }
+
+# ——————————————————————————————————————————————————————————————————
+# UTILITIES
+# ——————————————————————————————————————————————————————————————————
+
+s() { npx react-native start --reset-cache; }
+doctor() { npx react-native doctor; }
+test_cmd() { npx jest; }
+lint() { npx eslint . --fix; }
+i() { npm install --force; }
+ip_addr() {
+    ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}'
+}
+
+v_u() {
+    TEMP_JS="/tmp/universal_version_up.js"
+    cat << 'EOF' > "$TEMP_JS"
+const fs = require('fs');
+const path = require('path');
+const rootDir = process.cwd(); 
+const packageJsonPath = path.join(rootDir, 'package.json');
+const gradlePath = path.join(rootDir, 'android/app/build.gradle');
+const iosDir = path.join(rootDir, 'ios');
+
+function getIosProjectName() {
+  if (!fs.existsSync(iosDir)) return null;
+  const files = fs.readdirSync(iosDir);
+  const projFile = files.find(file => file.endsWith('.xcodeproj'));
+  return projFile ? projFile.replace('.xcodeproj', '') : null;
+}
+const IOS_PROJECT_NAME = getIosProjectName();
+const plistPath = IOS_PROJECT_NAME ? path.join(rootDir, `ios/${IOS_PROJECT_NAME}/Info.plist`) : null;
+
+function log(m) { console.log(`\x1b[32m${m}\x1b[0m`); }
+function logInfo(m) { console.log(`\x1b[36m${m}\x1b[0m`); }
+function exitWithError(m) { console.error(`\x1b[31mERROR: ${m}\x1b[0m`); process.exit(1); }
+
+function compareVersions(v1, v2) {
+  const p1 = v1.split('.').map(Number), p2 = v2.split('.').map(Number);
+  const len = Math.max(p1.length, p2.length);
+  for (let i = 0; i < len; i++) {
+    if ((p1[i]||0) > (p2[i]||0)) return 1;
+    if ((p1[i]||0) < (p2[i]||0)) return -1;
+  }
+  return 0;
+}
+
+try {
+  logInfo('Starting universal version bump...');
+  const pkg = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+  const pkgVersion = pkg.version;
+
+  let gradleContent = fs.readFileSync(gradlePath, 'utf8');
+  const gradleVersionMatch = gradleContent.match(/versionName "([\d\.]+)"/);
+  if (!gradleVersionMatch) exitWithError('No versionName in build.gradle');
+  const gradleVersion = gradleVersionMatch[1];
+
+  const versionCodeMatch = gradleContent.match(/versionCode (\d+)/);
+  if (!versionCodeMatch) exitWithError('No versionCode in build.gradle');
+  const currentVersionCode = parseInt(versionCodeMatch[1]);
+
+  log(`  - Pkg: ${pkgVersion} | Android: ${gradleVersion} (${currentVersionCode})`);
+
+  let masterVersion = pkgVersion;
+  if (compareVersions(gradleVersion, pkgVersion) > 0) {
+    masterVersion = gradleVersion;
+    logInfo(`Syncing to higher Android version (${gradleVersion})`);
+  }
+
+  const versionParts = masterVersion.split('.').map(Number);
+  while (versionParts.length < 3) versionParts.push(0);
+  versionParts[2] += 1;
+  const newVersion = versionParts.join('.');
+  const newVersionCode = currentVersionCode + 1;
+
+  log(`New Version: ${newVersion} (Build: ${newVersionCode})`);
+
+  pkg.version = newVersion;
+  fs.writeFileSync(packageJsonPath, JSON.stringify(pkg, null, 2) + '\n');
+
+  gradleContent = gradleContent.replace(/versionCode \d+/, `versionCode ${newVersionCode}`)
+                               .replace(/versionName "[\d\.]+"/, `versionName "${newVersion}"`);
+  fs.writeFileSync(gradlePath, gradleContent);
+
+  if (plistPath && fs.existsSync(plistPath)) {
+    log(`  - Updating iOS Info.plist (${IOS_PROJECT_NAME})...`);
+    let plistContent = fs.readFileSync(plistPath, 'utf8');
+    plistContent = plistContent.replace(/(<key>CFBundleShortVersionString<\/key>\s*<string>)[^<]+(<\/string>)/, `$1${newVersion}$2`)
+                               .replace(/(<key>CFBundleVersion<\/key>\s*<string>)[^<]+(<\/string>)/, `$1${newVersionCode}$2`);
+    fs.writeFileSync(plistPath, plistContent);
+  }
+  log('\nVersioning complete!');
+} catch (e) { exitWithError(e.message); }
+EOF
+    node "$TEMP_JS"
+    rm "$TEMP_JS"
+}
+
+# ——————————————————————————————————————————————————————————————————
+# GIT COMMANDS
+# ——————————————————————————————————————————————————————————————————
+
+add_git() { git add .; log_cyan "Git: Added."; }
+push_git() { git push; log_green "Git: Pushed."; }
+pull_git() { git pull; log_green "Git: Pulled."; }
+status() { git status; }
+log_git() { git log --oneline --graph --all; }
 
 commit() {
-    if [ -z "$1" ]; then
-        echo "Error: Commit message is required. Usage: commit \"message\""
-        return 1
-    fi
+    if [ -z "$1" ]; then log_red "Missing message."; return; fi
     git commit -m "$1"
-    echo "Committed with message: '$1'"
 }
 
-alias push='git push; echo "Pushed changes to remote repository."'
+acp() {
+    MSG=${1:-"update"}
+    git add .
+    git commit -m "$MSG"
+    git push
+    log_green "ACP Complete: $MSG"
+}
 
-new-branch() {
-    if [ -z "$1" ]; then
-        echo "Error: Branch name is required. Usage: new-branch branch-name"
-        return 1
+undo() {
+    git reset --soft HEAD~1
+    log_yellow "Undid last commit (Changes are staged)."
+}
+
+nuke() {
+    read -p "Destroy all local changes? (y/n) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        git reset --hard HEAD
+        git clean -fd
+        log_red "NUKED. Reset to HEAD."
     fi
-    git checkout -b "$1"
-    echo "Created and switched to new branch: '$1'"
 }
 
-checkout() {
-    if [ -z "$1" ]; then
-        echo "Error: Branch name is required. Usage: checkout branch-name"
-        return 1
-    fi
-    git checkout "$1"
-    echo "Switched to branch: '$1'"
-}
+stash() { git stash; log_cyan "Stashed changes."; }
+pop() { git stash pop; log_green "Stash popped."; }
+new_branch() { git checkout -b "$1"; }
+checkout() { git checkout "$1"; }
+merge() { git merge "$1"; }
 
-alias pull='git pull; echo "Pulled changes from remote repository."'
+# ——————————————————————————————————————————————————————————————————
+# COMMAND DISPATCHER
+# ——————————————————————————————————————————————————————————————————
 
-merge() {
-    if [ -z "$1" ]; then
-        echo "Error: Branch name is required. Usage: merge branch-name"
-        return 1
-    fi
-    git merge "$1"
-    echo "Merged branch '$1' into current branch."
-}
+CMD=$1
+shift
 
-hard-reset() {
-    local target=${1:-HEAD}
-    git reset --hard "$target"
-    echo "Performed hard reset to $target. All changes discarded."
-}
-
-soft-reset() {
-    local target=${1:-HEAD}
-    git reset --soft "$target"
-    echo "Performed soft reset to $target. Changes kept in staging."
-}
-
-alias status='git status; echo "Displayed current Git repository status."'
-alias log='git log --oneline --graph --all; echo "Displayed Git commit history."'
-alias stash='git stash; echo "Stashed current changes."'
-alias stash-pop='git stash pop; echo "Applied and removed stashed changes."'
-alias branch='git branch; echo "Listed all branches."'
-
-echo "Project-specific aliases loaded. Available commands:"
-echo "npm scripts: start, android, ios, android-clean, ios-clean, android-rebuild, ios-rebuild, build-apk, build-aab, build-app, version-up, pod-install, pod-update, pod-reinstall, doctor, lint, test, clear-cache, adb-devices, adb-reverse, adb-shake, adb-reload, unwanted"
-echo "Git commands: add, commit \"message\", push, new-branch branch-name, checkout branch-name, pull, merge branch-name, hard-reset [target], soft-reset [target], status, log, stash, stash-pop, branch"
+case "$CMD" in
+    run) run_app ;;
+    clean) clean ;;
+    rebuild) rebuild ;;
+    apk) apk ;;
+    aab) aab ;;
+    app) app ;;
+    deps) deps ;;
+    unused) unused ;;
+    kill-port) kill_port ;;
+    clear-cache) clear_cache ;;
+    reverse) reverse ;;
+    shake) shake ;;
+    reload) reload ;;
+    d) d ;;
+    s) s ;;
+    doctor) doctor ;;
+    test) test_cmd ;;
+    lint) lint ;;
+    i) i ;;
+    ip) ip_addr ;;
+    v-u) v_u ;;
+    add) add_git ;;
+    push) push_git ;;
+    pull) pull_git ;;
+    status) status ;;
+    log) log_git ;;
+    commit) commit "$*" ;;
+    acp) acp "$*" ;;
+    undo) undo ;;
+    nuke) nuke ;;
+    stash) stash ;;
+    pop) pop ;;
+    new-branch) new_branch "$1" ;;
+    checkout) checkout "$1" ;;
+    merge) merge "$1" ;;
+    *)
+        echo "Usage: ./run.sh [command]"
+        echo "Ex: ./run.sh run | ./run.sh app | ./run.sh acp 'message'"
+        ;;
+esac
