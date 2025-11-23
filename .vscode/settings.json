@@ -15,5 +15,6 @@
             "path": "/bin/bash",
             "args": ["-c", "source ./run.sh"]
         }
-    }
+    },
+    "postman.settings.dotenv-detection-notification-visibility": false
 }

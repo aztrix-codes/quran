@@ -186,6 +186,8 @@ const Bookmarks = ({ navigation }) => {
     navigation.navigate('Player', {
       surahId: item.surahId,
       verseId: item.verseId,
+      bookmarkTime: item.startTime ,
+      autoPlay: false
     });
   };
 

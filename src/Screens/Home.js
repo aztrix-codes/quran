@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,8 @@ import {
 import { useStyle } from '../Context/StyleContext';
 import { useSurahData } from '../Hooks/useSurahData';
 import Icon from '../Components/Icon';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 const SURAH_KEYS = [
   'id',
@@ -41,34 +43,40 @@ const SurahListItem = ({ item, colors, fontPixel, SIZES, onPress }) => {
   );
 };
 
-const HomeHeader = ({ colors, fontPixel, SIZES, navigation }) => {
+const HomeHeader = ({ colors, fontPixel, SIZES, navigation, lastPlayed }) => {
   const styles = getStyles({ colors, fontPixel, SIZES });
 
   return (
     <View style={styles.headerContainer}>
-      {/* <TouchableOpacity
-        style={styles.continueCard}
-        onPress={() => navigation.navigate('Player')}
-      >
-        <Icon
-          type="feather"
-          name="play-circle"
-          size={fontPixel(30)}
-          color={colors.accent}
-        />
-        <View style={styles.continueTextContainer}>
-          <Text style={styles.continueTitle}>Continue Listening</Text>
-          <Text style={styles.continueSubtitle}>
-            Surah Al-Baqarah, Verse 255
-          </Text>
-        </View>
-        <Icon
-          type="materialcommunity"
-          name="chevron-right"
-          size={fontPixel(24)}
-          color={colors.textSecondary}
-        />
-      </TouchableOpacity> */}
+      {lastPlayed && (
+        <TouchableOpacity
+          style={styles.continueCard}
+          onPress={() => navigation.navigate('Player', { 
+            surahId: lastPlayed.surahId, 
+            verseId: lastPlayed.verseNumber,
+            autoPlay: true
+          })}
+        >
+          <Icon
+            type="feather"
+            name="play-circle"
+            size={fontPixel(30)}
+            color={colors.accent}
+          />
+          <View style={styles.continueTextContainer}>
+            <Text style={styles.continueTitle}>Continue Listening</Text>
+            <Text style={styles.continueSubtitle}>
+              {`${lastPlayed.surahName}, Verse ${lastPlayed.verseNumber}`}
+            </Text>
+          </View>
+          <Icon
+            type="materialcommunity"
+            name="chevron-right"
+            size={fontPixel(24)}
+            color={colors.textSecondary}
+          />
+        </TouchableOpacity>
+      )}
 
       <View style={styles.buttonRow}>
         <TouchableOpacity
@@ -136,8 +144,24 @@ const HomeHeader = ({ colors, fontPixel, SIZES, navigation }) => {
 const Home = ({ navigation }) => {
   const { colors, fontPixel, SIZES } = useStyle();
   const surahList = useSurahData(SURAH_KEYS);
+  const [lastPlayed, setLastPlayed] = useState(null);
 
   const styles = getStyles({ colors: colors.colors, fontPixel, SIZES });
+
+  useFocusEffect(
+    useCallback(() => {
+      const loadLastPlayed = async () => {
+        try {
+          const data = await AsyncStorage.getItem('lastPlayedSurahTrack');
+          setLastPlayed(data ? JSON.parse(data) : null);
+        } catch (e) {
+          console.error('Failed to load last played surah', e);
+          setLastPlayed(null);
+        }
+      };
+      loadLastPlayed();
+    }, [])
+  );
 
   return (
     <View style={styles.container}>
@@ -159,6 +183,7 @@ const Home = ({ navigation }) => {
             fontPixel={fontPixel}
             SIZES={SIZES}
             navigation={navigation}
+            lastPlayed={lastPlayed}
           />
         }
         contentContainerStyle={styles.listContentContainer}
@@ -192,6 +217,7 @@ const getStyles = ({ colors, fontPixel, SIZES }) =>
       paddingVertical: SIZES.height * 0.02,
       flexDirection: 'row',
       alignItems: 'center',
+      marginBottom: SIZES.height * 0.015,
     },
     continueTextContainer: {
       flex: 1,

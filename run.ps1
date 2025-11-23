@@ -191,6 +191,6 @@ function branch {
     Write-Host "Listed all branches."
 }
 
-Write-Host "Project-specific aliases loaded. Available commands:"
-Write-Host "npm scripts: start, android, android-clean, android-rebuild, build-apk, build-aab, build-app, version-up, doctor, lint, test, clear-cache, adb-devices, adb-reverse, adb-shake, adb-reload, unwanted"
-Write-Host "Git commands: add, commit <message>, push, new-branch <branch-name>, checkout <branch-name>, pull, merge <branch-name>, hard-reset [target], soft-reset [target], status, log, stash, stash-pop, branch, acp"
+# Write-Host "Project-specific aliases loaded. Available commands:"
+# Write-Host "npm scripts: start, android, android-clean, android-rebuild, build-apk, build-aab, build-app, version-up, doctor, lint, test, clear-cache, adb-devices, adb-reverse, adb-shake, adb-reload, unwanted"
+# Write-Host "Git commands: add, commit <message>, push, new-branch <branch-name>, checkout <branch-name>, pull, merge <branch-name>, hard-reset [target], soft-reset [target], status, log, stash, stash-pop, branch, acp"

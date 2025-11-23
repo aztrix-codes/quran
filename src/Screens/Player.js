@@ -8,8 +8,8 @@ import {
   Dimensions,
   Pressable,
   Animated,
-  ActivityIndicator,
-  Platform
+  AppState,
+  Platform,
 } from 'react-native';
 import TrackPlayer, {
   useProgress,
@@ -25,121 +25,28 @@ import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNBlobUtil from 'react-native-blob-util';
 
-const surahAudioMap = {
-  1: require('../../assets/surahs/surah_1.mp3'),
-  2: require('../../assets/surahs/surah_2.mp3'),
-  3: require('../../assets/surahs/surah_3.mp3'),
-  4: require('../../assets/surahs/surah_4.mp3'),
-  5: require('../../assets/surahs/surah_5.mp3'),
-  6: require('../../assets/surahs/surah_6.mp3'),
-  7: require('../../assets/surahs/surah_7.mp3'),
-  8: require('../../assets/surahs/surah_8.mp3'),
-  9: require('../../assets/surahs/surah_9.mp3'),
-  10: require('../../assets/surahs/surah_10.mp3'),
-  11: require('../../assets/surahs/surah_11.mp3'),
-  12: require('../../assets/surahs/surah_12.mp3'),
-  13: require('../../assets/surahs/surah_13.mp3'),
-  14: require('../../assets/surahs/surah_14.mp3'),
-  15: require('../../assets/surahs/surah_15.mp3'),
-  16: require('../../assets/surahs/surah_16.mp3'),
-  17: require('../../assets/surahs/surah_17.mp3'),
-  18: require('../../assets/surahs/surah_18.mp3'),
-  19: require('../../assets/surahs/surah_19.mp3'),
-  20: require('../../assets/surahs/surah_20.mp3'),
-  21: require('../../assets/surahs/surah_21.mp3'),
-  22: require('../../assets/surahs/surah_22.mp3'),
-  23: require('../../assets/surahs/surah_23.mp3'),
-  24: require('../../assets/surahs/surah_24.mp3'),
-  25: require('../../assets/surahs/surah_25.mp3'),
-  26: require('../../assets/surahs/surah_26.mp3'),
-  27: require('../../assets/surahs/surah_27.mp3'),
-  28: require('../../assets/surahs/surah_28.mp3'),
-  29: require('../../assets/surahs/surah_29.mp3'),
-  30: require('../../assets/surahs/surah_30.mp3'),
-  31: require('../../assets/surahs/surah_31.mp3'),
-  32: require('../../assets/surahs/surah_32.mp3'),
-  33: require('../../assets/surahs/surah_33.mp3'),
-  34: require('../../assets/surahs/surah_34.mp3'),
-  35: require('../../assets/surahs/surah_35.mp3'),
-  36: require('../../assets/surahs/surah_36.mp3'),
-  37: require('../../assets/surahs/surah_37.mp3'),
-  38: require('../../assets/surahs/surah_38.mp3'),
-  39: require('../../assets/surahs/surah_39.mp3'),
-  40: require('../../assets/surahs/surah_40.mp3'),
-  41: require('../../assets/surahs/surah_41.mp3'),
-  42: require('../../assets/surahs/surah_42.mp3'),
-  43: require('../../assets/surahs/surah_43.mp3'),
-  44: require('../../assets/surahs/surah_44.mp3'),
-  45: require('../../assets/surahs/surah_45.mp3'),
-  46: require('../../assets/surahs/surah_46.mp3'),
-  47: require('../../assets/surahs/surah_47.mp3'),
-  48: require('../../assets/surahs/surah_48.mp3'),
-  49: require('../../assets/surahs/surah_49.mp3'),
-  50: require('../../assets/surahs/surah_50.mp3'),
-  51: require('../../assets/surahs/surah_51.mp3'),
-  52: require('../../assets/surahs/surah_52.mp3'),
-  53: require('../../assets/surahs/surah_53.mp3'),
-  54: require('../../assets/surahs/surah_54.mp3'),
-  55: require('../../assets/surahs/surah_55.mp3'),
-  56: require('../../assets/surahs/surah_56.mp3'),
-  57: require('../../assets/surahs/surah_57.mp3'),
-  58: require('../../assets/surahs/surah_58.mp3'),
-  59: require('../../assets/surahs/surah_59.mp3'),
-  60: require('../../assets/surahs/surah_60.mp3'),
-  61: require('../../assets/surahs/surah_61.mp3'),
-  62: require('../../assets/surahs/surah_62.mp3'),
-  63: require('../../assets/surahs/surah_63.mp3'),
-  64: require('../../assets/surahs/surah_64.mp3'),
-  65: require('../../assets/surahs/surah_65.mp3'),
-  66: require('../../assets/surahs/surah_66.mp3'),
-  67: require('../../assets/surahs/surah_67.mp3'),
-  68: require('../../assets/surahs/surah_68.mp3'),
-  69: require('../../assets/surahs/surah_69.mp3'),
-  70: require('../../assets/surahs/surah_70.mp3'),
-  71: require('../../assets/surahs/surah_71.mp3'),
-  72: require('../../assets/surahs/surah_72.mp3'),
-  73: require('../../assets/surahs/surah_73.mp3'),
-  74: require('../../assets/surahs/surah_74.mp3'),
-  75: require('../../assets/surahs/surah_75.mp3'),
-  76: require('../../assets/surahs/surah_76.mp3'),
-  77: require('../../assets/surahs/surah_77.mp3'),
-  78: require('../../assets/surahs/surah_78.mp3'),
-  79: require('../../assets/surahs/surah_79.mp3'),
-  80: require('../../assets/surahs/surah_80.mp3'),
-  81: require('../../assets/surahs/surah_81.mp3'),
-  82: require('../../assets/surahs/surah_82.mp3'),
-  83: require('../../assets/surahs/surah_83.mp3'),
-  84: require('../../assets/surahs/surah_84.mp3'),
-  85: require('../../assets/surahs/surah_85.mp3'),
-  86: require('../../assets/surahs/surah_86.mp3'),
-  87: require('../../assets/surahs/surah_87.mp3'),
-  88: require('../../assets/surahs/surah_88.mp3'),
-  89: require('../../assets/surahs/surah_89.mp3'),
-  90: require('../../assets/surahs/surah_90.mp3'),
-  91: require('../../assets/surahs/surah_91.mp3'),
-  92: require('../../assets/surahs/surah_92.mp3'),
-  93: require('../../assets/surahs/surah_93.mp3'),
-  94: require('../../assets/surahs/surah_94.mp3'),
-  95: require('../../assets/surahs/surah_95.mp3'),
-  96: require('../../assets/surahs/surah_96.mp3'),
-  97: require('../../assets/surahs/surah_97.mp3'),
-  98: require('../../assets/surahs/surah_98.mp3'),
-  99: require('../../assets/surahs/surah_99.mp3'),
-  100: require('../../assets/surahs/surah_100.mp3'),
-  101: require('../../assets/surahs/surah_101.mp3'),
-  102: require('../../assets/surahs/surah_102.mp3'),
-  103: require('../../assets/surahs/surah_103.mp3'),
-  104: require('../../assets/surahs/surah_104.mp3'),
-  105: require('../../assets/surahs/surah_105.mp3'),
-  106: require('../../assets/surahs/surah_106.mp3'),
-  107: require('../../assets/surahs/surah_107.mp3'),
-  108: require('../../assets/surahs/surah_108.mp3'),
-  109: require('../../assets/surahs/surah_109.mp3'),
-  110: require('../../assets/surahs/surah_110.mp3'),
-  111: require('../../assets/surahs/surah_111.mp3'),
-  112: require('../../assets/surahs/surah_112.mp3'),
-  113: require('../../assets/surahs/surah_113.mp3'),
-  114: require('../../assets/surahs/surah_114.mp3'),
+const BASE_URL = 'https://pub-1c63bf236e654cc784338a89abee13d8.r2.dev';
+const { fs } = RNBlobUtil;
+const AUDIO_DIR = fs.dirs.DocumentDir + '/surah_audio';
+
+const getLocalFilePath = (surahId) => `${AUDIO_DIR}/surah_${surahId}.mp3`;
+
+const getRemoteUrl = (surahId) => `${BASE_URL}/surah_${surahId}.mp3`;
+
+const ensureDirExists = async () => {
+  try {
+    const exists = await fs.exists(AUDIO_DIR);
+    if (!exists) {
+      await fs.mkdir(AUDIO_DIR);
+    }
+  } catch (error) {
+    console.error('Failed to create audio directory:', error);
+  }
+};
+
+const checkFileExists = async (surahId) => {
+  const localPath = getLocalFilePath(surahId);
+  return await fs.exists(localPath);
 };
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -158,13 +65,12 @@ const formatTime = seconds => {
   return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 };
 
-const VerseItem = memo(({ item: verse, verseNumber, surahId, active, activeSegmentIndex, onPressVerse, allSurahData }) => {
+const VerseItem = memo(({ item: verse, verseNumber, surahId, active, onPressVerse, allSurahData }) => {
   const { colors, fontSizes, displayOptions, fontPixel, SIZES } = useStyle();
   const [isBookmarked, setIsBookmarked] = useState(false);
   const styles = getStyles({ colors: colors.colors, fontPixel, SIZES, fontSizes });
   const isSajdah = sajdahVerses.has(`${surahId}:${verse.id}`);
 
-  const segments = verse?.segment ?? [];
   const transliteration = verse?.transliterationEn ?? '';
   const urduTransliteration = verse?.urduTansilerationEn ?? '';
 
@@ -189,6 +95,8 @@ const VerseItem = memo(({ item: verse, verseNumber, surahId, active, activeSegme
       const bookmarks = await AsyncStorage.getItem('bookmarks');
       let bookmarkList = bookmarks ? JSON.parse(bookmarks) : [];
       const surahInfo = allSurahData.find(s => s.id === surahId);
+      const verseTiming = surahInfo?.verse_timings.find(vt => vt.id === verse.id);
+      const startTime = verseTiming ? verseTiming.start : 0;
       const bookmark = {
         id: `${surahId}:${verse.id}`,
         surahId,
@@ -196,11 +104,12 @@ const VerseItem = memo(({ item: verse, verseNumber, surahId, active, activeSegme
         verseNumber,
         arabicName: surahInfo?.name || '',
         surahName: surahInfo?.transliteration || '',
-        arabicText: segments.join(' '),
+        arabicText: verse.text,
         translationUr: verse.translationUr || '',
         translationEn: verse.translationEn || '',
         transliterationEn: transliteration,
         timestamp: new Date().toISOString(),
+        startTime: startTime,
       };
 
       if (isBookmarked) {
@@ -234,15 +143,8 @@ const VerseItem = memo(({ item: verse, verseNumber, surahId, active, activeSegme
         </TouchableOpacity>
       </View>
       {displayOptions.showArabic && (
-        <Text style={styles.verseArabic}>
-          {segments.map((seg, idx) => (
-            <Text
-              key={idx}
-              style={active && idx === activeSegmentIndex ? styles.activeSegment : null}
-            >
-              {seg}{' '}
-            </Text>
-          ))}
+        <Text style={[styles.verseArabic, active && styles.activeSegment]}>
+          {verse.text}
           <Text style={styles.arabicVerseEnd}>{` \u06DD${toUrduNumerals(verse.id)}`}</Text>
         </Text>
       )}
@@ -273,6 +175,10 @@ const FooterControls = ({
   duration,
   onNavigateBookmarks,
   onNavigateTheme,
+  isCurrentDownloaded,
+  isDownloading,
+  onDownload,
+  downloadProgress,
 }) => {
   const { colors, fontPixel, SIZES, fontSizes } = useStyle();
   const styles = getStyles({ colors: colors.colors, fontPixel, SIZES, fontSizes });
@@ -317,27 +223,29 @@ const FooterControls = ({
         <Text style={styles.timeText}>{formatTime(position / 1000)}</Text>
         <Text style={styles.timeText}>{formatTime(duration / 1000)}</Text>
       </View>
+      
       <View style={styles.controlsRow}>
         <TouchableOpacity style={styles.controlButton} onPress={onNavigateTheme}>
           <Icon
             name="palette"
             type="materialcommunity"
-            size={fontPixel(26)}
+            size={fontPixel(24)}
             color={colors.colors.textSecondary}
           />
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.controlButton} onPress={onPrevious} disabled={isBeginning}>
           <Icon
             name="skip-previous"
             type="materialcommunity"
-            size={fontPixel(32)}
+            size={fontPixel(30)}
             color={isBeginning ? colors.colors.border : colors.colors.textPrimary}
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.controlButton} onPress={onPlayPause}>
           <MaterialIcon
             name={isPlaying ? 'pause' : 'play-arrow'}
-            size={fontPixel(38)}
+            size={fontPixel(36)}
             color={colors.colors.accent}
           />
         </TouchableOpacity>
@@ -345,7 +253,7 @@ const FooterControls = ({
           <Icon
             name="skip-next"
             type="materialcommunity"
-            size={fontPixel(32)}
+            size={fontPixel(30)}
             color={isEnd ? colors.colors.border : colors.colors.textPrimary}
           />
         </TouchableOpacity>
@@ -353,10 +261,28 @@ const FooterControls = ({
           <Icon
             name="bookmarks"
             type="MaterialIcons"
-            size={fontPixel(24)}
+            size={fontPixel(22)}
             color={colors.colors.textSecondary}
           />
         </TouchableOpacity>
+        {isDownloading ? (
+          <View style={styles.controlButton}>
+            <Text style={styles.progressText}>
+              {`${Math.floor(downloadProgress)}%`}
+            </Text>
+          </View>
+        ) : !isCurrentDownloaded ? (
+          <TouchableOpacity onPress={onDownload} style={styles.controlButton}>
+            <Icon
+              name="download"
+              type="materialcommunity"
+              size={fontPixel(25)}
+              color={colors.colors.textSecondary}
+            />
+          </TouchableOpacity>
+        ) : (
+          null
+        )}
       </View>
     </View>
   );
@@ -491,24 +417,41 @@ const PlayerShimmer = ({ surahId, allSurahData }) => {
 
 
 const Player = ({ route, navigation }) => {
-  const { surahId = 1, verseId } = route.params || {};
+  const { surahId = 1, verseId, bookmarkTime = null, autoPlay = false } = route.params || {};
   const allSurahData = useSurahData();
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [isDataReady, setIsDataReady] = useState(false);
   const [isTrackActive, setIsTrackActive] = useState(false);
   const [activeVerseId, setActiveVerseId] = useState(null);
-  const [activeSegmentIndex, setActiveSegmentIndex] = useState(-1);
   const [wasPlaying, setWasPlaying] = useState(false);
   const [initialVerseId, setInitialVerseId] = useState(verseId || null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [isCurrentDownloaded, setIsCurrentDownloaded] = useState(false);
+  const [downloadProgress, setDownloadProgress] = useState(0);
+
 
   const verticalListRef = useRef(null);
   const lastActiveVerseRef = useRef(null);
   const scrollRetry = useRef(null);
 
-  const currentTrackIdRef = useRef(null);
+  const activeVerseIdRef = useRef(activeVerseId);
+  useEffect(() => {
+    activeVerseIdRef.current = activeVerseId;
+  }, [activeVerseId]);
+
+  const currentIndexRef = useRef(currentIndex);
+  useEffect(() => {
+    currentIndexRef.current = currentIndex;
+  }, [currentIndex]);
+
+  const wasPlayingRef = useRef(wasPlaying);
+  useEffect(() => {
+    wasPlayingRef.current = wasPlaying;
+  }, [wasPlaying]);
+
   const currentPositionRef = useRef(0);
-  const resumePositionRef = useRef(route.params?.resumePosition || null);
 
   const playbackState = usePlaybackState();
   const { position, duration } = useProgress(50);
@@ -520,61 +463,118 @@ const Player = ({ route, navigation }) => {
     fontSizes,
   });
 
-  const saveLastPlayedPosition = useCallback(async () => {
-    const trackId = currentTrackIdRef.current;
-    const posInSeconds = currentPositionRef.current;
-    const surahId = trackId ? parseInt(trackId.split('-')[1], 10) : null;
+  useEffect(() => {
+    currentPositionRef.current = position;
+  }, [position]);
 
-    if (trackId && posInSeconds > 2 && surahId && allSurahData.length > 0) {
-      const surahInfo = allSurahData.find(s => s.id === surahId);
+  const saveLastPlayedPosition = useCallback(async () => {
+    const positionToSave = currentPositionRef.current;
+    const indexToSave = currentIndexRef.current;
+    const verseToSave = activeVerseIdRef.current || 1; 
+
+    if (wasPlayingRef.current && allSurahData && allSurahData[indexToSave] && positionToSave > 2) {
+      const surahInfo = allSurahData[indexToSave];
       const dataToSave = {
-        trackId: trackId,
-        position: posInSeconds,
-        surahId: surahId,
-        surahName: surahInfo?.transliteration || '',
-        totalVerses: surahInfo?.total_verses || 0,
+        surahId: surahInfo.id,
+        position: positionToSave,
+        surahName: surahInfo.transliteration,
+        verseNumber: verseToSave,
       };
+      
       try {
-        await AsyncStorage.setItem('lastPlayedTrack', JSON.stringify(dataToSave));
-      } catch (error) {
-        console.error('Failed to save last played track info.', error);
+        await AsyncStorage.setItem('lastPlayedSurahTrack', JSON.stringify(dataToSave));
+      } catch (e) {
+        console.error('Failed to save last played surah', e);
       }
     }
-  }, [allSurahData]);
+  }, [allSurahData]); 
 
   const isPlaying =
     playbackState.state === State.Playing ||
     playbackState.state === State.Buffering;
 
-  const createPlaylist = useCallback(() => {
-    return allSurahData.map(surah => ({
-      id: `surah-${surah.id}`,
-      url: surahAudioMap[surah.id],
-      title: surah.name,
-      artist: 'Quran',
-      duration:
-        (surah.verse_timings[surah.verse_timings.length - 1]?.end || 0) / 1000,
-    }));
+  const createPlaylist = useCallback(async () => {
+    const tracks = [];
+    for (const surah of allSurahData) {
+      const localPath = getLocalFilePath(surah.id);
+      const isDownloaded = await fs.exists(localPath);
+
+      tracks.push({
+        id: `surah-${surah.id}`,
+        url: isDownloaded
+          ? (Platform.OS === 'ios' ? '' : 'file://') + localPath
+          : getRemoteUrl(surah.id),
+        title: surah.name,
+        artist: surah.transliteration,
+        duration:
+          (surah.verse_timings[surah.verse_timings.length - 1]?.end || 0) / 1000,
+      });
+    }
+    return tracks;
   }, [allSurahData]);
 
   useFocusEffect(
     useCallback(() => {
-      setIsLoading(true);
       const setupPlayer = async () => {
         try {
-          await TrackPlayer.reset();
-          const playlist = createPlaylist();
+          await ensureDirExists();
+          const currentTrack = await TrackPlayer.getActiveTrack();
+          const newSurahId = `surah-${surahId}`;
+          let positionToResume = 0; 
+
+          if (currentTrack) {
+            if (currentTrack.id === newSurahId) {
+              setIsLoading(false);
+              setIsTrackActive(true);
+              if (autoPlay) {
+                await TrackPlayer.play();
+                setWasPlaying(true);
+                navigation.setParams({ autoPlay: false });
+              }
+              return;
+            }
+            await TrackPlayer.reset();
+          } else {
+            if (bookmarkTime) {
+              positionToResume = bookmarkTime / 1000; 
+            } else {
+              const lastPlayedData = await AsyncStorage.getItem('lastPlayedSurahTrack');
+              if (lastPlayedData) {
+                const lastPlayed = JSON.parse(lastPlayedData);
+                if (lastPlayed.surahId === surahId) {
+                  positionToResume = lastPlayed.position;
+                }
+              }
+            }
+          }
+
+          setIsLoading(true);
+          const playlist = await createPlaylist();
           if (playlist.length === 0) {
             console.error('Playlist is empty, cannot setup player.');
             setIsLoading(false);
             return;
           }
+
           const initialIndex = allSurahData.findIndex(s => s.id === surahId);
           await TrackPlayer.add(playlist);
           await TrackPlayer.skip(initialIndex !== -1 ? initialIndex : 0);
+
+          if (positionToResume > 0) {
+            await TrackPlayer.seekTo(positionToResume);
+            if (autoPlay) {
+              await TrackPlayer.play();
+              setWasPlaying(true);
+              navigation.setParams({ autoPlay: false });
+            } else {
+              setWasPlaying(false);
+            }
+          } else {
+            setWasPlaying(false);
+          }
+
           setCurrentIndex(initialIndex !== -1 ? initialIndex : 0);
           setIsTrackActive(true);
-          setWasPlaying(false);
           setIsLoading(false);
         } catch (error) {
           console.error('Error setting up player:', error);
@@ -587,8 +587,7 @@ const Player = ({ route, navigation }) => {
       }
 
       return () => {
-        TrackPlayer.stop();
-        TrackPlayer.reset();
+        TrackPlayer.pause();
         setIsTrackActive(false);
         setWasPlaying(false);
         if (scrollRetry.current) {
@@ -596,13 +595,26 @@ const Player = ({ route, navigation }) => {
           scrollRetry.current = null;
         }
       };
-    }, [isDataReady, allSurahData, surahId, createPlaylist])
+    }, [isDataReady, allSurahData, surahId, createPlaylist, navigation, bookmarkTime, autoPlay])
   );
+  
+  useEffect(() => {
+    const checkCurrentTrack = async () => {
+      if (currentIndex === -1 || !allSurahData[currentIndex]) {
+        return;
+      }
+      const surahId = allSurahData[currentIndex].id;
+      const exists = await checkFileExists(surahId);
+      setIsCurrentDownloaded(exists);
+    };
+    checkCurrentTrack();
+  }, [currentIndex, allSurahData]);
 
   useEffect(() => {
     const listener = TrackPlayer.addEventListener(
       Event.PlaybackQueueEnded,
       async () => {
+        saveLastPlayedPosition();
         if (currentIndex < allSurahData.length - 1 && wasPlaying) {
           await TrackPlayer.skipToNext();
           await TrackPlayer.play();
@@ -611,21 +623,27 @@ const Player = ({ route, navigation }) => {
       }
     );
     return () => listener.remove();
-  }, [currentIndex, allSurahData.length, wasPlaying]);
+  }, [currentIndex, allSurahData.length, wasPlaying, saveLastPlayedPosition]);
 
   useEffect(() => {
     const listener = TrackPlayer.addEventListener(
       Event.PlaybackActiveTrackChanged,
       async ({ index }) => {
         if (index !== undefined && index !== currentIndex) {
+          saveLastPlayedPosition();
           setCurrentIndex(index);
           setActiveVerseId(null);
-          setActiveSegmentIndex(-1);
+          if (allSurahData[index]) {
+            navigation.setParams({ 
+              surahId: allSurahData[index].id,
+              verseId: 1, 
+            });
+          }
         }
       }
     );
     return () => listener.remove();
-  }, [currentIndex]);
+  }, [currentIndex, navigation, allSurahData, saveLastPlayedPosition]);
 
   useEffect(() => {
     if (allSurahData.length > 0) {
@@ -642,48 +660,9 @@ const Player = ({ route, navigation }) => {
   }, [isDataReady, currentIndex, initialVerseId]);
 
   useEffect(() => {
-    if (initialVerseId && verticalListRef.current && !isLoading) {
+    if (activeVerseId && verticalListRef.current) {
       const currentSurah = allSurahData[currentIndex];
       if (scrollRetry.current) clearTimeout(scrollRetry.current);
-
-      if (initialVerseId === 1 && currentSurah?.bismillah_pre) {
-        scrollRetry.current = setTimeout(() => {
-          verticalListRef.current?.scrollToOffset({
-            offset: 0,
-            animated: true,
-          });
-          setInitialVerseId(null);
-          scrollRetry.current = null;
-        }, 300);
-      } else {
-        const index = initialVerseId - 1;
-        if (index >= 0) {
-          scrollRetry.current = setTimeout(() => {
-            verticalListRef.current?.scrollToIndex({
-              index,
-              animated: true,
-              viewPosition: 0,
-            });
-            setInitialVerseId(null);
-            scrollRetry.current = null;
-          }, 300);
-        } else {
-           setInitialVerseId(null);
-        }
-      }
-    }
-    return () => {
-        if (scrollRetry.current) {
-            clearTimeout(scrollRetry.current);
-            scrollRetry.current = null;
-        }
-    };
-  }, [initialVerseId, isLoading, currentIndex, allSurahData]);
-
-  useEffect(() => {
-    if (isPlaying && activeVerseId && verticalListRef.current && !initialVerseId) {
-      const currentSurah = allSurahData[currentIndex];
-       if (scrollRetry.current) clearTimeout(scrollRetry.current);
 
       if (activeVerseId === 1 && currentSurah?.bismillah_pre) {
         verticalListRef.current.scrollToOffset({
@@ -696,12 +675,12 @@ const Player = ({ route, navigation }) => {
           verticalListRef.current.scrollToIndex({
             index,
             animated: true,
-            viewPosition: 0,
+            viewPosition: 0, 
           });
         }
       }
     }
-  }, [activeVerseId, isPlaying, currentIndex, allSurahData, initialVerseId]);
+  }, [activeVerseId, currentIndex, allSurahData]);
 
   useEffect(() => {
     if (allSurahData[currentIndex] && position > 0 && isPlaying) {
@@ -712,9 +691,8 @@ const Player = ({ route, navigation }) => {
         : position * 1000;
 
       if (hasPreamble && position * 1000 < 6000) {
-        if (activeVerseId !== null || activeSegmentIndex !== -1) {
+        if (activeVerseId !== null) {
           setActiveVerseId(null);
-          setActiveSegmentIndex(-1);
         }
         return;
       }
@@ -728,32 +706,30 @@ const Player = ({ route, navigation }) => {
         setActiveVerseId(newActiveVerseId);
         lastActiveVerseRef.current = newActiveVerseId;
       }
-
-      let newActiveSegmentIndex = -1;
-      if (newActiveVerseId) {
-        const verse = surah.verses.find(v => v.id === newActiveVerseId);
-        if (verse && verse.segment_timings) {
-          const segmentTiming = verse.segment_timings.find(
-            st => adjustedPosition >= st.start && adjustedPosition < st.end
-          );
-          newActiveSegmentIndex = segmentTiming
-            ? verse.segment_timings.findIndex(st => st.id === segmentTiming.id)
-            : -1;
-        }
-      }
-
-      if (newActiveSegmentIndex !== activeSegmentIndex) {
-        setActiveSegmentIndex(newActiveSegmentIndex);
-      }
     }
   }, [
     position,
     currentIndex,
     allSurahData,
     activeVerseId,
-    activeSegmentIndex,
     isPlaying,
   ]);
+
+  useEffect(() => {
+    const appStateSubscription = AppState.addEventListener('change', (nextAppState) => {
+      if (nextAppState === 'background' || nextAppState === 'inactive') {
+        saveLastPlayedPosition();
+      }
+    });
+
+    if (playbackState.state === State.Paused || playbackState.state === State.Stopped) {
+      saveLastPlayedPosition();
+    }
+
+    return () => {
+      appStateSubscription.remove();
+    };
+  }, [playbackState, saveLastPlayedPosition]);
 
   const handleVersePress = useCallback(
     async verse => {
@@ -866,15 +842,15 @@ const Player = ({ route, navigation }) => {
     }
     scrollRetry.current = setTimeout(() => {
       if (verticalListRef.current) {
-         if (info.index === 0 && allSurahData[currentIndex]?.bismillah_pre) {
-             verticalListRef.current.scrollToOffset({ offset: 0, animated: true });
-         } else {
-             verticalListRef.current.scrollToIndex({
-               index: info.index,
-               animated: true,
-               viewPosition: 0,
-             });
-         }
+          if (info.index === 0 && allSurahData[currentIndex]?.bismillah_pre) {
+              verticalListRef.current.scrollToOffset({ offset: 0, animated: true });
+          } else {
+              verticalListRef.current.scrollToIndex({
+                index: info.index,
+                animated: true,
+                viewPosition: 0,
+              });
+          }
       }
       scrollRetry.current = null;
     }, 250); 
@@ -887,6 +863,57 @@ const Player = ({ route, navigation }) => {
       }
     };
   }, []);
+
+  const handleDownload = useCallback(async () => {
+    if (currentIndex === -1 || !allSurahData[currentIndex] || isDownloading) {
+      return;
+    }
+
+    setDownloadProgress(0);
+    setIsDownloading(true);
+    const surah = allSurahData[currentIndex];
+    const remoteUrl = getRemoteUrl(surah.id);
+    const localPath = getLocalFilePath(surah.id);
+    const tempPath = localPath + '.tmp';
+
+    try {
+      const res = RNBlobUtil.config({
+        path: tempPath,
+      })
+      .fetch('GET', remoteUrl)
+      .progress((received, total) => {
+        setDownloadProgress((received / total) * 100);
+      });
+
+      await res;
+
+      await fs.mv(tempPath, localPath);
+
+      const position = currentPositionRef.current;
+      const state = await TrackPlayer.getPlaybackState();
+      const wasPlaying = state.state === State.Playing;
+
+      await TrackPlayer.reset();
+      const newPlaylist = await createPlaylist();
+      await TrackPlayer.add(newPlaylist);
+      await TrackPlayer.skip(currentIndex);
+      await TrackPlayer.seekTo(position);
+      
+      if (wasPlaying) {
+        await TrackPlayer.play();
+      }
+      
+      setIsDownloading(false);
+      setIsCurrentDownloaded(true);
+      setDownloadProgress(0);
+
+    } catch (error) {
+      console.error('Download failed:', error);
+      setIsDownloading(false);
+      setDownloadProgress(0);
+      await fs.unlink(tempPath).catch(() => {});
+    }
+  }, [currentIndex, allSurahData, isDownloading, createPlaylist]);
 
   const currentSurah = allSurahData[currentIndex];
 
@@ -907,16 +934,15 @@ const Player = ({ route, navigation }) => {
             surahId={currentSurah.id}
             verseNumber={`${currentSurah.id}:${index + 1}`}
             active={item.id === activeVerseId}
-            activeSegmentIndex={activeSegmentIndex}
             onPressVerse={handleVersePress}
             allSurahData={allSurahData}
           />
         )}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.verseListContainer}
-        initialNumToRender={286}      
-        maxToRenderPerBatch={50}     
-        windowSize={50}              
+        initialNumToRender={currentSurah.verses.length}
+        maxToRenderPerBatch={currentSurah.verses.length}
+        windowSize={21}
         onScrollToIndexFailed={handleScrollToIndexFailed}
       />
       <FooterControls
@@ -930,6 +956,10 @@ const Player = ({ route, navigation }) => {
         duration={duration * 1000}
         onNavigateBookmarks={handleNavigateBookmarks}
         onNavigateTheme={handleNavigateTheme}
+        isCurrentDownloaded={isCurrentDownloaded} 
+        isDownloading={isDownloading}
+        onDownload={handleDownload}
+        downloadProgress={downloadProgress}
       />
     </View>
   );
@@ -938,10 +968,10 @@ const Player = ({ route, navigation }) => {
 const getStyles = ({ colors, fontPixel, SIZES, fontSizes }) =>
   StyleSheet.create({
     loadingContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: colors.bgPrimary || '#fff',
+     flex: 1,
+     justifyContent: 'center',
+     alignItems: 'center',
+     backgroundColor: colors.bgPrimary || '#fff',
     },
     verseListContainer: { paddingBottom: SIZES.height * 0.07 },
     verseCard: { paddingVertical: SIZES.height * 0.02, paddingHorizontal: SIZES.width * 0.03, borderBottomWidth: 1, borderBottomColor: colors.border || '#e0e0e0' },
@@ -985,8 +1015,24 @@ const getStyles = ({ colors, fontPixel, SIZES, fontSizes }) =>
     sliderTrack: { width: '100%', height: 3, borderRadius: 2, backgroundColor: colors.border || '#e0e0e0' },
     sliderProgress: { height: 3, borderRadius: 2, backgroundColor: colors.accent || '#007AFF' },
     timeText: { color: colors.textSecondary || '#666', fontSize: fontPixel(12) },
-    controlsRow: { flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginTop: -SIZES.width * 0.055, paddingHorizontal: SIZES.width * 0.2 },
-    controlButton: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: SIZES.width * 0.01 },
+    progressText: { 
+    fontSize: fontPixel(14),
+    color: colors.accent,
+    fontWeight: 'bold',
+  },
+    controlsRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+      marginTop: -SIZES.width * 0.055,
+      paddingHorizontal: SIZES.width * 0.15, 
+    },
+    controlButton: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: SIZES.width * 0.01,
+      height: 50,
+    },
   });
 
 export default Player;
